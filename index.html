@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SugarBread | Pedidos Online</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="logo">SugarBread <span>Pedidos</span></h1>
+            
+            <button id="ver-carrito" class="cart-trigger" aria-label="Ver carrito">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-text">Carrito</span>
+                <span id="cart-count" class="badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="categories-nav" aria-label="Categorías de pan">
+        <div class="nav-scroll">
+            <button type="button" class="btn-cat active" data-cat="todos">Todos</button>
+            <button type="button" class="btn-cat" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
+            <button type="button" class="btn-cat" data-cat="hamb-sin-molde">Hamburguesas sin Molde</button>
+            <button type="button" class="btn-cat" data-cat="perros">Perros</button>
+            <button type="button" class="btn-cat" data-cat="delis">Delis</button>
+            <button type="button" class="btn-cat" data-cat="sandwich">Sandwich</button>
+        </div>
+    </nav>
+
+    <main id="app-container">
+        
+        <section id="catalogo" class="productos-grid">
+            <div class="loading-state">
+                <p>Cargando los mejores panes para ti...</p>
+            </div>
+        </section>
+
+        <aside id="carrito-sidebar" class="carrito-sidebar carrito-hidden">
+            <div class="carrito-content">
+                
+                <div class="carrito-header">
+                    <h3 class="Titulo-carrito">Tus Pedidos</h3>
+                    <button id="close-cart" class="close-btnH" aria-label="Cerrar carrito">&times;</button>
+                    <label for="cliente-nombre">Nombre o Empresa:</label>
+                    <input type="text" id="cliente-nombre" name="cliente-nombre" placeholder="Ingresa tu nombre o empresa" autocomplete="off">
+    
+                    <label for="cliente-telefono">Número Telefónico:</label>
+                    <input type="tel" id="cliente-telefono" name="cliente-telefono" placeholder="Ingresa tu número telefónico" autocomplete="off">
+                </div>
+                
+                </div>
+
+                
+
+                <div id="carrito-items" class="carrito-body">
+                    <p class="empty-msg">El carrito está vacío</p>
+                </div>
+
+                <footer class="carrito-footer">
+                    <div class="total-container">
+                        <span>Total estimado:</span>
+                        <span id="total-precio" class="total-amount">$0.00</span>
+                    </div>
+                        <button class="btn-pagar">
+                            <i class="fas fa-cloud-upload-alt"></i> Confirmar Pedido
+                        </button>
+                </footer>
+
+            </div>
+            <div id="cart-overlay" class="overlay"></div>
+        </aside>
+
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+<div id="modal-resumen" class="modal-overlay">
+    <div class="resumen-card">
+        <div class="resumen-header">
+            <h2>📝 Resumen de tu Pedido</h2>
+            <p>¡Todo listo! Tu pedido ha sido agendado con éxito. ✅</p>
+        </div>
+        
+        <div id="detalle-orden" class="resumen-body">
+            </div>
+
+        <div class="info-despacho">
+            <h4>⚠️ Información Importante:</h4>
+            <ul>
+                <li>Pedidos antes de las <strong>9:00 AM</strong>: Entrega hoy.</li>
+                <li>Pedidos después de las <strong>9:00 AM</strong>: Entrega mañana.</li>
+            </ul>
+            <p class="nota-captura">📸 Te recomendamos tomar una captura de pantalla.</p>
+        </div>
+
+        <button onclick="cerrarResumen()" class="btn-cerrar-resumen">Entendido, ¡gracias! 🥖</button>
+    </div>
+</div>
+
+</html>
