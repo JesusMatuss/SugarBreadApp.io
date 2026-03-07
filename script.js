@@ -1,5 +1,6 @@
 
 
+
 // ==========================================================================
 // CONFIGURACIÓN Y SELECTORES
 // ==========================================================================
@@ -12,8 +13,34 @@ const sidebarCarrito = document.getElementById('carrito-sidebar');
 const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbys9AHsxXzAa1Qjr8Fu2W-IualLdQ6Bewf6ThXI5fTylPGyapMIvIxuI20xVupDmjCP/exec';
 
 
+const inputNombre = document.getElementById('cliente-nombre');
+const inputTelefono = document.getElementById('cliente-telefono');
+const btnPagar = document.querySelector('.btn-pagar');
+
+
+
 let productosData = []; // Base de datos completa
 let carritoArray = [];  // Arreglo para los items seleccionados
+
+
+// --- PASO 1: CARGAR DATOS AL INICIAR ---
+document.addEventListener('DOMContentLoaded', () => {
+    const nombreGuardado = localStorage.getItem('sugarbread_nombre');
+    const telefonoGuardado = localStorage.getItem('sugarbread_telefono');
+
+    if (nombreGuardado) inputNombre.value = nombreGuardado;
+    if (telefonoGuardado) inputTelefono.value = telefonoGuardado;
+});
+
+// --- PASO 2: GUARDAR DATOS ---
+// Opción A: Guardar mientras escriben (más seguro)
+inputNombre.addEventListener('input', () => {
+    localStorage.setItem('sugarbread_nombre', inputNombre.value);
+});
+
+inputTelefono.addEventListener('input', () => {
+    localStorage.setItem('sugarbread_telefono', inputTelefono.value);
+});
 
 // ==========================================================================
 // 1. CARGA DE DATOS
@@ -45,7 +72,7 @@ function mostrarProductos(productos) {
         card.className = 'producto-card';
         card.innerHTML = `
             <div class="producto-info">
-                <h3>${p.categoria} ${p.producto} </h3>
+                <h3>${p.producto} </h3>
                 <p class="specs">${p.especificacion} - ${p.peso_gr}gr</p>
                 <p class="topping">Topping: <strong>${p.topping}</strong></p>
                 <p class="pack">Paquete: ${p.unidades_pqte} unid.</p>
@@ -293,5 +320,13 @@ function cerrarResumen() {
     document.getElementById('modal-resumen').style.display = 'none';
 }
 
+
+
+
 cargarProductos(); // Carga inicial de productos al abrir la página
+
+
+
+cargarProductos(); // Carga inicial de productos al abrir la página
+
 
