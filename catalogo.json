@@ -2,7 +2,7 @@
   {
     "id": "HB-SM-01",
     "categoria": "Hamburguesa",
-    "producto": "Mini",
+    "producto": "Mini Hamburguesa",
     "especificacion": "Sin Molde",
     "peso_gr": "50",
     "medida_cm": "8",
@@ -13,7 +13,7 @@
   {
     "id": "HB-SM-02",
     "categoria": "Hamburguesa",
-    "producto": "Mini",
+    "producto": "Mini Hamburguesa",
     "especificacion": "Sin Molde",
     "peso_gr": "50",
     "medida_cm": "8",
@@ -24,7 +24,7 @@
   {
     "id": "HB-SM-03",
     "categoria": "Hamburguesa",
-    "producto": "Mini",
+    "producto": "Mini Hamburguesa",
     "especificacion": "Sin Molde",
     "peso_gr": "50",
     "medida_cm": "8",
@@ -33,9 +33,108 @@
     "precio": "7.08"
   },
   {
+    "id": "HB-SM-03-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Mini Hamburguesa",
+    "especificacion": "Sin Molde",
+    "peso_gr": "50",
+    "medida_cm": "8",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "24",
+    "precio": "7.08"
+  },
+  {
+    "id": "HB-SM-03-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Mini Hamburguesa",
+    "especificacion": "Sin Molde",
+    "peso_gr": "50",
+    "medida_cm": "8",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "24",
+    "precio": "7.08"
+  },
+  {
+    "id": "HB-SM-03-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Mini Hamburguesa",
+    "especificacion": "Sin Molde",
+    "peso_gr": "50",
+    "medida_cm": "8",
+    "topping": "MIXTO",
+    "unidades_pqte": "24",
+    "precio": "7.08"
+  },
+  {
     "id": "HB-SM-04",
     "categoria": "Hamburguesa",
-    "producto": "Pequeña",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "15",
+    "precio": "3.83"
+  },
+  {
+    "id": "HB-SM-05",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "Orégano",
+    "unidades_pqte": "15",
+    "precio": "4.11"
+  },
+  {
+    "id": "HB-SM-06",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-06-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-06-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-06-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña S",
+    "especificacion": "Sin Molde",
+    "peso_gr": "60",
+    "medida_cm": "11",
+    "topping": "MIXTO",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-04",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña",
     "especificacion": "Sin Molde",
     "peso_gr": "70",
     "medida_cm": "11",
@@ -46,7 +145,7 @@
   {
     "id": "HB-SM-05",
     "categoria": "Hamburguesa",
-    "producto": "Pequeña",
+    "producto": "Hamburguesa pequeña",
     "especificacion": "Sin Molde",
     "peso_gr": "70",
     "medida_cm": "11",
@@ -57,7 +156,7 @@
   {
     "id": "HB-SM-06",
     "categoria": "Hamburguesa",
-    "producto": "Pequeña",
+    "producto": "Hamburguesa pequeña",
     "especificacion": "Sin Molde",
     "peso_gr": "70",
     "medida_cm": "11",
@@ -66,9 +165,42 @@
     "precio": "4.84"
   },
   {
+    "id": "HB-SM-06-N1-70",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña",
+    "especificacion": "Sin Molde",
+    "peso_gr": "70",
+    "medida_cm": "11",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-06-N2-70",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña",
+    "especificacion": "Sin Molde",
+    "peso_gr": "70",
+    "medida_cm": "11",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
+    "id": "HB-SM-06-N3-70",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa pequeña",
+    "especificacion": "Sin Molde",
+    "peso_gr": "70",
+    "medida_cm": "11",
+    "topping": "MIXTO",
+    "unidades_pqte": "15",
+    "precio": "4.84"
+  },
+  {
     "id": "HB-SM-07",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana",
     "especificacion": "Sin Molde",
     "peso_gr": "90",
     "medida_cm": "12",
@@ -79,7 +211,7 @@
   {
     "id": "HB-SM-08",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana",
     "especificacion": "Sin Molde",
     "peso_gr": "90",
     "medida_cm": "12",
@@ -90,7 +222,7 @@
   {
     "id": "HB-SM-09",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana",
     "especificacion": "Sin Molde",
     "peso_gr": "90",
     "medida_cm": "12",
@@ -99,9 +231,42 @@
     "precio": "4.45"
   },
   {
+    "id": "HB-SM-09-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana",
+    "especificacion": "Sin Molde",
+    "peso_gr": "90",
+    "medida_cm": "12",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "12",
+    "precio": "4.45"
+  },
+  {
+    "id": "HB-SM-09-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana",
+    "especificacion": "Sin Molde",
+    "peso_gr": "90",
+    "medida_cm": "12",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "12",
+    "precio": "4.45"
+  },
+  {
+    "id": "HB-SM-09-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana",
+    "especificacion": "Sin Molde",
+    "peso_gr": "90",
+    "medida_cm": "12",
+    "topping": "MIXTO",
+    "unidades_pqte": "12",
+    "precio": "4.45"
+  },
+  {
     "id": "HB-SM-10",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande",
     "especificacion": "Sin Molde",
     "peso_gr": "110",
     "medida_cm": "13",
@@ -112,7 +277,7 @@
   {
     "id": "HB-SM-11",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande",
     "especificacion": "Sin Molde",
     "peso_gr": "110",
     "medida_cm": "13",
@@ -123,7 +288,7 @@
   {
     "id": "HB-SM-12",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande",
     "especificacion": "Sin Molde",
     "peso_gr": "110",
     "medida_cm": "13",
@@ -132,9 +297,42 @@
     "precio": "3.38"
   },
   {
+    "id": "HB-SM-12-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande",
+    "especificacion": "Sin Molde",
+    "peso_gr": "110",
+    "medida_cm": "13",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "8",
+    "precio": "3.38"
+  },
+  {
+    "id": "HB-SM-12-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande",
+    "especificacion": "Sin Molde",
+    "peso_gr": "110",
+    "medida_cm": "13",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "8",
+    "precio": "3.38"
+  },
+  {
+    "id": "HB-SM-12-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande",
+    "especificacion": "Sin Molde",
+    "peso_gr": "110",
+    "medida_cm": "13",
+    "topping": "MIXTO",
+    "unidades_pqte": "8",
+    "precio": "3.38"
+  },
+  {
     "id": "HB-CM-01",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana M",
     "especificacion": "Con Molde",
     "peso_gr": "90",
     "medida_cm": "11",
@@ -145,7 +343,7 @@
   {
     "id": "HB-CM-02",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana M",
     "especificacion": "Con Molde",
     "peso_gr": "90",
     "medida_cm": "11",
@@ -156,7 +354,7 @@
   {
     "id": "HB-CM-03",
     "categoria": "Hamburguesa",
-    "producto": "Mediana",
+    "producto": "Hamburguesa Mediana M",
     "especificacion": "Con Molde",
     "peso_gr": "90",
     "medida_cm": "11",
@@ -165,9 +363,42 @@
     "precio": "4.59"
   },
   {
+    "id": "HB-CM-03-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana M",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "12",
+    "precio": "4.59"
+  },
+  {
+    "id": "HB-CM-03-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana M",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "12",
+    "precio": "4.59"
+  },
+  {
+    "id": "HB-CM-03-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana M",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "MIXTO",
+    "unidades_pqte": "12",
+    "precio": "4.59"
+  },
+  {
     "id": "HB-CM-04",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "110",
     "medida_cm": "11",
@@ -178,7 +409,7 @@
   {
     "id": "HB-CM-05",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "110",
     "medida_cm": "11",
@@ -189,7 +420,7 @@
   {
     "id": "HB-CM-06",
     "categoria": "Hamburguesa",
-    "producto": "Grande",
+    "producto": "Hamburguesa Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "110",
     "medida_cm": "11",
@@ -198,9 +429,42 @@
     "precio": "4.46"
   },
   {
+    "id": "HB-CM-06-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "110",
+    "medida_cm": "11",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "10",
+    "precio": "4.46"
+  },
+  {
+    "id": "HB-CM-06-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "110",
+    "medida_cm": "11",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "10",
+    "precio": "4.46"
+  },
+  {
+    "id": "HB-CM-06-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "110",
+    "medida_cm": "11",
+    "topping": "MIXTO",
+    "unidades_pqte": "10",
+    "precio": "4.46"
+  },
+  {
     "id": "HB-CM-07",
     "categoria": "Hamburguesa",
-    "producto": "Extra Grande",
+    "producto": "Hamburguesa Extra Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -211,7 +475,7 @@
   {
     "id": "HB-CM-08",
     "categoria": "Hamburguesa",
-    "producto": "Extra Grande",
+    "producto": "Hamburguesa Extra Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -222,7 +486,7 @@
   {
     "id": "HB-CM-09",
     "categoria": "Hamburguesa",
-    "producto": "Extra Grande",
+    "producto": "Hamburguesa Extra Grande M",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -231,9 +495,119 @@
     "precio": "3.86"
   },
   {
+    "id": "HB-CM-09-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CM-09-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CM-09-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande M",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "MIXTO",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CMT-01",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "8",
+    "precio": "3.39"
+  },
+  {
+    "id": "HB-CMT-02",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "Orégano",
+    "unidades_pqte": "8",
+    "precio": "3.45"
+  },
+  {
+    "id": "HB-CMT-03",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CMT-03-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CMT-03-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "HB-CMT-03-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Extra Grande MT",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "MIXTO",
+    "unidades_pqte": "8",
+    "precio": "3.86"
+  },
+  {
+    "id": "PC-EST-01",
+    "categoria": "Perro",
+    "producto": "Perro Comercial E",
+    "especificacion": "Economico",
+    "peso_gr": "45",
+    "medida_cm": "16",
+    "topping": "Sin Topping",
+    "unidades_pqte": "60",
+    "precio": "6.80"
+  },
+  {
     "id": "PC-COM-01",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial",
     "especificacion": "Regular",
     "peso_gr": "50",
     "medida_cm": "16",
@@ -244,7 +618,7 @@
   {
     "id": "PC-COM-02",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial",
     "especificacion": "Regular",
     "peso_gr": "50",
     "medida_cm": "16",
@@ -255,7 +629,7 @@
   {
     "id": "PC-COM-03",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial",
     "especificacion": "Regular",
     "peso_gr": "50",
     "medida_cm": "16",
@@ -264,9 +638,42 @@
     "precio": "12.93"
   },
   {
+    "id": "PC-COM-03-N1",
+    "categoria": "Perro",
+    "producto": "Perro Comercial",
+    "especificacion": "Regular",
+    "peso_gr": "50",
+    "medida_cm": "16",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "60",
+    "precio": "12.93"
+  },
+  {
+    "id": "PC-COM-03-N2",
+    "categoria": "Perro",
+    "producto": "Perro Comercial",
+    "especificacion": "Regular",
+    "peso_gr": "50",
+    "medida_cm": "16",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "60",
+    "precio": "12.93"
+  },
+  {
+    "id": "PC-COM-03-N3",
+    "categoria": "Perro",
+    "producto": "Perro Comercial",
+    "especificacion": "Regular",
+    "peso_gr": "50",
+    "medida_cm": "16",
+    "topping": "MIXTO",
+    "unidades_pqte": "60",
+    "precio": "12.93"
+  },
+  {
     "id": "PC-COM-04",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial M",
     "especificacion": "Pesado",
     "peso_gr": "60",
     "medida_cm": "16",
@@ -277,7 +684,7 @@
   {
     "id": "PC-COM-05",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial M",
     "especificacion": "Pesado",
     "peso_gr": "60",
     "medida_cm": "16",
@@ -288,7 +695,7 @@
   {
     "id": "PC-COM-06",
     "categoria": "Perro",
-    "producto": "Comercial",
+    "producto": "Perro Comercial M",
     "especificacion": "Pesado",
     "peso_gr": "60",
     "medida_cm": "16",
@@ -297,10 +704,43 @@
     "precio": "4.68"
   },
   {
+    "id": "PC-COM-06-N1",
+    "categoria": "Perro",
+    "producto": "Perro Comercial M",
+    "especificacion": "Pesado",
+    "peso_gr": "60",
+    "medida_cm": "16",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "20",
+    "precio": "4.68"
+  },
+  {
+    "id": "PC-COM-06-N2",
+    "categoria": "Perro",
+    "producto": "Perro Comercial M",
+    "especificacion": "Pesado",
+    "peso_gr": "60",
+    "medida_cm": "16",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "20",
+    "precio": "4.68"
+  },
+  {
+    "id": "PC-COM-06-N3",
+    "categoria": "Perro",
+    "producto": "Perro Comercial M",
+    "especificacion": "Pesado",
+    "peso_gr": "60",
+    "medida_cm": "16",
+    "topping": "MIXTO",
+    "unidades_pqte": "20",
+    "precio": "4.68"
+  },
+  {
     "id": "PC-COM-07",
     "categoria": "Perro",
-    "producto": "Comercial",
-    "especificacion": "Extra",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
     "peso_gr": "70",
     "medida_cm": "16",
     "topping": "Ajonjolí",
@@ -310,8 +750,8 @@
   {
     "id": "PC-COM-08",
     "categoria": "Perro",
-    "producto": "Comercial",
-    "especificacion": "Extra",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
     "peso_gr": "70",
     "medida_cm": "16",
     "topping": "Orégano",
@@ -321,8 +761,8 @@
   {
     "id": "PC-COM-09",
     "categoria": "Perro",
-    "producto": "Comercial",
-    "especificacion": "Extra",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
     "peso_gr": "70",
     "medida_cm": "16",
     "topping": "Sésamo",
@@ -330,10 +770,43 @@
     "precio": "5.68"
   },
   {
+    "id": "PC-COM-09-N1",
+    "categoria": "Perro",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "20",
+    "precio": "5.68"
+  },
+  {
+    "id": "PC-COM-09-N2",
+    "categoria": "Perro",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "20",
+    "precio": "5.68"
+  },
+  {
+    "id": "PC-COM-09-N3",
+    "categoria": "Perro",
+    "producto": "Perro Comercial P",
+    "especificacion": "Premiun",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "MIXTO",
+    "unidades_pqte": "20",
+    "precio": "5.68"
+  },
+  {
     "id": "PC-JUM-01",
     "categoria": "Perro",
     "producto": "Jumbo",
-    "especificacion": "Grande",
+    "especificacion": "Jumbo",
     "peso_gr": "80",
     "medida_cm": "20",
     "topping": "Ajonjolí",
@@ -344,7 +817,7 @@
     "id": "PC-JUM-02",
     "categoria": "Perro",
     "producto": "Jumbo",
-    "especificacion": "Grande",
+    "especificacion": "Jumbo",
     "peso_gr": "80",
     "medida_cm": "20",
     "topping": "Orégano",
@@ -355,7 +828,7 @@
     "id": "PC-JUM-03",
     "categoria": "Perro",
     "producto": "Jumbo",
-    "especificacion": "Grande",
+    "especificacion": "Jumbo",
     "peso_gr": "80",
     "medida_cm": "20",
     "topping": "Sésamo Negro",
@@ -363,9 +836,108 @@
     "precio": "4.51"
   },
   {
+    "id": "PC-JUM-03-N1",
+    "categoria": "Perro",
+    "producto": "Jumbo",
+    "especificacion": "Jumbo",
+    "peso_gr": "80",
+    "medida_cm": "20",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-03-N2",
+    "categoria": "Perro",
+    "producto": "Jumbo",
+    "especificacion": "Jumbo",
+    "peso_gr": "80",
+    "medida_cm": "20",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-03-N3",
+    "categoria": "Perro",
+    "producto": "Jumbo",
+    "especificacion": "Jumbo",
+    "peso_gr": "80",
+    "medida_cm": "20",
+    "topping": "MIXTO",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-04",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "21",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "10",
+    "precio": "3.29"
+  },
+  {
+    "id": "PC-JUM-05",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "20",
+    "topping": "Orégano",
+    "unidades_pqte": "12",
+    "precio": "3.95"
+  },
+  {
+    "id": "PC-JUM-06",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "20",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-06-N1",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "20",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-06-N2",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "20",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
+    "id": "PC-JUM-06-N3",
+    "categoria": "Perro",
+    "producto": "Jumbo Extra G",
+    "especificacion": "Jumbo",
+    "peso_gr": "110",
+    "medida_cm": "20",
+    "topping": "MIXTO",
+    "unidades_pqte": "12",
+    "precio": "4.51"
+  },
+  {
     "id": "DL-PEP-01",
     "categoria": "Deli (Pepito)",
-    "producto": "Estándar",
+    "producto": "Deli Standard",
     "especificacion": "Regular",
     "peso_gr": "80",
     "medida_cm": "18",
@@ -376,7 +948,7 @@
   {
     "id": "DL-PEP-02",
     "categoria": "Deli (Pepito)",
-    "producto": "Estándar",
+    "producto": "Deli Standard",
     "especificacion": "Regular",
     "peso_gr": "80",
     "medida_cm": "18",
@@ -387,7 +959,7 @@
   {
     "id": "DL-PEP-03",
     "categoria": "Deli (Pepito)",
-    "producto": "Estándar",
+    "producto": "Deli Standard",
     "especificacion": "Regular",
     "peso_gr": "80",
     "medida_cm": "18",
@@ -396,9 +968,42 @@
     "precio": "2.48"
   },
   {
+    "id": "DL-PEP-03-N1",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Standard",
+    "especificacion": "Regular",
+    "peso_gr": "80",
+    "medida_cm": "18",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "6",
+    "precio": "2.48"
+  },
+  {
+    "id": "DL-PEP-03-N2",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Standard",
+    "especificacion": "Regular",
+    "peso_gr": "80",
+    "medida_cm": "18",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "6",
+    "precio": "2.48"
+  },
+  {
+    "id": "DL-PEP-03-N3",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Standard",
+    "especificacion": "Regular",
+    "peso_gr": "80",
+    "medida_cm": "18",
+    "topping": "MIXTO",
+    "unidades_pqte": "6",
+    "precio": "2.48"
+  },
+  {
     "id": "DL-PEP-04",
     "categoria": "Deli (Pepito)",
-    "producto": "Grande",
+    "producto": "Deli Mediano",
     "especificacion": "Largo",
     "peso_gr": "110",
     "medida_cm": "22",
@@ -409,7 +1014,7 @@
   {
     "id": "DL-PEP-05",
     "categoria": "Deli (Pepito)",
-    "producto": "Grande",
+    "producto": "Deli Mediano",
     "especificacion": "Largo",
     "peso_gr": "110",
     "medida_cm": "22",
@@ -420,7 +1025,7 @@
   {
     "id": "DL-PEP-06",
     "categoria": "Deli (Pepito)",
-    "producto": "Grande",
+    "producto": "Deli Mediano",
     "especificacion": "Largo",
     "peso_gr": "110",
     "medida_cm": "22",
@@ -429,9 +1034,42 @@
     "precio": "2.79"
   },
   {
+    "id": "DL-PEP-06-N1",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Mediano",
+    "especificacion": "Largo",
+    "peso_gr": "110",
+    "medida_cm": "22",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "6",
+    "precio": "2.79"
+  },
+  {
+    "id": "DL-PEP-06-N2",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Mediano",
+    "especificacion": "Largo",
+    "peso_gr": "110",
+    "medida_cm": "22",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "6",
+    "precio": "2.79"
+  },
+  {
+    "id": "DL-PEP-06-N3",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Mediano",
+    "especificacion": "Largo",
+    "peso_gr": "110",
+    "medida_cm": "22",
+    "topping": "MIXTO",
+    "unidades_pqte": "6",
+    "precio": "2.79"
+  },
+  {
     "id": "DL-PEP-07",
     "categoria": "Deli (Pepito)",
-    "producto": "Extra Grande",
+    "producto": "Deli Grande",
     "especificacion": "Maxi",
     "peso_gr": "150",
     "medida_cm": "30",
@@ -442,7 +1080,7 @@
   {
     "id": "DL-PEP-08",
     "categoria": "Deli (Pepito)",
-    "producto": "Extra Grande",
+    "producto": "Deli Grande",
     "especificacion": "Maxi",
     "peso_gr": "150",
     "medida_cm": "30",
@@ -453,13 +1091,178 @@
   {
     "id": "DL-PEP-09",
     "categoria": "Deli (Pepito)",
-    "producto": "Extra Grande",
+    "producto": "Deli Grande",
     "especificacion": "Maxi",
     "peso_gr": "150",
     "medida_cm": "30",
     "topping": "Sésamo Negro",
     "unidades_pqte": "6",
     "precio": "3.49"
+  },
+  {
+    "id": "DL-PEP-09-N1",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Grande",
+    "especificacion": "Maxi",
+    "peso_gr": "150",
+    "medida_cm": "30",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "6",
+    "precio": "3.49"
+  },
+  {
+    "id": "DL-PEP-09-N2",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Grande",
+    "especificacion": "Maxi",
+    "peso_gr": "150",
+    "medida_cm": "30",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "6",
+    "precio": "3.49"
+  },
+  {
+    "id": "DL-PEP-09-N3",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Grande",
+    "especificacion": "Maxi",
+    "peso_gr": "150",
+    "medida_cm": "30",
+    "topping": "MIXTO",
+    "unidades_pqte": "6",
+    "precio": "3.49"
+  },
+  {
+    "id": "DL-PEP-10",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "100",
+    "medida_cm": "14",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "2.12"
+  },
+  {
+    "id": "DL-PEP-11",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "100",
+    "medida_cm": "14",
+    "topping": "Orégano",
+    "unidades_pqte": "6",
+    "precio": "2.37"
+  },
+  {
+    "id": "DL-PEP-11-SN",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "110",
+    "medida_cm": "14",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "2.62"
+  },
+  {
+    "id": "DL-PEP-11-N1",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "110",
+    "medida_cm": "14",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "6",
+    "precio": "2.62"
+  },
+  {
+    "id": "DL-PEP-11-N2",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "110",
+    "medida_cm": "14",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "6",
+    "precio": "2.62"
+  },
+  {
+    "id": "DL-PEP-11-N3",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Baguette",
+    "especificacion": "Baguette",
+    "peso_gr": "110",
+    "medida_cm": "14",
+    "topping": "MIXTO",
+    "unidades_pqte": "6",
+    "precio": "2.62"
+  },
+  {
+    "id": "DL-PEP-12",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "3.49"
+  },
+  {
+    "id": "DL-PEP-13",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "Orégano",
+    "unidades_pqte": "6",
+    "precio": "4.41"
+  },
+  {
+    "id": "DL-PEP-14",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "4.46"
+  },
+  {
+    "id": "DL-PEP-14-N1",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "6",
+    "precio": "4.46"
+  },
+  {
+    "id": "DL-PEP-14-N2",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "6",
+    "precio": "4.46"
+  },
+  {
+    "id": "DL-PEP-14-N3",
+    "categoria": "Deli (Pepito)",
+    "producto": "Deli Extra G",
+    "especificacion": "Maxi Extra",
+    "peso_gr": "195",
+    "medida_cm": "30",
+    "topping": "MIXTO",
+    "unidades_pqte": "6",
+    "precio": "4.46"
   },
   {
     "id": "SW-BIM-01",
@@ -491,6 +1294,39 @@
     "peso_gr": "500",
     "medida_cm": "30",
     "topping": "Sésamo",
+    "unidades_pqte": "1",
+    "precio": "2.53"
+  },
+  {
+    "id": "SW-BIM-03-N1",
+    "categoria": "Sándwich",
+    "producto": "Bimbo",
+    "especificacion": "Familiar",
+    "peso_gr": "500",
+    "medida_cm": "30",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "1",
+    "precio": "2.53"
+  },
+  {
+    "id": "SW-BIM-03-N2",
+    "categoria": "Sándwich",
+    "producto": "Bimbo",
+    "especificacion": "Familiar",
+    "peso_gr": "500",
+    "medida_cm": "30",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "1",
+    "precio": "2.53"
+  },
+  {
+    "id": "SW-BIM-03-N3",
+    "categoria": "Sándwich",
+    "producto": "Bimbo",
+    "especificacion": "Familiar",
+    "peso_gr": "500",
+    "medida_cm": "30",
+    "topping": "MIXTO",
     "unidades_pqte": "1",
     "precio": "2.53"
   }
