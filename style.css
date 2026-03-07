@@ -30,8 +30,9 @@ body {
    HEADER (CABECERA)
    ========================================================================== */
 .main-header {
-    background-color: white;
-    padding: 1.5rem 2rem;
+    /* Usamos el color de fondo exacto del logo para una integración total */
+    background-color: #f5ece1; 
+    padding: 1rem 2rem; /* Reducimos un poco el padding para compensar el tamaño del logo */
     border-bottom: 2px solid var(--marron-claro);
 }
 
@@ -41,6 +42,26 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/* Nuevo estilo para el enlace del logo */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px; /* Espacio entre la imagen y el texto */
+    transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+    opacity: 0.9;
+}
+
+/* Control de la imagen del logo */
+.header-logo {
+    height: 60px; /* Tamaño ideal para que no rompa el diseño */
+    width: auto;
+    border-radius: 50%; /* Por si acaso quieres mantener la forma circular */
 }
 
 .logo {
