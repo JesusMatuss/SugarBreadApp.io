@@ -1,6 +1,5 @@
 
 
-
 // ==========================================================================
 // CONFIGURACIÓN Y SELECTORES
 // ==========================================================================
@@ -66,24 +65,28 @@ async function cargarProductos() {
 // ==========================================================================
 function mostrarProductos(productos) {
     contenedor.innerHTML = '';
-    
     productos.forEach(p => {
         const card = document.createElement('article');
-        card.className = 'producto-card';
+        // Clases de Tailwind para la tarjeta
+        card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
-            <div class="producto-info">
-                <h3>${p.producto} </h3>
-                <p class="specs">${p.especificacion} - ${p.peso_gr}gr</p>
-                <p class="topping">Topping: <strong>${p.topping}</strong></p>
-                <p class="pack">Paquete: ${p.unidades_pqte} unid.</p>
+            <div class="mb-4">
+                <h3 class="text-lg font-bold text-marron-oscuro group-hover:text-black transition-colors">${p.producto}</h3>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    <span class="bg-crema text-[10px] px-2 py-1 rounded-md border border-marron-claro/30 text-marron-oscuro font-bold uppercase">${p.especificacion}</span>
+                    <span class="bg-gray-100 text-[10px] px-2 py-1 rounded-md text-gray-500 font-bold uppercase">${p.peso_gr}gr</span>
+                </div>
+                <p class="text-sm mt-3 text-gray-600 italic">Topping: <span class="font-bold text-marron-oscuro">${p.topping}</span></p>
+                <p class="text-xs text-gray-400 mt-1">Paquete de ${p.unidades_pqte} unidades</p>
             </div>
-            <div class="producto-footer">
-                <span class="precio">$${parseFloat(p.precio).toFixed(2)}</span>
-                
-                <div class="cantidad-control">
-                    <input type="number" id="cant-${p.id}" value="1" min="1" max="99">
-                    <button class="btn-add" onclick="agregarAlCarrito('${p.id}')">
-                        <i class="fas fa-plus"></i> Agregar
+            <div class="mt-auto border-t border-gray-50 pt-4">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-2xl font-black text-negro-suave">$${parseFloat(p.precio).toFixed(2)}</span>
+                </div>
+                <div class="flex gap-2">
+                    <input type="number" id="cant-${p.id}" value="1" min="1" class="w-16 p-2 border-2 border-crema bg-crema rounded-lg text-center font-bold focus:border-marron-claro outline-none transition-all">
+                    <button class="flex-1 bg-marron-oscuro text-white py-2 rounded-lg font-bold hover:bg-negro-suave transition-colors flex items-center justify-center gap-2" onclick="agregarAlCarrito('${p.id}')">
+                        <i class="fas fa-plus text-xs"></i> AGREGAR
                     </button>
                 </div>
             </div>
@@ -151,7 +154,7 @@ function actualizarCarritoUI() {
                     <small>${item.topping} - $${subtotal.toFixed(2)}</small>
                 </div>
                 <button onclick="eliminarDelCarrito(${index})" class="btn-eliminar">
-                    <i class="fas fa-times"></i> X
+                    <i class="fas fa-times"></i>
                 </button>
             </div>
         `;
@@ -197,14 +200,19 @@ document.querySelectorAll('.btn-cat').forEach(boton => {
     });
 });
 
-// Control del Sidebar
+// Abrir carrito
 document.getElementById('ver-carrito').addEventListener('click', () => {
-    sidebarCarrito.classList.remove('carrito-hidden');
+    sidebarCarrito.classList.remove('translate-x-full'); // Tailwind slide in
+    document.getElementById('cart-overlay').classList.remove('hidden');
 });
 
-document.getElementById('close-cart').addEventListener('click', () => {
-    sidebarCarrito.classList.add('carrito-hidden');
-});
+// Cerrar carrito
+const cerrar = () => {
+    sidebarCarrito.classList.add('translate-x-full'); // Tailwind slide out
+    document.getElementById('cart-overlay').classList.add('hidden');
+};
+document.getElementById('close-cart').addEventListener('click', cerrar);
+document.getElementById('cart-overlay').addEventListener('click', cerrar);
 
 // Control sheets
 
@@ -227,7 +235,7 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
             // Registraremos cada item como una fila independiente para mejor control
             const pedidosParaEnviar = carritoArray.map(p => ({
                 "Cliente": document.getElementById('cliente-nombre').value || "Cliente Anónimo",
-                "Numero_Telefono": "58" + document.getElementById('cliente-telefono').value || "No proporcionado",
+                "Numero_Telefono": "+58" + document.getElementById('cliente-telefono').value || "No proporcionado",
                 "Producto": p.producto,
                 "Especificacion": p.especificacion,
                 "Peso": p.peso,
@@ -262,7 +270,6 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
         alert("¡Pedido registrado con éxito!");
         mostrarResumenPedido(totalFinal, ordenFinal); 
 
-        carritoArray = []; 
         actualizarCarritoUI();
         sidebarCarrito.classList.add('carrito-hidden');
             
@@ -275,32 +282,37 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
     }
 });
 
-// Función para mostrar el modal con los datos
+// Función para mostrar el modal con los datos corregida
 function mostrarResumenPedido(total, productos) {
-    
     const contenedorResumen = document.getElementById('detalle-orden');
     const modal = document.getElementById('modal-resumen');
     
-    const nroOrden = Math.floor(Math.random() * 900) + 100; // Un número un poco más serio
+    const nroOrden = Math.floor(Math.random() * 100) + 1;
     
-    let htmlProductos = `<h3>Orden #${nroOrden}</h3>`;
+    let htmlProductos = `<h3 class="font-bold text-lg mb-2 text-marron-oscuro">Orden #${nroOrden}</h3>`;
     
-    // Usamos el parámetro 'productos' en lugar de la variable global 'carritoArray'
     productos.forEach(p => {
         htmlProductos += `
-            <p><strong>${p.cantidad}x</strong> ${p.producto} (${p.topping})</p>
-            
+            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping})</span></p>
         `;
     });
     
-    htmlProductos += `<hr><p style="font-size:1.2rem"><strong>Total: $${total}</strong></p>
-        <button class="btn-descargar" onclick="descargarPDF()">Descargar PDF</button>
-        <button class="btn-cerrar" onclick="cerrarResumen()">Cerrar</button>
+    // Simplificamos los botones del modal para que no choquen con el diseño
+    htmlProductos += `
+        <hr class="my-3 border-marron-claro">
+        <p class="text-xl font-black text-black mb-4 text-center">Total: $${total}</p>
+        <div class="flex gap-2">
+            <button class="flex-1 bg-marron-claro text-white py-2 rounded-lg text-xs font-bold hover:bg-marron-oscuro transition-colors" onclick="descargarPDF()">
+                <i class="fas fa-file-pdf"></i> PDF
+            </button>
+        </div>
     `;
 
-    
     contenedorResumen.innerHTML = htmlProductos;
-    modal.style.display = 'flex';
+    
+    // MANEJO DE CLASES TAILWIND (Sin usar .style.display)
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function descargarPDF() {
@@ -315,18 +327,60 @@ function descargarPDF() {
     html2pdf().set(opt).from(element).save();
 }
 
-// Función para cerrar el modal
+// Función para cerrar el modal corregida
 function cerrarResumen() {
-    document.getElementById('modal-resumen').style.display = 'none';
+    const modal = document.getElementById('modal-resumen');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+
+    // Opcional: Preguntar si quiere enviar por WhatsApp al cerrar
+    if(confirm("¿Deseas enviar el resumen de tu pedido por WhatsApp para agilizar la atención?")) {
+        enviarPedidoWhatsApp();
+    }
 }
 
 
+function enviarPedidoWhatsApp() {
+    const nombre = document.getElementById('cliente-nombre').value || "Cliente";
+    const numeroTienda = "584126030518"; // <--- PON AQUÍ TU NÚMERO DE NEGOCIO
+    
+    // Recuperamos los datos que se guardaron antes de limpiar el carrito
+    // O puedes usar una variable global si no has limpiado el carrito aún
+    if (carritoArray.length === 0) return; 
+
+    let mensaje = `*NUEVO PEDIDO - SUGARBREAD* 🥖\n`;
+    mensaje += `--------------------------\n`;
+    mensaje += `👤 *Cliente:* ${nombre}\n`;
+    mensaje += `--------------------------\n`;
+
+    carritoArray.forEach(p => {
+        mensaje += `• *${p.cantidad}x* ${p.producto}\n`;
+        mensaje += `  _${p.topping} (${p.especificacion})_\n`;
+    });
+
+    const total = document.getElementById('total-precio').innerText;
+    mensaje += `--------------------------\n`;
+    mensaje += `💰 *TOTAL A PAGAR:* ${total}\n`;
+    mensaje += `--------------------------\n`;
+    mensaje += `_Por favor, confírmame la recepción de este pedido._`;
+
+    // Codificar el mensaje para URL
+    const mensajeURL = encodeURIComponent(mensaje);
+    const urlWhatsApp = `https://wa.me/${numeroTienda}?text=${mensajeURL}`;
+
+    // Abrir en una pestaña nueva
+    window.open(urlWhatsApp, '_blank');
+    carritoArray = []; // Limpiar el carrito después de enviar
+    actualizarCarritoUI();
+}
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
 
 
 
+
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
