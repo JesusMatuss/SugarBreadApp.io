@@ -66,7 +66,7 @@
     "precio": "7.08"
   },
   {
-    "id": "HB-SM-04",
+    "id": "HB-SM-06-N1",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -77,7 +77,7 @@
     "precio": "3.83"
   },
   {
-    "id": "HB-SM-05",
+    "id": "HB-SM-06-N2",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -88,7 +88,7 @@
     "precio": "4.11"
   },
   {
-    "id": "HB-SM-06",
+    "id": "HB-SM-06-N3",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -99,7 +99,7 @@
     "precio": "4.84"
   },
   {
-    "id": "HB-SM-06-N1",
+    "id": "HB-SM-06-N4",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -110,7 +110,7 @@
     "precio": "4.84"
   },
   {
-    "id": "HB-SM-06-N2",
+    "id": "HB-SM-06-N5",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -121,7 +121,7 @@
     "precio": "4.84"
   },
   {
-    "id": "HB-SM-06-N3",
+    "id": "HB-SM-06-N6",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
     "especificacion": "Sin Molde",
@@ -396,6 +396,73 @@
     "precio": "4.59"
   },
   {
+    "id": "HB-CMT-01",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "8",
+    "precio": "3.78"
+  },
+  {
+    "id": "HB-CMT-02",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "Orégano",
+    "unidades_pqte": "8",
+    "precio": "4"
+  },
+  {
+    "id": "HB-CMT-03",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "8",
+    "precio": "4.59"
+  },
+  {
+    "id": "HB-CMT-03-N1",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "AJON/OREG",
+    "unidades_pqte": "8",
+    "precio": "4.59"
+  },
+  {
+    "id": "HB-CMT-03-N2",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "AJON/SESAMO",
+    "unidades_pqte": "8",
+    "precio": "4.59"
+  },
+  {
+    "id": "HB-CMT-03-N3",
+    "categoria": "Hamburguesa",
+    "producto": "Hamburguesa Mediana Trenzada",
+    "especificacion": "Con Molde",
+    "peso_gr": "90",
+    "medida_cm": "11",
+    "topping": "MIXTO",
+    "unidades_pqte": "9",
+    "precio": "4.59"
+  },
+  
+  {
     "id": "HB-CM-04",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa Grande M",
@@ -528,9 +595,9 @@
     "precio": "3.86"
   },
   {
-    "id": "HB-CMT-01",
+    "id": "HB-CMT-E01",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -539,9 +606,9 @@
     "precio": "3.39"
   },
   {
-    "id": "HB-CMT-02",
+    "id": "HB-CMT-E02",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -550,9 +617,9 @@
     "precio": "3.45"
   },
   {
-    "id": "HB-CMT-03",
+    "id": "HB-CMT-E03",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -561,9 +628,9 @@
     "precio": "3.86"
   },
   {
-    "id": "HB-CMT-03-N1",
+    "id": "HB-CMT-E04-N1",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -572,9 +639,9 @@
     "precio": "3.86"
   },
   {
-    "id": "HB-CMT-03-N2",
+    "id": "HB-CMT-E05-N2",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -583,9 +650,9 @@
     "precio": "3.86"
   },
   {
-    "id": "HB-CMT-03-N3",
+    "id": "HB-CMT-E06-N3",
     "categoria": "Hamburguesa",
-    "producto": "Hamburguesa Extra Grande MT",
+    "producto": "Hamburguesa Extra Grande Trenzada",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -633,7 +700,7 @@
     "especificacion": "Regular",
     "peso_gr": "50",
     "medida_cm": "16",
-    "topping": "Sésamo",
+    "topping": "Sésamo Negro",
     "unidades_pqte": "60",
     "precio": "12.93"
   },
@@ -765,7 +832,7 @@
     "especificacion": "Premiun",
     "peso_gr": "70",
     "medida_cm": "16",
-    "topping": "Sésamo",
+    "topping": "Sésamo Negro",
     "unidades_pqte": "20",
     "precio": "5.68"
   },
@@ -1293,7 +1360,7 @@
     "especificacion": "Familiar",
     "peso_gr": "500",
     "medida_cm": "30",
-    "topping": "Sésamo",
+    "topping": "Sésamo Negro",
     "unidades_pqte": "1",
     "precio": "2.53"
   },
