@@ -4,111 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SugarBread | Pedidos Online</title>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="Logo.png" type="image/png">
-    
-    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Configuración de tus colores personalizados
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                crema: '#FDFBF7',
+                'marron-claro': '#D7C0AE',
+                'marron-oscuro': '#967E76',
+                'negro-suave': '#333333',
+                'whatsapp-green': '#25D366',
+                'logo-bg': '#f5ece1',
+              }
+            }
+          }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-crema text-negro-suave font-sans antialiased">
 
-    <header class="main-header">
-    <div class="header-container">
-        <a href="index.html" class="logo-link">
-            <img src="Logo.png" alt="SugarBread Logo" class="header-logo">
-            <h1 class="logo">SugarBread <span>Pedidos</span></h1>
-            </a>
-        
-            <button id="ver-carrito" class="cart-trigger" aria-label="Ver carrito">
+    <header class="bg-logo-bg px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60]">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-6">
+                <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
+                    <img src="imagenes/logo.png" alt="Logo" class="h-10 md:h-12 w-auto rounded-full shadow-sm">
+                    <h1 class="text-lg md:text-2xl font-bold text-marron-oscuro uppercase tracking-tighter">
+                        SugarBread <span class="font-light text-marron-claro">Pedidos</span>
+                    </h1>
+                </a>
+
+                <div class="flex items-center gap-4 sm:border-l sm:border-marron-claro/40 sm:pl-5">
+                    <a href="https://www.instagram.com/sugar.bread777/" target="_blank" rel="noopener" class="text-marron-oscuro hover:text-[#E1306C] transition-colors text-xl" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100080236285252" target="_blank" rel="noopener" class="text-marron-oscuro hover:text-[#1877F2] transition-colors text-xl" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://wa.me/584126030518" target="_blank" rel="noopener" class="text-marron-oscuro hover:text-whatsapp-green transition-colors text-xl" title="WhatsApp Business">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <button id="ver-carrito" class="bg-marron-oscuro text-white px-4 py-2 rounded-full flex items-center gap-3 hover:bg-negro-suave transition-all shadow-md active:scale-95">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="cart-text">Carrito</span>
-                <span id="cart-count" class="badge">0</span>
+                <span class="hidden md:inline font-semibold text-sm">Carrito</span>
+                <span id="cart-count" class="bg-white text-marron-oscuro px-2 py-0.5 rounded-full text-xs font-bold shadow-inner">0</span>
             </button>
         </div>
     </header>
 
-    <nav class="categories-nav" aria-label="Categorías de pan">
-        <div class="nav-scroll">
-            <button type="button" class="btn-cat active" data-cat="todos">Todos</button>
-            <button type="button" class="btn-cat" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
-            <button type="button" class="btn-cat" data-cat="hamb-sin-molde">Hamburguesas sin Molde</button>
-            <button type="button" class="btn-cat" data-cat="perros">Perros</button>
-            <button type="button" class="btn-cat" data-cat="delis">Delis</button>
-            <button type="button" class="btn-cat" data-cat="sandwich">Sandwich</button>
+    <nav class="bg-white shadow-sm py-4 sticky top-[82px] z-50 overflow-hidden border-b border-gray-100">
+        <div class="nav-scroll max-w-6xl mx-auto px-4 flex gap-3 overflow-x-auto pb-2 justify-start md:justify-center scrollbar-hide">
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="todos">Todos</button>
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="hamb-sin-molde">Hamburguesas sin Molde</button>
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="perros">Perros</button>
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="delis">Delis</button>
+            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="sandwich">Sandwich</button>
         </div>
     </nav>
 
-    <main id="app-container">
-        
-        <section id="catalogo" class="productos-grid">
-            <div class="loading-state">
-                <p>Cargando los mejores panes para ti...</p>
+    <main id="app-container" class="max-w-6xl mx-auto py-8">
+        <section id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+            <div class="col-span-full text-center py-20 text-marron-oscuro animate-pulse italic">
+                Cargando los mejores panes para ti...
             </div>
         </section>
 
-        <aside id="carrito-sidebar" class="carrito-sidebar carrito-hidden">
-            <div class="carrito-content">
+        <aside id="carrito-sidebar" class="fixed top-0 right-0 z-[100] w-full max-w-[420px] h-screen bg-white shadow-2xl transition-transform duration-500 translate-x-full flex flex-col border-l border-marron-claro">
+            <div class="bg-marron-oscuro p-6 text-white relative">
+                <button id="close-cart" class="absolute top-4 right-4 text-4xl leading-none hover:rotate-90 transition-transform">&times;</button>
+                <h3 class="text-2xl font-bold mb-4">Tus Pedidos</h3>
                 
-                <div class="carrito-header">
-                    <h3 class="Titulo-carrito">Tus Pedidos</h3>
-                    <button id="close-cart" class="close-btnH" aria-label="Cerrar carrito">&times;</button>
-                    <label for="cliente-nombre">Nombre o Empresa:</label>
-                    <input type="text" id="cliente-nombre" name="cliente-nombre" placeholder="Ingresa tu nombre o empresa" autocomplete="off">
-    
-                    <label for="cliente-telefono">Número Telefónico:</label>
-                    <input type="tel" id="cliente-telefono" name="cliente-telefono" placeholder="Ingresa tu número telefónico" autocomplete="off">
-                </div>
-                
-                </div>
-
-                
-
-                <div id="carrito-items" class="carrito-body">
-                    <p class="empty-msg">El carrito está vacío</p>
-                </div>
-
-                <footer class="carrito-footer">
-                    <div class="total-container">
-                        <span>Total estimado:</span>
-                        <span id="total-precio" class="total-amount">$0.00</span>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest font-bold mb-1 opacity-80">Nombre o Empresa:</label>
+                        <input type="text" id="cliente-nombre" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="Ej: Burguer King Caracas">
                     </div>
-                        <button class="btn-pagar">
-                            <i class="fas fa-cloud-upload-alt"></i> Confirmar Pedido
-                        </button>
-                </footer>
-
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest font-bold mb-1 opacity-80">Número Telefónico:</label>
+                        <input type="tel" id="cliente-telefono" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="4121234567">
+                    </div>
+                </div>
             </div>
-            <div id="cart-overlay" class="overlay"></div>
+
+            <div id="carrito-items" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+                <p class="text-center text-gray-400 italic py-10">El carrito está vacío</p>
+            </div>
+
+            <footer class="p-6 bg-white border-t border-marron-claro shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
+                    <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
+                </div>
+                <button class="btn-pagar w-full bg-whatsapp-green text-white py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-3 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-green-200">
+                    <i class="fas fa-cloud-upload-alt"></i> Confirmar Pedido
+                </button>
+            </footer>
         </aside>
 
+        <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-[90] hidden backdrop-blur-sm"></div>
     </main>
+
+    <div id="modal-resumen" class="fixed inset-0 z-[200] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border-t-8 border-marron-oscuro">
+            <div class="p-6 text-center">
+                <h2 class="text-2xl font-bold text-marron-oscuro mb-2 text-left">📝 Resumen de Pedido</h2>
+                <p class="text-green-600 font-medium mb-4 text-left">¡Pedido agendado con éxito! ✅</p>
+                
+                <div id="detalle-orden" class="bg-crema border-2 border-dashed border-marron-claro rounded-xl p-4 text-left mb-6 font-mono text-sm max-h-60 overflow-y-auto">
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-xl text-left border border-yellow-100 mb-6">
+                    <h4 class="font-bold text-yellow-800 text-sm flex items-center gap-2 mb-1">
+                        <i class="fas fa-exclamation-triangle"></i> Información Importante:
+                    </h4>
+                    <ul class="text-xs text-yellow-700 space-y-1">
+                        <li>• Pedidos antes de las <strong>9:00 AM</strong>: Entrega hoy.</li>
+                        <li>• Pedidos después de las <strong>9:00 AM</strong>: Entrega mañana.</li>
+                    </ul>
+                    <p class="mt-3 text-marron-oscuro font-bold text-xs italic">📸 Toma captura de pantalla.</p>
+                </div>
+
+                <button onclick="cerrarResumen()" class="w-full bg-marron-oscuro text-white py-3 rounded-xl font-bold hover:bg-negro-suave transition-colors">
+                    Entendido, ¡gracias! 🥖
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
-
-<div id="modal-resumen" class="modal-overlay">
-    <div class="resumen-card">
-        <div class="resumen-header">
-            <h2>📝 Resumen de tu Pedido</h2>
-            <p>¡Todo listo! Tu pedido ha sido agendado con éxito. ✅</p>
-        </div>
-        
-        <div id="detalle-orden" class="resumen-body">
-            </div>
-
-        <div class="info-despacho">
-            <h4>⚠️ Información Importante:</h4>
-            <ul>
-                <li>Pedidos antes de las <strong>9:00 AM</strong>: Entrega hoy.</li>
-                <li>Pedidos después de las <strong>9:00 AM</strong>: Entrega mañana.</li>
-            </ul>
-            <p class="nota-captura">📸 Te recomendamos tomar una captura de pantalla.</p>
-        </div>
-
-        <button onclick="cerrarResumen()" class="btn-cerrar-resumen">Entendido, ¡gracias! 🥖</button>
-    </div>
-</div>
+</html>
 
 </html>
+
 
 
