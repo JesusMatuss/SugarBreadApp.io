@@ -72,16 +72,17 @@ function mostrarProductos(productos) {
         card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
     <div class="relative overflow-hidden rounded-t-2xl">
-        <img src="Logo.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
-        <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[10px] px-2 py-1 rounded-full font-bold shadow-sm">
+        <img src="imagenes/HB-SM-01.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
+        <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm">
             ${p.unidades_pqte} unds
         </span>
     </div>
     <div class="p-4 flex flex-col justify-between flex-1">
         <div>
-            <h3 class="text-md font-bold text-gray-800">${p.producto}</h3>
-            <p class="text-[10px] text-gray-400 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
-                <p class="text-[14px] text-gray-500 mt-1">${p.topping}</p>
+            <h3 class="text-md font-bold text-gray-800">${p.producto}  (${p.medida_cm} cm)</h3>
+            <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
+                <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
+
         </div>
         <div class="mt-4 flex items-center justify-between">
             <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
@@ -163,8 +164,8 @@ function actualizarCarritoUI() {
                 <p class="text-xs font-bold text-gray-800 leading-tight flex-1">
                     ${item.producto}
                 </p>
-                <button onclick="eliminarDelCarrito(${index})" class="text-gray-300 hover:text-red-500 ml-2">
-                    <i class="fas fa-times text-[10px]"></i>
+                <button onclick="eliminarDelCarrito(${index})" class="text-gray-600 hover:text-red-600 ml-2">
+                    <i class="fas fa-times text-[16px]"></i>
                 </button>
             </div>
             
@@ -501,6 +502,7 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
