@@ -467,6 +467,22 @@ input::placeholder {
     font-weight: bold;
 }
 
+.vuelo-particula {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-color: #967E76; /* Tu color marron-oscuro */
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.19, 1, 1, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+}
+
 /* ==========================================================================
    RESPONSIVE (Móviles)
    ========================================================================== */
