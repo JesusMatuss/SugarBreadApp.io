@@ -41,7 +41,7 @@
     "medida_cm": "8",
     "topping": "AJON/OREG",
     "unidades_pqte": "24",
-    "precio": "7.08"
+    "precio": "6.11"
   },
   {
     "id": "HB-SM-03-N2",
@@ -107,7 +107,7 @@
     "medida_cm": "11",
     "topping": "AJON/OREG",
     "unidades_pqte": "15",
-    "precio": "4.84"
+    "precio": "4.11"
   },
   {
     "id": "HB-SM-06-N5",
@@ -173,7 +173,7 @@
     "medida_cm": "11",
     "topping": "AJON/OREG",
     "unidades_pqte": "15",
-    "precio": "4.84"
+    "precio": "4.11"
   },
   {
     "id": "HB-SM-06-N2-70",
@@ -239,7 +239,7 @@
     "medida_cm": "12",
     "topping": "AJON/OREG",
     "unidades_pqte": "12",
-    "precio": "4.45"
+    "precio": "3.8"
   },
   {
     "id": "HB-SM-09-N2",
@@ -305,7 +305,7 @@
     "medida_cm": "13",
     "topping": "AJON/OREG",
     "unidades_pqte": "8",
-    "precio": "3.38"
+    "precio": "3.01"
   },
   {
     "id": "HB-SM-12-N2",
@@ -371,7 +371,7 @@
     "medida_cm": "11",
     "topping": "AJON/OREG",
     "unidades_pqte": "12",
-    "precio": "4.59"
+    "precio": "4"
   },
   {
     "id": "HB-CM-03-N2",
@@ -437,7 +437,7 @@
     "medida_cm": "11",
     "topping": "AJON/OREG",
     "unidades_pqte": "8",
-    "precio": "4.59"
+    "precio": "4"
   },
   {
     "id": "HB-CMT-03-N2",
@@ -461,7 +461,6 @@
     "unidades_pqte": "9",
     "precio": "4.59"
   },
-  
   {
     "id": "HB-CM-04",
     "categoria": "Hamburguesa",
@@ -504,7 +503,7 @@
     "medida_cm": "11",
     "topping": "AJON/OREG",
     "unidades_pqte": "10",
-    "precio": "4.46"
+    "precio": "3.89"
   },
   {
     "id": "HB-CM-06-N2",
@@ -570,7 +569,7 @@
     "medida_cm": "13",
     "topping": "AJON/OREG",
     "unidades_pqte": "8",
-    "precio": "3.86"
+    "precio": "3.45"
   },
   {
     "id": "HB-CM-09-N2",
@@ -636,7 +635,7 @@
     "medida_cm": "13",
     "topping": "AJON/OREG",
     "unidades_pqte": "8",
-    "precio": "3.86"
+    "precio": "3.45"
   },
   {
     "id": "HB-CMT-E05-N2",
@@ -713,7 +712,7 @@
     "medida_cm": "16",
     "topping": "AJON/OREG",
     "unidades_pqte": "60",
-    "precio": "12.93"
+    "precio": "10.44"
   },
   {
     "id": "PC-COM-03-N2",
@@ -779,7 +778,7 @@
     "medida_cm": "16",
     "topping": "AJON/OREG",
     "unidades_pqte": "20",
-    "precio": "4.68"
+    "precio": "4.33"
   },
   {
     "id": "PC-COM-06-N2",
@@ -845,7 +844,7 @@
     "medida_cm": "16",
     "topping": "AJON/OREG",
     "unidades_pqte": "20",
-    "precio": "5.68"
+    "precio": "4.96"
   },
   {
     "id": "PC-COM-09-N2",
@@ -911,7 +910,7 @@
     "medida_cm": "20",
     "topping": "AJON/OREG",
     "unidades_pqte": "12",
-    "precio": "4.51"
+    "precio": "3.95"
   },
   {
     "id": "PC-JUM-03-N2",
@@ -977,7 +976,7 @@
     "medida_cm": "20",
     "topping": "AJON/OREG",
     "unidades_pqte": "12",
-    "precio": "4.51"
+    "precio": "3.95"
   },
   {
     "id": "PC-JUM-06-N2",
@@ -1043,7 +1042,7 @@
     "medida_cm": "18",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
-    "precio": "2.48"
+    "precio": "2.11"
   },
   {
     "id": "DL-PEP-03-N2",
@@ -1109,7 +1108,7 @@
     "medida_cm": "22",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
-    "precio": "2.79"
+    "precio": "2.34"
   },
   {
     "id": "DL-PEP-06-N2",
@@ -1175,7 +1174,7 @@
     "medida_cm": "30",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
-    "precio": "3.49"
+    "precio": "3.09"
   },
   {
     "id": "DL-PEP-09-N2",
@@ -1241,7 +1240,7 @@
     "medida_cm": "14",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
-    "precio": "2.62"
+    "precio": "2.37"
   },
   {
     "id": "DL-PEP-11-N2",
@@ -1307,7 +1306,7 @@
     "medida_cm": "30",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
-    "precio": "4.46"
+    "precio": "4.41"
   },
   {
     "id": "DL-PEP-14-N2",
@@ -1373,7 +1372,7 @@
     "medida_cm": "30",
     "topping": "AJON/OREG",
     "unidades_pqte": "1",
-    "precio": "2.53"
+    "precio": "2.31"
   },
   {
     "id": "SW-BIM-03-N2",
