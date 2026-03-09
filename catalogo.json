@@ -1395,5 +1395,138 @@
     "topping": "MIXTO",
     "unidades_pqte": "1",
     "precio": "2.53"
+  },
+  {
+    "id": "HB-PP-SM-01",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa pequeña PP",
+    "especificacion": "Sin Molde",
+    "peso_gr": "75",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "2.08"
+  },
+  {
+    "id": "HB-PP-SM-02",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa pequeña PP",
+    "especificacion": "Sin Molde",
+    "peso_gr": "75",
+    "medida_cm": "11",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "2.25"
+  },
+  {
+    "id": "HB-PP-CM-01",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa pequeña SP",
+    "especificacion": "Con Molde",
+    "peso_gr": "75",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "2.22"
+  },
+  {
+    "id": "HB-PP-CM-02",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa pequeña SP",
+    "especificacion": "Con Molde",
+    "peso_gr": "75",
+    "medida_cm": "11",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "2.36"
+  },
+  {
+    "id": "HB-PP-CM-03",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa Mediana MP",
+    "especificacion": "Con Molde",
+    "peso_gr": "85",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "2.55"
+  },
+  {
+    "id": "HB-PP-CM-04",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa Mediana MP",
+    "especificacion": "Con Molde",
+    "peso_gr": "85",
+    "medida_cm": "11",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "2.70"
+  },
+  {
+    "id": "HB-PP-CM-05",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa Grande MP",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "3.47"
+  },
+  {
+    "id": "HB-PP-CM-06",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa Grande MP",
+    "especificacion": "Con Molde",
+    "peso_gr": "120",
+    "medida_cm": "13",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "6",
+    "precio": "3.70"
+  },
+  {
+    "id": "PC-PP-70-01",
+    "categoria": "Pan de Papa",
+    "producto": "Perro Papa Grande",
+    "especificacion": "16CM",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "20",
+    "precio": "6.60"
+  },
+  {
+    "id": "PC-PP-70-02",
+    "categoria": "Pan de Papa",
+    "producto": "Perro Papa Grande",
+    "especificacion": "16CM",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "20",
+    "precio": "7.00"
+  },
+  {
+    "id": "PC-PP-55-01",
+    "categoria": "Pan de Papa",
+    "producto": "Perro Papa Mediano",
+    "especificacion": "14.5CM",
+    "peso_gr": "55",
+    "medida_cm": "14.5",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "20",
+    "precio": "5.22"
+  },
+  {
+    "id": "PC-PP-55-02",
+    "categoria": "Pan de Papa",
+    "producto": "Perro Papa Mediano",
+    "especificacion": "14.5CM",
+    "peso_gr": "55",
+    "medida_cm": "14.5",
+    "topping": "Sésamo Negro",
+    "unidades_pqte": "20",
+    "precio": "5.77"
   }
+
 ]
