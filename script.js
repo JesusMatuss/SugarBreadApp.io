@@ -193,6 +193,7 @@ document.querySelectorAll('.btn-cat').forEach(boton => {
                 if (catSeleccionada === 'perros') return p.categoria === 'Perro';
                 if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
                 if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
+                if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
                 return false;
             });
             mostrarProductos(filtrados);
@@ -376,11 +377,5 @@ function enviarPedidoWhatsApp() {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
-
-
-
-cargarProductos(); // Carga inicial de productos al abrir la página
-
 
 
