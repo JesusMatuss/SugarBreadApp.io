@@ -71,27 +71,28 @@ function mostrarProductos(productos) {
         // Clases de Tailwind para la tarjeta
         card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
-            <div class="mb-4">
-                <h3 class="text-lg font-bold text-marron-oscuro group-hover:text-black transition-colors">${p.producto}</h3>
-                <div class="flex flex-wrap gap-2 mt-2">
-                    <span class="bg-crema text-[10px] px-2 py-1 rounded-md border border-marron-claro/30 text-marron-oscuro font-bold uppercase">${p.especificacion}</span>
-                    <span class="bg-gray-100 text-[10px] px-2 py-1 rounded-md text-gray-500 font-bold uppercase">${p.peso_gr}gr</span>
-                </div>
-                <p class="text-sm mt-3 text-gray-600 italic">Topping: <span class="font-bold text-marron-oscuro">${p.topping}</span></p>
-                <p class="text-xs text-gray-400 mt-1">Paquete de ${p.unidades_pqte} unidades</p>
+    <div class="relative overflow-hidden rounded-t-2xl">
+        <img src="imagenes/HB-SM-01.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
+        <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[10px] px-2 py-1 rounded-full font-bold shadow-sm">
+            ${p.unidades_pqte} unds
+        </span>
+    </div>
+    <div class="p-4 flex flex-col justify-between flex-1">
+        <div>
+            <h3 class="text-md font-bold text-gray-800">${p.producto}</h3>
+            <p class="text-[10px] text-gray-400 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+            <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
+            <div class="flex gap-1">
+                 <input type="number" id="cant-${p.id}" value="1" min="1" class="w-10 text-xs border-none bg-crema rounded-md text-center font-bold outline-none">
+                 <button onclick="agregarAlCarrito('${p.id}', this)" class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
+                    <i class="fas fa-cart-plus text-sm"></i>
+                 </button>
             </div>
-            <div class="mt-auto border-t border-gray-50 pt-4">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-2xl font-black text-negro-suave">$${parseFloat(p.precio).toFixed(2)}</span>
-                </div>
-                <div class="flex gap-2">
-                    <input type="number" id="cant-${p.id}" value="1" min="1" class="w-16 p-2 border-2 border-crema bg-crema rounded-lg text-center font-bold focus:border-marron-claro outline-none transition-all">
-                    <button class="flex-1 bg-marron-oscuro text-white py-2 rounded-lg font-bold hover:bg-negro-suave transition-colors flex items-center justify-center gap-2" onclick="agregarAlCarrito('${p.id}')">
-                        <i class="fas fa-plus text-xs"></i> AGREGAR
-                    </button>
-                </div>
-            </div>
-        `;
+        </div>
+    </div>
+`;
         contenedor.appendChild(card);
     });
 }
@@ -101,7 +102,7 @@ function mostrarProductos(productos) {
 // ==========================================================================
 
 // 1. Función para agregar (con validación de ID)
-function agregarAlCarrito(id) {
+function agregarAlCarrito(id, boton) {
     const producto = productosData.find(p => p.id === id);
     // Buscamos el input de cantidad específico para este producto
     const inputCantidad = document.getElementById(`cant-${id}`);
@@ -110,6 +111,10 @@ function agregarAlCarrito(id) {
     if (producto && cantidad > 0) {
         // Buscamos si el producto ya está en el carrito para sumar la cantidad
         const itemExistente = carritoArray.find(item => item.id === id);
+        // Disparar la animación si el botón existe
+        if (boton) {
+            animarVueloCarrito(boton);
+        }
 
         if (itemExistente) {
             itemExistente.cantidad += cantidad;
@@ -458,12 +463,43 @@ function enviarPedidoWhatsApp() {
     actualizarCarritoUI();
 }
 
+function animarVueloCarrito(botonElement) {
+    const carritoBtn = document.getElementById('ver-carrito');
+    
+    // Obtener posiciones del botón pulsado y del icono del carrito
+    const rectBoton = botonElement.getBoundingClientRect();
+    const rectCarrito = carritoBtn.getBoundingClientRect();
+
+    // Crear la partícula
+    const particula = document.createElement('div');
+    particula.className = 'vuelo-particula';
+    particula.innerHTML = '<i class="fas fa-bread-slice"></i>';
+    
+    // Posición inicial (donde está el botón "Agregar")
+    particula.style.left = `${rectBoton.left + rectBoton.width / 2}px`;
+    particula.style.top = `${rectBoton.top + rectBoton.height / 2}px`;
+
+    document.body.appendChild(particula);
+
+    // Pequeño delay para que el navegador registre la posición inicial antes de animar
+    setTimeout(() => {
+        particula.style.left = `${rectCarrito.left + rectCarrito.width / 2}px`;
+        particula.style.top = `${rectCarrito.top + rectCarrito.height / 2}px`;
+        particula.style.transform = 'scale(0.2)';
+        particula.style.opacity = '0';
+    }, 50);
+
+    // Limpiar el elemento después de la animación
+    setTimeout(() => {
+        particula.remove();
+        // Efecto de "sacudida" al carrito al recibir el item
+        carritoBtn.classList.add('animate-bounce');
+        setTimeout(() => carritoBtn.classList.remove('animate-bounce'), 500);
+    }, 850);
+}
+
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
-
-
-
 
 
 
