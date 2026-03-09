@@ -31,7 +31,7 @@
             
             <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-6">
                 <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
-                    <img src="Logo.png" alt="Logo" class="h-10 md:h-12 w-auto rounded-full shadow-sm">
+                    <img src="imagenes/logo.png" alt="Logo" class="h-10 md:h-12 w-auto rounded-full shadow-sm">
                     <h1 class="text-lg md:text-2xl font-bold text-marron-oscuro uppercase tracking-tighter">
                         SugarBread <span class="font-light text-marron-claro">Pedidos</span>
                     </h1>
@@ -82,29 +82,32 @@
                 <button id="close-cart" class="absolute top-4 right-4 text-4xl leading-none hover:rotate-90 transition-transform">&times;</button>
                 <h3 class="text-2xl font-bold mb-4">Tus Pedidos</h3>
                 
-                <div class="space-y-3">
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest font-bold mb-1 opacity-80">Nombre o Empresa:</label>
-                        <input type="text" id="cliente-nombre" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="Ej: Burguer King Caracas">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] uppercase tracking-widest font-bold mb-1 opacity-80">Número Telefónico:</label>
-                        <input type="tel" id="cliente-telefono" class="w-full p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="4121234567">
-                    </div>
+                <div class="space-y-2"> <div>
+                    <label class="block text-[9px] uppercase tracking-widest font-bold mb-0.5 opacity-80">Nombre o Empresa:</label>
+                    <input type="text" id="cliente-nombre" class="w-full p-2 text-sm rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/30 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="Ej: Burguer King">
                 </div>
+                <div>
+                    <label class="block text-[9px] uppercase tracking-widest font-bold mb-0.5 opacity-80">Número Telefónico:</label>
+                    <input type="tel" id="cliente-telefono" class="w-full p-2 text-sm rounded-md bg-white/10 border border-white/20 text-white placeholder:text-white/30 focus:bg-white focus:text-negro-suave transition-all outline-none" placeholder="4121234567">
+                </div>
+            <div>
+        <label class="block text-[9px] uppercase tracking-widest font-bold mb-0.5 opacity-80">Fecha de Entrega:</label>
+        <input type="date" id="fecha-entrega" class="w-full p-2 text-sm rounded-md bg-white/10 border border-white/20 text-white focus:bg-white focus:text-negro-suave transition-all outline-none">
+    </div>
+</div>
             </div>
 
-            <div id="carrito-items" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+            <div id="carrito-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50">
                 <p class="text-center text-gray-400 italic py-10">El carrito está vacío</p>
             </div>
 
-            <footer class="p-6 bg-white border-t border-marron-claro shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
-                    <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
+            <footer class="p-4 bg-white border-t border-marron-claro">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-500 font-medium text-xs">Total estimado:</span>
+                    <span id="total-precio" class="text-xl font-black text-marron-oscuro">$0.00</span>
                 </div>
-                <button class="btn-pagar w-full bg-whatsapp-green text-white py-4 rounded-xl font-bold text-lg flex justify-center items-center gap-3 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-green-200">
-                    <i class="fas fa-cloud-upload-alt"></i> Confirmar Pedido
+                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all">
+                    <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
                 </button>
             </footer>
         </aside>
@@ -143,6 +146,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
