@@ -81,6 +81,7 @@ function mostrarProductos(productos) {
         <div>
             <h3 class="text-md font-bold text-gray-800">${p.producto}</h3>
             <p class="text-[10px] text-gray-400 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
+                <p class="text-[14px] text-gray-500 mt-1">${p.topping}</p>
         </div>
         <div class="mt-4 flex items-center justify-between">
             <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
@@ -500,6 +501,7 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
