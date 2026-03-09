@@ -14,6 +14,7 @@ const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbys9AHsxXzAa1Qjr8Fu
 
 const inputNombre = document.getElementById('cliente-nombre');
 const inputTelefono = document.getElementById('cliente-telefono');
+const inputFecha = document.getElementById('fecha-entrega');
 const btnPagar = document.querySelector('.btn-pagar');
 
 
@@ -121,7 +122,8 @@ function agregarAlCarrito(id) {
                 especificacion: producto.especificacion,
                 precio: parseFloat(producto.precio),
                 topping: producto.topping,
-                cantidad: cantidad // Guardamos la cantidad elegida
+                cantidad: cantidad, // Guardamos la cantidad elegida
+                unidades_por_paquete: parseInt(producto.unidades_pqte)
             });
         }
         
@@ -141,29 +143,65 @@ function actualizarCarritoUI() {
     let itemsTotales = 0;
 
     carritoArray.forEach((item, index) => {
-        const subtotal = item.precio * item.cantidad;
-        totalAcumulado += subtotal;
-        itemsTotales += item.cantidad;
+    const subtotal = item.precio * item.cantidad;
+    const totalUnidades = item.cantidad * item.unidades_por_paquete;
+    
+    totalAcumulado += subtotal;
+    itemsTotales += item.cantidad;
 
-        const divItem = document.createElement('div');
-        divItem.className = 'carrito-item-render';
-        divItem.innerHTML = `
-            <div class="item-carrito-flex">
-                <div class="item-detalles">
-                    <p><strong>${item.cantidad}x</strong> ${item.producto} ${item.categoria}</p>
-                    <small>${item.topping} - $${subtotal.toFixed(2)}</small>
-                </div>
-                <button onclick="eliminarDelCarrito(${index})" class="btn-eliminar">
-                    <i class="fas fa-times"></i>
+    const divItem = document.createElement('div');
+    divItem.className = 'border-b border-gray-100 py-3';
+    divItem.innerHTML = `
+        <div class="flex flex-col gap-1">
+            <div class="flex justify-between items-start">
+                <p class="text-xs font-bold text-gray-800 leading-tight flex-1">
+                    ${item.producto}
+                </p>
+                <button onclick="eliminarDelCarrito(${index})" class="text-gray-300 hover:text-red-500 ml-2">
+                    <i class="fas fa-times text-[10px]"></i>
                 </button>
             </div>
-        `;
-        listaCarrito.appendChild(divItem);
-    });
+            
+            <div class="flex items-center justify-between mt-1">
+                <div class="flex items-center bg-gray-100 rounded-lg p-1">
+                    <button onclick="restarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">-</button>
+                    <span class="px-3 text-xs font-bold text-marron-oscuro">${item.cantidad}</span>
+                    <button onclick="sumarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">+</button>
+                </div>
+                
+                <div class="text-right">
+                    <p class="text-[14px] font-bold text-marron-oscuro bg-marron-claro/10 px-2 py-0.5 rounded">
+                        ${totalUnidades} unds. total
+                    </p>
+                    <p class="text-[12px] text-gray-500 mt-0.5">$${subtotal.toFixed(2)}</p>
+                </div>
+            </div>
+        </div>
+    `;
+    listaCarrito.appendChild(divItem);
+});
 
     totalPrecioElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
     cartCountElement.innerText = itemsTotales;
 }
+
+// Función para aumentar cantidad en el carrito
+function sumarCantidad(index) {
+    carritoArray[index].cantidad += 1;
+    actualizarCarritoUI();
+}
+
+// Función para restar cantidad en el carrito
+function restarCantidad(index) {
+    if (carritoArray[index].cantidad > 1) {
+        carritoArray[index].cantidad -= 1;
+    } else {
+        // Si es 1 y le dan a restar, lo eliminamos
+        eliminarDelCarrito(index);
+    }
+    actualizarCarritoUI();
+}
+
 
 // 3. Función para eliminar
 function eliminarDelCarrito(index) {
@@ -244,7 +282,8 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
                 "Cantidad": p.cantidad,
                 "Subtotal": (p.precio * p.cantidad).toFixed(2),
                 "Total_Pedido": totalGlobal,
-                "Fecha": fechaActual
+                "Fecha": fechaActual,
+                "Fecha_Entrega": document.getElementById('fecha-entrega').value || "No especificada"
             }));
 
 
@@ -283,19 +322,42 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
     }
 });
 
+// Bloquear fechas pasadas y establecer mañana por defecto si son más de las 9 AM
+document.addEventListener('DOMContentLoaded', () => {
+    const hoy = new Date();
+    // Si quieres aplicar la regla de las 9:00 AM automáticamente:
+    if (hoy.getHours() >= 9) {
+        hoy.setDate(hoy.getDate() + 1); // Si son después de las 9 AM, el mínimo será mañana
+    }
+    const fechaMin = hoy.toISOString().split('T')[0];
+    inputFecha.setAttribute('min', fechaMin);
+    inputFecha.value = fechaMin; // Valor por defecto
+
+    // Cargar fecha guardada si existe
+    const fechaGuardada = localStorage.getItem('sugarbread_fecha');
+    if (fechaGuardada) inputFecha.value = fechaGuardada;
+});
+
+// Guardar mientras eligen
+inputFecha.addEventListener('input', () => {
+    localStorage.setItem('sugarbread_fecha', inputFecha.value);
+});
+
 // Función para mostrar el modal con los datos corregida
 function mostrarResumenPedido(total, productos) {
     const contenedorResumen = document.getElementById('detalle-orden');
     const modal = document.getElementById('modal-resumen');
+    const fechaEntrega = document.getElementById('fecha-entrega').value; // Capturar fecha
     
     const nroOrden = Math.floor(Math.random() * 100) + 1;
     
-    let htmlProductos = `<h3 class="font-bold text-lg mb-2 text-marron-oscuro">Orden #${nroOrden}</h3>`;
+    let htmlProductos = `<h3 class="font-bold text-lg mb-2 text-marron-oscuro">Orden #${nroOrden}</h3>
+                        <p class="text-xs text-marron-oscuro/70 mb-3">📅 Entrega: <strong>${fechaEntrega}</strong></p>`;
     
     productos.forEach(p => {
         htmlProductos += `
-            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping})</span></p>
-        `;
+            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping})</span></p>`
+        ;
     });
     
     // Simplificamos los botones del modal para que no choquen con el diseño
@@ -344,6 +406,7 @@ function cerrarResumen() {
 function enviarPedidoWhatsApp() {
     const nombre = document.getElementById('cliente-nombre').value || "Cliente";
     const numeroTienda = "584126030518"; // <--- PON AQUÍ TU NÚMERO DE NEGOCIO
+    const fechaEntrega = document.getElementById('fecha-entrega').value || "No especificada"; // Definir fechaEntrega
     
     // Recuperamos los datos que se guardaron antes de limpiar el carrito
     // O puedes usar una variable global si no has limpiado el carrito aún
@@ -356,7 +419,8 @@ function enviarPedidoWhatsApp() {
 
     carritoArray.forEach(p => {
         mensaje += `• *${p.cantidad}x* ${p.producto}\n`;
-        mensaje += `  _${p.topping} (${p.especificacion})_\n`;
+        mensaje += `  _${p.topping} (${p.especificacion})_\n`
+        mensaje += `📅 *Fecha Entrega:* ${fechaEntrega}\n`;
     });
 
     const total = document.getElementById('total-precio').innerText;
@@ -377,4 +441,7 @@ function enviarPedidoWhatsApp() {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
+
+
 
