@@ -405,42 +405,62 @@ function cerrarResumen() {
 
 function enviarPedidoWhatsApp() {
     const nombre = document.getElementById('cliente-nombre').value || "Cliente";
-    const numeroTienda = "584126030518"; // <--- PON AQUÍ TU NÚMERO DE NEGOCIO
-    const fechaEntrega = document.getElementById('fecha-entrega').value || "No especificada"; // Definir fechaEntrega
+    const telefonoCliente = document.getElementById('cliente-telefono').value || "No indicado";
+    const fechaEntrega = document.getElementById('fecha-entrega').value || "No especificada";
+    const numeroTienda = "584126030518"; 
     
-    // Recuperamos los datos que se guardaron antes de limpiar el carrito
-    // O puedes usar una variable global si no has limpiado el carrito aún
     if (carritoArray.length === 0) return; 
 
-    let mensaje = `*NUEVO PEDIDO - SUGARBREAD* 🥖\n`;
-    mensaje += `--------------------------\n`;
-    mensaje += `👤 *Cliente:* ${nombre}\n`;
-    mensaje += `--------------------------\n`;
+    // Encabezado usando códigos Unicode para evitar errores de símbolos extraños ()
+    // \uD83E\uDD56 = Pan (🥖)
+    let mensaje = '*\uD83E\uDD56 NUEVO PEDIDO SUGARBREAD \uD83E\uDD56*\n';
+    mensaje += '_¡Hola! Quisiera realizar el siguiente pedido:_\n\n';
+    
+    mensaje += '*DATOS DEL CLIENTE*\n';
+    // \uD83D\uDC64 = Usuario (👤) | \uD83D\uDCDE = Teléfono (📞) | \uD83D\uDCC5 = Calendario (📅)
+    mensaje += '\uD83D\uDC64 *Nombre:* ' + nombre + '\n';
+    mensaje += '\uD83D\uDCDE *Teléfono:* ' + telefonoCliente + '\n';
+    mensaje += '\uD83D\uDCC5 *Fecha de Entrega:* ' + fechaEntrega + '\n';
+    mensaje += '-------------------------------------------\n\n';
+
+    mensaje += '*DETALLE DE LA ORDEN:*\n';
+
+    let totalUnidadesPan = 0;
 
     carritoArray.forEach(p => {
-        mensaje += `• *${p.cantidad}x* ${p.producto}\n`;
-        mensaje += `  _${p.topping} (${p.especificacion})_\n`
-        mensaje += `📅 *Fecha Entrega:* ${fechaEntrega}\n`;
+        const totalU = p.cantidad * p.unidades_por_paquete;
+        totalUnidadesPan += totalU;
+        
+        // \u2705 = Check verde (✅)
+        mensaje += '\u2705 *' + p.cantidad + ' pqte(s)* - ' + p.producto + '\n';
+        mensaje += '   • Topping: ' + p.topping + '\n';
+        mensaje += '   • Unidades: ' + totalU + ' unds.\n\n';
     });
 
-    const total = document.getElementById('total-precio').innerText;
-    mensaje += `--------------------------\n`;
-    mensaje += `💰 *TOTAL A PAGAR:* ${total}\n`;
-    mensaje += `--------------------------\n`;
-    mensaje += `_Por favor, confírmame la recepción de este pedido._`;
+    const totalDinero = document.getElementById('total-precio').innerText;
+    
+    mensaje += '-------------------------------------------\n';
+    // \uD83D\uDCE6 = Caja (📦) | \uD83D\uDCB0 = Bolsa dinero (💰)
+    mensaje += '\uD83D\uDCE6 *TOTAL PANES:* ' + totalUnidadesPan + ' unidades\n';
+    mensaje += '\uD83D\uDCB0 *TOTAL ESTIMADO:* ' + totalDinero + '\n';
+    mensaje += '-------------------------------------------\n\n';
+    
+    mensaje += '_Quedo atento a su confirmación. ¡Muchas gracias!_';
 
-    // Codificar el mensaje para URL
+    // Codificar y abrir
     const mensajeURL = encodeURIComponent(mensaje);
-    const urlWhatsApp = `https://wa.me/${numeroTienda}?text=${mensajeURL}`;
+    const urlWhatsApp = 'https://wa.me/' + numeroTienda + '?text=' + mensajeURL;
 
-    // Abrir en una pestaña nueva
     window.open(urlWhatsApp, '_blank');
-    carritoArray = []; // Limpiar el carrito después de enviar
+    
+    // Limpiar después de enviar
+    carritoArray = []; 
     actualizarCarritoUI();
 }
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
