@@ -1,5 +1,3 @@
-
-
 // ==========================================================================
 // CONFIGURACIÓN Y SELECTORES
 // ==========================================================================
@@ -72,7 +70,7 @@ function mostrarProductos(productos) {
         card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
     <div class="relative overflow-hidden rounded-t-2xl">
-        <img src="Logo.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="imagenes/HB-SM-01.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
         <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm">
             ${p.unidades_pqte} unds
         </span>
@@ -81,27 +79,56 @@ function mostrarProductos(productos) {
         <div>
             <h3 class="text-md font-bold text-gray-800">${p.producto}  (${p.medida_cm} cm)</h3>
             <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
-                <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
-
+            <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
         </div>
-        <div class="mt-4 flex items-center justify-between">
+        
+        <div class="mt-4 flex items-end justify-between">
             <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
-            <div class="flex gap-1">
-                 <input type="number" id="cant-${p.id}" value="1" min="1" class="w-10 text-xs border-none bg-crema rounded-md text-center font-bold outline-none">
-                 <button onclick="agregarAlCarrito('${p.id}', this)" class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
-                    <i class="fas fa-cart-plus text-sm"></i>
-                 </button>
+            
+            <div class="flex items-center gap-2">
+                <div class="flex flex-col items-end">
+                    <label for="cant-${p.id}" class="text-[10px] text-gray-400 font-bold uppercase mb-1">Cant. Paquetes</label>
+                    <div class="flex gap-1">
+                        <input type="number" id="cant-${p.id}" value="1" min="1" 
+                               class="w-12 text-xs border-none bg-crema rounded-md text-center font-bold outline-none py-1">
+                        <button onclick="agregarAlCarrito('${p.id}', this)" 
+                                class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
+                            <i class="fas fa-cart-plus text-sm"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 `;
         contenedor.appendChild(card);
     });
+    
 }
 
 // ==========================================================================
 // 3. LÓGICA DEL CARRITO
 // ==========================================================================
+
+
+function mostrarNotificacion(mensaje) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-marron-oscuro text-white px-6 py-3 rounded-full shadow-2xl z-[100] transition-all duration-300 transform translate-y-10 opacity-0 text-sm font-bold';
+    toast.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
+    
+    document.body.appendChild(toast);
+
+    // Animación de entrada
+    setTimeout(() => {
+        toast.classList.remove('translate-y-10', 'opacity-0');
+    }, 10);
+
+    // Desaparecer después de 2 segundos
+    setTimeout(() => {
+        toast.classList.add('translate-y-10', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+    }, 2000);
+}
 
 // 1. Función para agregar (con validación de ID)
 function agregarAlCarrito(id, boton) {
@@ -114,9 +141,15 @@ function agregarAlCarrito(id, boton) {
         // Buscamos si el producto ya está en el carrito para sumar la cantidad
         const itemExistente = carritoArray.find(item => item.id === id);
         // Disparar la animación si el botón existe
-        if (boton) {
-            animarVueloCarrito(boton);
-        }
+        if (boton) {animarVueloCarrito(boton);}
+
+        mostrarNotificacion(`${cantidad} pqte(s) de ${producto.producto} agregados`);
+
+        const btnCarrito = document.getElementById('ver-carrito');
+        btnCarrito.classList.add('ring-4', 'ring-marron-claro', 'scale-110');
+        setTimeout(() => {
+            btnCarrito.classList.remove('ring-4', 'ring-marron-claro', 'scale-110');
+        }, 500);
 
         if (itemExistente) {
             itemExistente.cantidad += cantidad;
@@ -126,6 +159,7 @@ function agregarAlCarrito(id, boton) {
                 categoria: producto.categoria,
                 producto: producto.producto,
                 peso: producto.peso_gr,
+                medida_cm: producto.medida_cm,
                 especificacion: producto.especificacion,
                 precio: parseFloat(producto.precio),
                 topping: producto.topping,
@@ -135,7 +169,7 @@ function agregarAlCarrito(id, boton) {
         }
         
         actualizarCarritoUI();
-        // Opcional: resetear el input a 1 después de agregar
+        // Opcional: resetear el input a 0 después de agregar
         inputCantidad.value = 1;
     }
 }
@@ -161,8 +195,8 @@ function actualizarCarritoUI() {
     divItem.innerHTML = `
         <div class="flex flex-col gap-1">
             <div class="flex justify-between items-start">
-                <p class="text-xs font-bold text-gray-800 leading-tight flex-1">
-                    ${item.producto}
+                <p class="text-xs font-bold text-gray-800 leading-tight flex-.5">
+                    ${item.producto} (${item.medida_cm} cm)  - <span class="text-gray-500 font-medium">${item.topping}</span>
                 </p>
                 <button onclick="eliminarDelCarrito(${index})" class="text-gray-600 hover:text-red-600 ml-2">
                     <i class="fas fa-times text-[16px]"></i>
@@ -174,6 +208,7 @@ function actualizarCarritoUI() {
                     <button onclick="restarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">-</button>
                     <span class="px-3 text-xs font-bold text-marron-oscuro">${item.cantidad}</span>
                     <button onclick="sumarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">+</button>
+                    <span class="text-gray-500 font-medium">  Paquetes</span>
                 </div>
                 
                 <div class="text-right">
@@ -502,11 +537,3 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
-
-
-
-
-
-
-
