@@ -1,3 +1,5 @@
+
+
 // ==========================================================================
 // CONFIGURACIÓN Y SELECTORES
 // ==========================================================================
@@ -145,11 +147,11 @@ function agregarAlCarrito(id, boton) {
 
         mostrarNotificacion(`${cantidad} pqte(s) de ${producto.producto} agregados`);
 
+        
+
         const btnCarrito = document.getElementById('ver-carrito');
-        btnCarrito.classList.add('ring-4', 'ring-marron-claro', 'scale-110');
-        setTimeout(() => {
-            btnCarrito.classList.remove('ring-4', 'ring-marron-claro', 'scale-110');
-        }, 500);
+        btnCarrito.classList.add('shake-anim', 'bg-marron-claro');
+        setTimeout(() => btnCarrito.classList.remove('shake-anim', 'bg-marron-claro'), 400);
 
         if (itemExistente) {
             itemExistente.cantidad += cantidad;
@@ -221,6 +223,8 @@ function actualizarCarritoUI() {
         </div>
     `;
     listaCarrito.appendChild(divItem);
+    const itemsContainer = document.getElementById('carrito-items');
+    itemsContainer.scrollTop = itemsContainer.scrollHeight;
 });
 
     totalPrecioElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
@@ -537,4 +541,10 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
+
+
+
+cargarProductos(); // Carga inicial de productos al abrir la página
+
 
