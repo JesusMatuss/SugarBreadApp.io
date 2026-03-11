@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SugarBread | Pedidos Online</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,6 +23,18 @@
           }
         }
     </script>
+
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake-anim { animation: shake 0.4s ease-in-out; }
+        
+        /* Para el toast */
+        .toast-visible { transform: translate(-50%, 0) !important; opacity: 1 !important; }
+    </style>
 </head>
 <body class="bg-crema text-negro-suave font-sans antialiased">
 
@@ -102,13 +114,14 @@
             </div>
 
             <footer class="p-4 bg-white border-t border-marron-claro">
+                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all">
+                        <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
+                </button>
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-gray-500 font-medium text-xs">Total estimado:</span>
                     <span id="total-precio" class="text-xl font-black text-marron-oscuro">$0.00</span>
                 </div>
-                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all">
-                    <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
-                </button>
+                
             </footer>
         </aside>
 
@@ -146,5 +159,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
