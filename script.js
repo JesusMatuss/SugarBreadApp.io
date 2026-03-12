@@ -72,7 +72,7 @@ function mostrarProductos(productos) {
         card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
     <div class="relative overflow-hidden rounded-t-2xl">
-        <img src="Fondo.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
+        <img src="Logo.png" onerror="this.src='imagenes/placeholder-pan.jpg'" alt="${p.producto}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
         <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm">
             ${p.unidades_pqte} unds
         </span>
@@ -329,7 +329,16 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
                 "Subtotal": (p.precio * p.cantidad).toFixed(2),
                 "Total_Pedido": totalGlobal,
                 "Fecha": fechaActual,
-                "Fecha_Entrega": document.getElementById('fecha-entrega').value || "No especificada"
+                "Fecha_Entrega": (() => {
+                    const fechaElegida = document.getElementById('fecha-entrega').value;
+                    if (!fechaElegida) return "No especificada";
+
+                    const ahora = new Date();
+                    // Obtenemos HH:MM:SS (formato 24h)
+                    const horaActual = ahora.toTimeString().split(' ')[0]; 
+    
+                    return `${fechaElegida} ${horaActual}`;
+                })()
             }));
 
 
@@ -541,11 +550,5 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
-
-
-
-cargarProductos(); // Carga inicial de productos al abrir la página
-
 
 
