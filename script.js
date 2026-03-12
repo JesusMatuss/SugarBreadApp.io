@@ -381,8 +381,8 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
 document.addEventListener('DOMContentLoaded', () => {
     const hoy = new Date();
     // Si quieres aplicar la regla de las 9:00 AM automáticamente:
-    if (hoy.getHours() <= 9) {
-        hoy.setDate(hoy.getDate()-1); // Si son después de las 9 AM, el mínimo será mañana
+    if (hoy.getHours() >= 9) {
+        hoy.setDate(hoy.getDate()+1); // Si son después de las 9 AM, el mínimo será mañana
     }
     const fechaMin = hoy.toISOString().split('T')[0];
     inputFecha.setAttribute('min', fechaMin);
@@ -550,6 +550,7 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
