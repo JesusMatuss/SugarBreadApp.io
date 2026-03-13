@@ -82,6 +82,9 @@ function mostrarProductos(productos) {
             <h3 class="text-md font-bold text-gray-800">${p.producto}  (${p.medida_cm} cm)</h3>
             <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
             <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
+            <p class="inline-block px-2 py-0.5 bg-amber-900/10 text-amber-900 text-[14px] mt-1 font-medium rounded-md backdrop-blur-[2px]">
+            ${p.especificacion}
+            </p>
         </div>
         
         <div class="mt-4 flex items-end justify-between">
@@ -198,7 +201,7 @@ function actualizarCarritoUI() {
         <div class="flex flex-col gap-1">
             <div class="flex justify-between items-start">
                 <p class="text-xs font-bold text-gray-800 leading-tight flex-.5">
-                    ${item.producto} (${item.medida_cm} cm)  - <span class="text-gray-500 font-medium">${item.topping}</span>
+                    ${item.producto} (${item.medida_cm} cm)  - <span class="text-gray-500 font-medium">${item.topping} (${item.especificacion})</span>
                 </p>
                 <button onclick="eliminarDelCarrito(${index})" class="text-gray-600 hover:text-red-600 ml-2">
                     <i class="fas fa-times text-[16px]"></i>
@@ -550,6 +553,7 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
