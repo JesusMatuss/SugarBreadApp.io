@@ -414,7 +414,7 @@ function mostrarResumenPedido(total, productos) {
     
     productos.forEach(p => {
         htmlProductos += `
-            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping})</span></p>`
+            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping}) (${p.especificacion})</span></p>`
         ;
     });
     
@@ -553,6 +553,7 @@ function animarVueloCarrito(botonElement) {
 
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
 
 
 
