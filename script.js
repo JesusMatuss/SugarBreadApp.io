@@ -317,7 +317,9 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
 
             // Calculamos el total global para el registro
             const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
-            const fechaActual = new Date().toLocaleString();
+            const fechaActual = new Date().toLocaleString('es-ES', { 
+                hour12: false 
+            });
 
             // Preparamos los datos. SheetDB espera un array de objetos llamado "data"
             // Registraremos cada item como una fila independiente para mejor control
