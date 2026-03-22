@@ -22,17 +22,6 @@
     "precio": "7.08"
   },
   {
-    "id": "HB-SM-03-N2",
-    "categoria": "Hamburguesa",
-    "producto": "Mini Hamburguesa",
-    "especificacion": "Sin Molde",
-    "peso_gr": "50",
-    "medida_cm": "8",
-    "topping": "AJON/SESAMO",
-    "unidades_pqte": "24",
-    "precio": "7.08"
-  },
-  {
     "id": "HB-SM-06-N1",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
