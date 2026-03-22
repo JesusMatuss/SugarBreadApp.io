@@ -10,7 +10,7 @@ const totalPrecioElemento = document.getElementById('total-precio');
 const cartCountElement = document.getElementById('cart-count');
 const sidebarCarrito = document.getElementById('carrito-sidebar');
 const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbwiGk7Hff6dOBnc5iskRrWhrkgoscwOYhKktUWAN1iWtWPwm6QM2hnpr6kQGScXcHdl/exec';
-
+let enlaceGoogleMaps = ""; // Variable global para guardar el link de Google Maps generado
 
 const inputNombre = document.getElementById('cliente-nombre');
 const inputTelefono = document.getElementById('cliente-telefono');
@@ -250,6 +250,7 @@ function actualizarCarritoUI() {
     `;
     listaCarrito.appendChild(divItem);
     const itemsContainer = document.getElementById('carrito-items');
+    
 });
 
     totalPrecioElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
@@ -513,9 +514,19 @@ function enviarPedidoWhatsApp() {
     // \uD83D\uDE1A = Moto (🛵) | \uD83C\uDFE2 = Edificio (🏢) | \uD83C\uDFEA = Tienda (🏪)
     if (quiereDelivery) {
         mensaje += '\uD83D\uDE1A *Tipo:* Servicio de Delivery\n';
-        mensaje += '\uD83C\uDFE2 *Dirección:* ' + (direccion || "No especificada") + '\n';
+    
+        // Si tenemos enlace de GPS lo ponemos primero
+    if (enlaceGoogleMaps !== "") {
+        mensaje += '\uD83D\uDCCD *Link Maps:* ' + enlaceGoogleMaps + '\n';
+    }
+    
+    // Si escribió algo en el cuadro de texto (puntos de referencia), lo añadimos
+    const detallesExtras = document.getElementById('direccion-texto').value;
+    if (detallesExtras) {
+        mensaje += '\uD83C\uDFE2 *Referencia:* ' + detallesExtras + '\n';
+    }
     } else {
-        mensaje += '\uD83C\uDFEA *Tipo:* Retiro en Local\n';
+    mensaje += '\uC3EA *Tipo:* Retiro en Local\n';
     }
     
     mensaje += '-------------------------------------------\n\n';
@@ -616,9 +627,36 @@ function toggleDireccion() {
     }
 }
 
+function obtenerUbicacion() {
+    const btnTexto = document.getElementById('texto-gps');
+    
+    if (!navigator.geolocation) {
+        alert("Tu navegador no soporta geolocalización");
+        return;
+    }
+
+    btnTexto.innerText = "Localizando...";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            // Creamos el enlace de Google Maps
+            enlaceGoogleMaps = `https://www.google.com/maps?q=${lat},${lon}`;
+            
+            btnTexto.innerText = "¡Ubicación capturada! ✅";
+            document.getElementById('direccion-texto').placeholder = "Ubicación GPS fijada. Puedes añadir detalles extras aquí (ej: Casa azul).";
+        },
+        (error) => {
+            console.error(error);
+            btnTexto.innerText = "Error al obtener ubicación";
+            alert("No pudimos obtener tu ubicación. Por favor, escríbela manualmente.");
+        }
+    );
+}
+
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
 
 
 
