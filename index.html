@@ -114,15 +114,40 @@
             </div>
 
             <footer class="p-4 bg-white border-t border-marron-claro">
-                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all">
-                        <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
-                </button>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-gray-500 font-medium text-xs">Total estimado:</span>
-                    <span id="total-precio" class="text-xl font-black text-marron-oscuro">$0.00</span>
-                </div>
-                
-            </footer>
+
+    <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all active:scale-95">
+        <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
+    </button>
+
+
+    <!-- Opción de Delivery -->
+    <div class="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+        <label class="flex items-center justify-between cursor-pointer">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-motorcycle text-marron-oscuro"></i>
+                <span class="text-sm font-bold text-gray-700">¿Desea Delivery?</span>
+            </div>
+            <input type="checkbox" id="check-delivery" class="sr-only peer" onchange="toggleDireccion()">
+            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-marron-oscuro relative"></div>
+        </label>
+
+        <!-- Campo de dirección oculto por defecto -->
+        <div id="campo-direccion" class="hidden mt-3 animate-fade-in">
+            <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400">Dirección de Entrega:</label>
+            <textarea id="direccion-texto" rows="2" 
+                class="w-full p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-marron-oscuro outline-none transition-all" 
+                placeholder="Indique calle, edificio o punto de referencia..."></textarea>
+        </div>
+
+        <!-- Total Estimado -->
+        <div class="flex justify-between items-center mb-4 px-1">
+            <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
+            <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
+        </div>
+    </div>
+    
+    
+</footer>
         </aside>
 
         <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-[90] hidden backdrop-blur-sm"></div>
@@ -169,6 +194,9 @@
     </div>  
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
     <script src="script.js"></script>
 </body>
 </html>
