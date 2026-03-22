@@ -133,11 +133,21 @@
 
         <!-- Campo de dirección oculto por defecto -->
         <div id="campo-direccion" class="hidden mt-3 animate-fade-in">
-            <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400">Dirección de Entrega:</label>
+    <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Ubicación de Entrega</label>
+    
+    <div class="flex flex-col gap-2">
+        <!-- Botón para Capturar GPS -->
+        <button type="button" onclick="obtenerUbicacion()" class="w-full py-2 bg-blue-500 text-white text-xs font-bold rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
+            <i class="fas fa-map-marker-alt"></i> <span id="texto-gps">Enviar mi ubicación actual</span>
+        </button>
+        
+        <div class="relative">
             <textarea id="direccion-texto" rows="2" 
                 class="w-full p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-marron-oscuro outline-none transition-all" 
-                placeholder="Indique calle, edificio o punto de referencia..."></textarea>
+                placeholder="O escribe la dirección aquí..."></textarea>
         </div>
+    </div>
+</div>
 
         <!-- Total Estimado -->
         <div class="flex justify-between items-center mb-4 px-1">
