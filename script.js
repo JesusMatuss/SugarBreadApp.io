@@ -250,7 +250,6 @@ function actualizarCarritoUI() {
     `;
     listaCarrito.appendChild(divItem);
     const itemsContainer = document.getElementById('carrito-items');
-    itemsContainer.scrollTop = itemsContainer.scrollHeight;
 });
 
     totalPrecioElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
