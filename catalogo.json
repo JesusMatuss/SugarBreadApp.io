@@ -11,17 +11,6 @@
     "precio": "5.61"
   },
   {
-    "id": "HB-SM-02",
-    "categoria": "Hamburguesa",
-    "producto": "Mini Hamburguesa",
-    "especificacion": "Sin Molde",
-    "peso_gr": "50",
-    "medida_cm": "8",
-    "topping": "Orégano",
-    "unidades_pqte": "24",
-    "precio": "6.11"
-  },
-  {
     "id": "HB-SM-03",
     "categoria": "Hamburguesa",
     "producto": "Mini Hamburguesa",
@@ -33,17 +22,6 @@
     "precio": "7.08"
   },
   {
-    "id": "HB-SM-03-N1",
-    "categoria": "Hamburguesa",
-    "producto": "Mini Hamburguesa",
-    "especificacion": "Sin Molde",
-    "peso_gr": "50",
-    "medida_cm": "8",
-    "topping": "AJON/OREG",
-    "unidades_pqte": "24",
-    "precio": "6.11"
-  },
-  {
     "id": "HB-SM-03-N2",
     "categoria": "Hamburguesa",
     "producto": "Mini Hamburguesa",
@@ -51,17 +29,6 @@
     "peso_gr": "50",
     "medida_cm": "8",
     "topping": "AJON/SESAMO",
-    "unidades_pqte": "24",
-    "precio": "7.08"
-  },
-  {
-    "id": "HB-SM-03-N3",
-    "categoria": "Hamburguesa",
-    "producto": "Mini Hamburguesa",
-    "especificacion": "Sin Molde",
-    "peso_gr": "50",
-    "medida_cm": "8",
-    "topping": "MIXTO",
     "unidades_pqte": "24",
     "precio": "7.08"
   },
@@ -77,39 +44,6 @@
     "precio": "3.83"
   },
   {
-    "id": "HB-SM-06-N2",
-    "categoria": "Hamburguesa",
-    "producto": "Hamburguesa pequeña S",
-    "especificacion": "Sin Molde",
-    "peso_gr": "60",
-    "medida_cm": "11",
-    "topping": "Orégano",
-    "unidades_pqte": "15",
-    "precio": "4.11"
-  },
-  {
-    "id": "HB-SM-06-N3",
-    "categoria": "Hamburguesa",
-    "producto": "Hamburguesa pequeña S",
-    "especificacion": "Sin Molde",
-    "peso_gr": "60",
-    "medida_cm": "11",
-    "topping": "Sésamo Negro",
-    "unidades_pqte": "15",
-    "precio": "4.84"
-  },
-  {
-    "id": "HB-SM-06-N4",
-    "categoria": "Hamburguesa",
-    "producto": "Hamburguesa pequeña S",
-    "especificacion": "Sin Molde",
-    "peso_gr": "60",
-    "medida_cm": "11",
-    "topping": "AJON/OREG",
-    "unidades_pqte": "15",
-    "precio": "4.11"
-  },
-  {
     "id": "HB-SM-06-N5",
     "categoria": "Hamburguesa",
     "producto": "Hamburguesa pequeña S",
@@ -117,17 +51,6 @@
     "peso_gr": "60",
     "medida_cm": "11",
     "topping": "AJON/SESAMO",
-    "unidades_pqte": "15",
-    "precio": "4.84"
-  },
-  {
-    "id": "HB-SM-06-N6",
-    "categoria": "Hamburguesa",
-    "producto": "Hamburguesa pequeña S",
-    "especificacion": "Sin Molde",
-    "peso_gr": "60",
-    "medida_cm": "11",
-    "topping": "MIXTO",
     "unidades_pqte": "15",
     "precio": "4.84"
   },
