@@ -9,7 +9,7 @@ const listaCarrito = document.getElementById('carrito-items'); // Corregido el I
 const totalPrecioElemento = document.getElementById('total-precio');
 const cartCountElement = document.getElementById('cart-count');
 const sidebarCarrito = document.getElementById('carrito-sidebar');
-const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbys9AHsxXzAa1Qjr8Fu2W-IualLdQ6Bewf6ThXI5fTylPGyapMIvIxuI20xVupDmjCP/exec';
+const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbwiGk7Hff6dOBnc5iskRrWhrkgoscwOYhKktUWAN1iWtWPwm6QM2hnpr6kQGScXcHdl/exec';
 
 
 const inputNombre = document.getElementById('cliente-nombre');
@@ -114,6 +114,24 @@ function mostrarProductos(productos) {
         contenedor.appendChild(card);
     });
     
+}
+
+
+// Función para manejar la expansión
+function expandirImagen(src) {
+    const modal = document.getElementById('modal-foto');
+    const modalImg = document.getElementById('modal-img');
+    modalImg.src = src;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
+}
+
+function cerrarImagen() {
+    const modal = document.getElementById('modal-foto');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = 'auto'; // Reactiva el scroll
 }
 
 // ==========================================================================
@@ -322,9 +340,7 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
 
             // Calculamos el total global para el registro
             const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
-            const fechaActual = new Date().toLocaleString('es-ES', { 
-                hour12: false 
-            });
+            const fechaActual = new Date().toLocaleString();
 
             // Preparamos los datos. SheetDB espera un array de objetos llamado "data"
             // Registraremos cada item como una fila independiente para mejor control
@@ -348,7 +364,8 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
                     const horaActual = ahora.toTimeString().split(' ')[0]; 
     
                     return `${fechaElegida} ${horaActual}`;
-                })()
+                })(),
+                "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local' 
             }));
 
 
@@ -473,6 +490,11 @@ function enviarPedidoWhatsApp() {
     const telefonoCliente = document.getElementById('cliente-telefono').value || "No indicado";
     const fechaEntrega = document.getElementById('fecha-entrega').value || "No especificada";
     const numeroTienda = "584126030518"; 
+
+    // CAPTURAR DATOS DE DELIVERY
+    const quiereDelivery = document.getElementById('check-delivery').checked;
+    const direccion = document.getElementById('direccion-texto').value;
+    
     
     if (carritoArray.length === 0) return; 
 
@@ -488,6 +510,17 @@ function enviarPedidoWhatsApp() {
     mensaje += '\uD83D\uDCC5 *Fecha de Entrega:* ' + fechaEntrega + '\n';
     mensaje += '-------------------------------------------\n\n';
 
+    // SECCIÓN DE ENTREGA / DELIVERY
+    // \uD83D\uDE1A = Moto (🛵) | \uD83C\uDFE2 = Edificio (🏢) | \uD83C\uDFEA = Tienda (🏪)
+    if (quiereDelivery) {
+        mensaje += '\uD83D\uDE1A *Tipo:* Servicio de Delivery\n';
+        mensaje += '\uD83C\uDFE2 *Dirección:* ' + (direccion || "No especificada") + '\n';
+    } else {
+        mensaje += '\uD83C\uDFEA *Tipo:* Retiro en Local\n';
+    }
+    
+    mensaje += '-------------------------------------------\n\n';
+
     mensaje += '*DETALLE DE LA ORDEN:*\n';
 
     let totalUnidadesPan = 0;
@@ -500,9 +533,16 @@ function enviarPedidoWhatsApp() {
         mensaje += '\u2705 *' + p.cantidad + ' pqte(s)* - ' + p.producto + '\n';
         mensaje += '   • Topping: ' + p.topping + '\n';
         mensaje += '   • Unidades: ' + totalU + ' unds.\n\n';
+
+        
     });
 
     const totalDinero = document.getElementById('total-precio').innerText;
+
+    // Nota sobre el costo de envío
+    if (quiereDelivery) {
+        mensaje += '_* El costo del delivery se acordará por este chat._\n';
+    }
     
     mensaje += '-------------------------------------------\n';
     // \uD83D\uDCE6 = Caja (📦) | \uD83D\uDCB0 = Bolsa dinero (💰)
@@ -521,6 +561,11 @@ function enviarPedidoWhatsApp() {
     // Limpiar después de enviar
     carritoArray = []; 
     actualizarCarritoUI();
+
+    // Resetear campos de delivery
+    document.getElementById('check-delivery').checked = false;
+    document.getElementById('campo-direccion').classList.add('hidden');
+    document.getElementById('direccion-texto').value = '';
 }
 
 function animarVueloCarrito(botonElement) {
@@ -558,11 +603,22 @@ function animarVueloCarrito(botonElement) {
     }, 850);
 }
 
+function toggleDireccion() {
+    const check = document.getElementById('check-delivery');
+    const campo = document.getElementById('campo-direccion');
+    
+    if (check.checked) {
+        campo.classList.remove('hidden');
+        // Opcional: Hacer scroll hacia abajo para asegurar que el usuario vea el campo
+        document.getElementById('carrito-items').scrollTo({ top: 1000, behavior: 'smooth' });
+    } else {
+        campo.classList.add('hidden');
+        document.getElementById('direccion-texto').value = ''; // Limpiar si se desmarca
+    }
+}
+
 
 cargarProductos(); // Carga inicial de productos al abrir la página
-
-
-
 
 
 
