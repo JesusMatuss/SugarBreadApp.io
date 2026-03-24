@@ -30,7 +30,7 @@
     "medida_cm": "11",
     "topping": "Ajonjolí",
     "unidades_pqte": "15",
-    "precio": "3.83"
+    "precio": "3.27"
   },
   {
     "id": "HB-SM-06-N5",
@@ -41,7 +41,7 @@
     "medida_cm": "11",
     "topping": "AJON/SESAMO",
     "unidades_pqte": "15",
-    "precio": "4.84"
+    "precio": "4.32"
   },
   {
     "id": "HB-SM-04",
@@ -1116,7 +1116,7 @@
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
     "peso_gr": "100",
-    "medida_cm": "14",
+    "medida_cm": "15",
     "topping": "Ajonjolí",
     "unidades_pqte": "6",
     "precio": "2.12"
@@ -1127,7 +1127,7 @@
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
     "peso_gr": "100",
-    "medida_cm": "14",
+    "medida_cm": "15",
     "topping": "Orégano",
     "unidades_pqte": "6",
     "precio": "2.37"
@@ -1137,8 +1137,8 @@
     "categoria": "Deli (Pepito)",
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
-    "peso_gr": "110",
-    "medida_cm": "14",
+    "peso_gr": "100",
+    "medida_cm": "15",
     "topping": "Sésamo Negro",
     "unidades_pqte": "6",
     "precio": "2.62"
@@ -1148,8 +1148,8 @@
     "categoria": "Deli (Pepito)",
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
-    "peso_gr": "110",
-    "medida_cm": "14",
+    "peso_gr": "100",
+    "medida_cm": "15",
     "topping": "AJON/OREG",
     "unidades_pqte": "6",
     "precio": "2.37"
@@ -1159,8 +1159,8 @@
     "categoria": "Deli (Pepito)",
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
-    "peso_gr": "110",
-    "medida_cm": "14",
+    "peso_gr": "100",
+    "medida_cm": "15",
     "topping": "AJON/SESAMO",
     "unidades_pqte": "6",
     "precio": "2.62"
@@ -1170,8 +1170,8 @@
     "categoria": "Deli (Pepito)",
     "producto": "Deli Baguette",
     "especificacion": "Baguette",
-    "peso_gr": "110",
-    "medida_cm": "14",
+    "peso_gr": "100",
+    "medida_cm": "15",
     "topping": "MIXTO",
     "unidades_pqte": "6",
     "precio": "2.62"
