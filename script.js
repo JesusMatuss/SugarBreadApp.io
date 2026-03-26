@@ -478,10 +478,9 @@ function cerrarResumen() {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
 
-    // Opcional: Preguntar si quiere enviar por WhatsApp al cerrar
-    if(confirm("¿Deseas enviar el resumen de tu pedido por WhatsApp para agilizar la atención?")) {
-        enviarPedidoWhatsApp();
-    }
+    
+    alert("¡Se enviara su pedido por Whasssap!");
+    enviarPedidoWhatsApp();
 }
 
 
