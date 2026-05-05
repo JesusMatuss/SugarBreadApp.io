@@ -477,11 +477,11 @@
     "categoria": "Perro",
     "producto": "Perro Comercial E",
     "especificacion": "Economico",
-    "peso_gr": "45",
+    "peso_gr": "60",
     "medida_cm": "16",
     "topping": "Sin Topping",
     "unidades_pqte": "60",
-    "precio": "6.80"
+    "precio": "6"
   },
   {
     "id": "PC-COM-01",
