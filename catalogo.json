@@ -484,6 +484,17 @@
     "precio": "6"
   },
   {
+    "id": "PC-Mini",
+    "categoria": "Perro",
+    "producto": "Mini Perros",
+    "especificacion": "Regular",
+    "peso_gr": "50",
+    "medida_cm": "12",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "20",
+    "precio": "2.60"
+  },
+  {
     "id": "PC-COM-01",
     "categoria": "Perro",
     "producto": "Perro Comercial",
