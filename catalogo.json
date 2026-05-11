@@ -484,6 +484,17 @@
     "precio": "6"
   },
   {
+    "id": "PC-ESTT",
+    "categoria": "Perro",
+    "producto": "Perro Comercial E2",
+    "especificacion": "Economico",
+    "peso_gr": "70",
+    "medida_cm": "16",
+    "topping": "Sin Topping",
+    "unidades_pqte": "20",
+    "precio": "4.54"
+  },
+  {
     "id": "PC-Mini",
     "categoria": "Perro",
     "producto": "Mini Perros",
