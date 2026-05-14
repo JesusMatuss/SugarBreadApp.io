@@ -492,7 +492,7 @@
     "medida_cm": "16",
     "topping": "Sin Topping",
     "unidades_pqte": "20",
-    "precio": "4.54"
+    "precio": "2.5"
   },
   {
     "id": "PC-Mini",
@@ -1159,7 +1159,7 @@
     "categoria": "Pan de Papa",
     "producto": "Hamburguesa Mediana MP",
     "especificacion": "Con Molde",
-    "peso_gr": "85",
+    "peso_gr": "80",
     "medida_cm": "11",
     "topping": "Ajonjolí",
     "unidades_pqte": "6",
@@ -1170,7 +1170,7 @@
     "categoria": "Pan de Papa",
     "producto": "Hamburguesa Mediana MP",
     "especificacion": "Con Molde",
-    "peso_gr": "85",
+    "peso_gr": "80",
     "medida_cm": "11",
     "topping": "Sésamo Negro",
     "unidades_pqte": "6",
