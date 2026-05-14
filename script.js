@@ -92,7 +92,7 @@ function mostrarProductos(productos) {
                     <div class="flex items-center">
                         <i class="fas fa-info-circle text-amber-500 mr-3"></i>
                         <p class="text-amber-800 font-medium">
-                            El <strong>Pan de Papa</strong> estará disponible hoy después de la 1:00 PM para entregas del siguiente día.
+                            El <strong>Pan de Papa</strong> estará disponible para hacer su pedido a partir de la 1:00 PM hasta las 8:30 AM del dia siguiente.
                         </p>
                     </div>
                 `;
