@@ -77,8 +77,8 @@ function mostrarProductos(productos) {
 
     productos.forEach(p => {
         // 3. Lógica de filtrado:
-        // Si el producto es "Pan de papa" y NO estamos en el horario, lo saltamos (return).
-        if (p.categoria === "Pan de papa" && !esHorarioPanPapa) {
+        // Si el producto es "Pan de Papa" y NO estamos en el horario, lo saltamos (return).
+        if (p.categoria === "Pan de Papa" && !esHorarioPanPapa) {
             return;
         }
 
