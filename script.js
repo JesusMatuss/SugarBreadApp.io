@@ -73,13 +73,33 @@ function mostrarProductos(productos) {
 
     // 2. Definimos si estamos en el horario restringido (1 pm a 8 am)
     // 13 = 1 PM, 8 = 8 AM
-    const esHorarioPanPapa = horaActual >= 13 || horaActual < 8;
+    const esHorarioPanPapa = horaActual >= 13.5 || horaActual < 8.5; // Usamos decimales para incluir el rango de 1:30 PM a 8:30 AM
+
+    // Variable para controlar que el mensaje se muestre solo una vez
+    let mensajeMostrado = false;
 
     productos.forEach(p => {
+
         // 3. Lógica de filtrado:
         // Si el producto es "Pan de Papa" y NO estamos en el horario, lo saltamos (return).
-        if (p.categoria === "Pan de Papa" && !esHorarioPanPapa) {
-            return;
+
+        if (p.categoria === "Pan de papa" && !esHorarioPanPapa) {
+            // Si es pan de papa y no es la hora, y aún no hemos avisado...
+            if (!mensajeMostrado) {
+                const aviso = document.createElement('div');
+                aviso.className = 'col-span-full bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-xl';
+                aviso.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-info-circle text-amber-500 mr-3"></i>
+                        <p class="text-amber-800 font-medium">
+                            El <strong>Pan de Papa</strong> estará disponible hoy después de la 1:00 PM para entregas del siguiente día.
+                        </p>
+                    </div>
+                `;
+                contenedor.appendChild(aviso);
+                mensajeMostrado = true; // Marcamos que ya se mostró el aviso
+            }
+            return; // Saltamos la creación de la tarjeta del producto
         }
 
         const card = document.createElement('article');
