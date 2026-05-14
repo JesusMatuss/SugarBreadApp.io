@@ -83,7 +83,7 @@ function mostrarProductos(productos) {
         // 3. Lógica de filtrado:
         // Si el producto es "Pan de Papa" y NO estamos en el horario, lo saltamos (return).
 
-        if (p.categoria === "Pan de papa" && !esHorarioPanPapa) {
+        if (p.categoria === "Pan de Papa" && !esHorarioPanPapa) {
             // Si es pan de papa y no es la hora, y aún no hemos avisado...
             if (!mensajeMostrado) {
                 const aviso = document.createElement('div');
