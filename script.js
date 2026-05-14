@@ -66,54 +66,65 @@ async function cargarProductos() {
 // ==========================================================================
 function mostrarProductos(productos) {
     contenedor.innerHTML = '';
+    
+    // 1. Obtenemos la hora actual (0-23)
+    const ahora = new Date();
+    const horaActual = ahora.getHours();
+
+    // 2. Definimos si estamos en el horario restringido (1 pm a 8 am)
+    // 13 = 1 PM, 8 = 8 AM
+    const esHorarioPanPapa = horaActual >= 13 || horaActual < 8;
+
     productos.forEach(p => {
+        // 3. Lógica de filtrado:
+        // Si el producto es "Pan de papa" y NO estamos en el horario, lo saltamos (return).
+        if (p.categoria === "Pan de papa" && !esHorarioPanPapa) {
+            return;
+        }
+
         const card = document.createElement('article');
-        // Clases de Tailwind para la tarjeta
         card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
         card.innerHTML = `
-    <div class="relative overflow-hidden rounded-t-2xl cursor-zoom-in">
-        <!-- Añadimos onclick para expandir -->
-        <img src="imagenes/${p.id}.webp" 
-             onclick="expandirImagen(this.src)"
-             onerror="this.src='imagenes/placeholder-pan.jpg'" 
-             alt="${p.producto}" 
-             class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
-        <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm pointer-events-none">
-            ${p.unidades_pqte} unds
-        </span>
-    </div>
-    <div class="p-4 flex flex-col justify-between flex-1">
-        <div>
-            <h3 class="text-md font-bold text-gray-800">${p.producto}  (${p.medida_cm} cm)</h3>
-            <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
-            <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
-            <p class="inline-block px-2 py-0.5 bg-amber-900/10 text-amber-900 text-[14px] mt-1 font-medium rounded-md backdrop-blur-[2px]">
-            ${p.especificacion}
-            </p>
-        </div>
-        
-        <div class="mt-4 flex items-end justify-between">
-            <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
-            
-            <div class="flex items-center gap-2">
-                <div class="flex flex-col items-end">
-                    <label for="cant-${p.id}" class="text-[10px] text-gray-400 font-bold uppercase mb-1">Cant. Paquetes</label>
-                    <div class="flex gap-1">
-                        <input type="number" id="cant-${p.id}" value="1" min="1" 
-                               class="w-12 text-xs border-none bg-crema rounded-md text-center font-bold outline-none py-1">
-                        <button onclick="agregarAlCarrito('${p.id}', this)" 
-                                class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
-                            <i class="fas fa-cart-plus text-sm"></i>
-                        </button>
+            <div class="relative overflow-hidden rounded-t-2xl cursor-zoom-in">
+                <img src="imagenes/${p.id}.webp" 
+                     onclick="expandirImagen(this.src)"
+                     onerror="this.src='imagenes/placeholder-pan.jpg'" 
+                     alt="${p.producto}" 
+                     class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
+                <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm pointer-events-none">
+                    ${p.unidades_pqte} unds
+                </span>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+                <div>
+                    <h3 class="text-md font-bold text-gray-800">${p.producto} (${p.medida_cm} cm)</h3>
+                    <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
+                    <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
+                    <p class="inline-block px-2 py-0.5 bg-amber-900/10 text-amber-900 text-[14px] mt-1 font-medium rounded-md backdrop-blur-[2px]">
+                        ${p.especificacion}
+                    </p>
+                </div>
+                
+                <div class="mt-4 flex items-end justify-between">
+                    <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
+                    <div class="flex items-center gap-2">
+                        <div class="flex flex-col items-end">
+                            <label for="cant-${p.id}" class="text-[10px] text-gray-400 font-bold uppercase mb-1">Cant. Paquetes</label>
+                            <div class="flex gap-1">
+                                <input type="number" id="cant-${p.id}" value="1" min="1" 
+                                       class="w-12 text-xs border-none bg-crema rounded-md text-center font-bold outline-none py-1">
+                                <button onclick="agregarAlCarrito('${p.id}', this)" 
+                                        class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
+                                    <i class="fas fa-cart-plus text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-`;
+        `;
         contenedor.appendChild(card);
     });
-    
 }
 
 
