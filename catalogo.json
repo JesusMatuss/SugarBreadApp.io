@@ -1177,9 +1177,21 @@
     "precio": "2.70"
   },
   {
-    "id": "HB-PP-CM-05",
+    "id": "HB-PP-CM-07",
     "categoria": "Pan de Papa",
     "producto": "Hamburguesa Grande MP",
+    "especificacion": "Con Molde",
+    "peso_gr": "110",
+    "medida_cm": "11",
+    "topping": "Ajonjolí",
+    "unidades_pqte": "6",
+    "precio": "3"
+  }
+  ,
+  {
+    "id": "HB-PP-CM-05",
+    "categoria": "Pan de Papa",
+    "producto": "Hamburguesa Extra Grande MP",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
@@ -1190,7 +1202,7 @@
   {
     "id": "HB-PP-CM-06",
     "categoria": "Pan de Papa",
-    "producto": "Hamburguesa Grande MP",
+    "producto": "Hamburguesa Extra Grande MP",
     "especificacion": "Con Molde",
     "peso_gr": "120",
     "medida_cm": "13",
