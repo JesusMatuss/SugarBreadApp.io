@@ -21,6 +21,7 @@ const btnPagar = document.querySelector('.btn-pagar');
 
 let productosData = []; // Base de datos completa
 let carritoArray = [];  // Arreglo para los items seleccionados
+let categoriaActiva = 'todos'; // Categoría seleccionada actualmente
 
 
 // --- PASO 1: CARGAR DATOS AL INICIAR ---
@@ -73,7 +74,7 @@ function mostrarProductos(productos) {
 
     // 2. Definimos si estamos en el horario restringido (1 pm a 8 am)
     // 13 = 1 PM, 8 = 8 AM
-    const esHorarioPanPapa = horaActual >= 13.5 || horaActual < 8.5; // Usamos decimales para incluir el rango de 1:30 PM a 8:30 AM
+    const esHorarioPanPapa = horaActual >= 13 || horaActual < 8;
 
     // Variable para controlar que el mensaje se muestre solo una vez
     let mensajeMostrado = false;
@@ -92,7 +93,7 @@ function mostrarProductos(productos) {
                     <div class="flex items-center">
                         <i class="fas fa-info-circle text-amber-500 mr-3"></i>
                         <p class="text-amber-800 font-medium">
-                            El <strong>Pan de Papa</strong> estará disponible para hacer su pedido a partir de la 1:00 PM hasta las 8:30 AM del dia siguiente.
+                            El <strong>Pan de Papa</strong> estará disponible para hacer su pedido desde la 1:00 PM hasta las 8:00 AM del día siguiente.
                         </p>
                     </div>
                 `;
@@ -323,6 +324,7 @@ document.querySelectorAll('.btn-cat').forEach(boton => {
         boton.classList.add('active');
 
         const catSeleccionada = boton.getAttribute('data-cat');
+        categoriaActiva = catSeleccionada;
         
         if (catSeleccionada === 'todos') {
             mostrarProductos(productosData);
@@ -686,7 +688,35 @@ function obtenerUbicacion() {
 }
 
 
+// Verificar cada 30s si cambió el horario del Pan de Papa y re-renderizar
+let previoHorarioPanPapa = null;
+setInterval(() => {
+    const hora = new Date().getHours();
+    const disponible = hora >= 13 || hora < 8;
+    if (previoHorarioPanPapa !== null && previoHorarioPanPapa !== disponible) {
+        if (categoriaActiva === 'todos') {
+            mostrarProductos(productosData);
+        } else {
+            const filtrados = productosData.filter(p => {
+                if (categoriaActiva === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
+                if (categoriaActiva === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
+                if (categoriaActiva === 'perros') return p.categoria === 'Perro';
+                if (categoriaActiva === 'delis') return p.categoria === 'Deli (Pepito)';
+                if (categoriaActiva === 'sandwich') return p.categoria === 'Sándwich';
+                if (categoriaActiva === 'pan-de-papa') return p.categoria === 'Pan de Papa';
+                return false;
+            });
+            mostrarProductos(filtrados);
+        }
+    }
+    previoHorarioPanPapa = disponible;
+}, 30000);
+
 cargarProductos(); // Carga inicial de productos al abrir la página
+
+
+
+
 
 
 
