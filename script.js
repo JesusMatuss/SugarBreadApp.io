@@ -62,30 +62,39 @@ async function cargarProductos() {
     }
 }
 
+function panPapaDisponible() {
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    const dia = ahora.getDay(); // 0=Dom, 1=Lun, 2=Mar, 3=Mie, 4=Jue, 5=Vie, 6=Sab
+
+    const DIAS_PERMITIDOS = [1, 2, 4, 5]; // Lun, Mar, Jue, Vie
+    const CORTE_HORA = 9; // 9 AM cutoff
+
+    const fechaEntrega = new Date(ahora);
+    if (hora >= CORTE_HORA) {
+        fechaEntrega.setDate(fechaEntrega.getDate() + 1);
+    }
+
+    const enHorario = hora >= 13 || hora < 8;
+    const diaPermitido = DIAS_PERMITIDOS.includes(dia);
+    const entregaPermitida = DIAS_PERMITIDOS.includes(fechaEntrega.getDay());
+
+    return { disponible: enHorario && diaPermitido && entregaPermitida, enHorario, diaPermitido, entregaPermitida };
+}
+
 // ==========================================================================
 // 2. RENDERIZADO DE PRODUCTOS
 // ==========================================================================
 function mostrarProductos(productos) {
     contenedor.innerHTML = '';
-    
-    // 1. Obtenemos la hora actual (0-23)
-    const ahora = new Date();
-    const horaActual = ahora.getHours();
 
-    // 2. Definimos si estamos en el horario restringido (1 pm a 8 am)
-    // 13 = 1 PM, 8 = 8 AM
-    const esHorarioPanPapa = horaActual >= 13 || horaActual < 8;
+    const { disponible: esHorarioPanPapa } = panPapaDisponible();
 
-    // Variable para controlar que el mensaje se muestre solo una vez
     let mensajeMostrado = false;
 
     productos.forEach(p => {
 
-        // 3. Lógica de filtrado:
-        // Si el producto es "Pan de Papa" y NO estamos en el horario, lo saltamos (return).
-
         if (p.categoria === "Pan de Papa" && !esHorarioPanPapa) {
-            // Si es pan de papa y no es la hora, y aún no hemos avisado...
             if (!mensajeMostrado) {
                 const aviso = document.createElement('div');
                 aviso.className = 'col-span-full bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-xl';
@@ -93,14 +102,14 @@ function mostrarProductos(productos) {
                     <div class="flex items-center">
                         <i class="fas fa-info-circle text-amber-500 mr-3"></i>
                         <p class="text-amber-800 font-medium">
-                            El <strong>Pan de Papa</strong> estará disponible para hacer su pedido desde la 1:00 PM hasta las 8:00 AM del día siguiente.
+                            El <strong>Pan de Papa</strong> solo está disponible para pedidos los días <strong>Lunes, Martes, Jueves y Viernes</strong>, desde la 1:00 PM hasta las 8:00 AM del día siguiente. No se realizan pedidos si la entrega cae en Miércoles, Sábado o Domingo.
                         </p>
                     </div>
                 `;
                 contenedor.appendChild(aviso);
-                mensajeMostrado = true; // Marcamos que ya se mostró el aviso
+                mensajeMostrado = true;
             }
-            return; // Saltamos la creación de la tarjeta del producto
+            return;
         }
 
         const card = document.createElement('article');
@@ -437,18 +446,16 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
     }
 });
 
-// Bloquear fechas pasadas y establecer mañana por defecto si son más de las 9 AM
+// Bloquear fechas pasadas: antes de 9 AM se puede pedir para hoy, después de 9 AM para mañana
 document.addEventListener('DOMContentLoaded', () => {
     const hoy = new Date();
-    // Si quieres aplicar la regla de las 9:00 AM automáticamente:
-    if (hoy.getHours() <= 9) {
-        hoy.setDate(hoy.getDate()-1); // Si son después de las 9 AM, el mínimo será mañana
+    if (hoy.getHours() >= 9) {
+        hoy.setDate(hoy.getDate() + 1); // Después de las 9 AM, el mínimo será mañana
     }
     const fechaMin = hoy.toISOString().split('T')[0];
     inputFecha.setAttribute('min', fechaMin);
-    inputFecha.value = fechaMin; // Valor por defecto
+    inputFecha.value = fechaMin;
 
-    // Cargar fecha guardada si existe
     const fechaGuardada = localStorage.getItem('sugarbread_fecha');
     if (fechaGuardada) inputFecha.value = fechaGuardada;
 });
@@ -688,11 +695,10 @@ function obtenerUbicacion() {
 }
 
 
-// Verificar cada 30s si cambió el horario del Pan de Papa y re-renderizar
+// Verificar cada 30s si cambió la disponibilidad del Pan de Papa y re-renderizar
 let previoHorarioPanPapa = null;
 setInterval(() => {
-    const hora = new Date().getHours();
-    const disponible = hora >= 13 || hora < 8;
+    const { disponible } = panPapaDisponible();
     if (previoHorarioPanPapa !== null && previoHorarioPanPapa !== disponible) {
         if (categoriaActiva === 'todos') {
             mostrarProductos(productosData);
