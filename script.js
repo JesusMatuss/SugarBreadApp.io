@@ -76,10 +76,24 @@ function panPapaDisponible() {
     }
 
     const enHorario = hora >= 13 || hora < 8;
-    const diaPermitido = DIAS_PERMITIDOS.includes(dia);
+    
+    // Verificamos si el día está en el arreglo original
+    let diaPermitido = DIAS_PERMITIDOS.includes(dia);
+    
+    // EXCEPCIÓN: Si es miércoles (3) y la hora es mayor o igual a las 9 AM
+    // lo marcamos como permitido porque la entrega será el jueves (4)
+    if (dia === 3 && hora >= CORTE_HORA) {
+        diaPermitido = true;
+    }
+
     const entregaPermitida = DIAS_PERMITIDOS.includes(fechaEntrega.getDay());
 
-    return { disponible: enHorario && diaPermitido && entregaPermitida, enHorario, diaPermitido, entregaPermitida };
+    return { 
+        disponible: enHorario && diaPermitido && entregaPermitida, 
+        enHorario, 
+        diaPermitido, 
+        entregaPermitida 
+    };
 }
 
 // ==========================================================================
