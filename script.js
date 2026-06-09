@@ -385,79 +385,82 @@ document.getElementById('cart-overlay').addEventListener('click', cerrar);
 
 document.querySelector('.btn-pagar').addEventListener('click', async () => {
     if (carritoArray.length === 0) return alert("El carrito está vacío");
-        if (!document.getElementById('cliente-nombre').value) return alert("Por favor, ingresa el nombre del cliente");
-        if (!document.getElementById('cliente-telefono').value) return alert("Por favor, ingresa el número de teléfono del cliente");
+    if (!document.getElementById('cliente-nombre').value) return alert("Por favor, ingresa el nombre del cliente");
+    if (!document.getElementById('cliente-telefono').value) return alert("Por favor, ingresa el número de teléfono del cliente");
 
-            // Cambiamos el texto del botón para dar feedback al usuario
-            const btn = document.querySelector('.btn-pagar');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-            btn.disabled = true;
+    const btn = document.querySelector('.btn-pagar');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+    btn.disabled = true;
 
-            // Calculamos el total global para el registro
-            const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
-            const fechaActual = new Date().toLocaleString('es-ES', { hour12: false });
+    const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
+    const fechaActual = new Date().toLocaleString('es-ES', { hour12: false });
+    const telefono = document.getElementById('cliente-telefono').value.trim();
 
-            // Preparamos los datos. SheetDB espera un array de objetos llamado "data"
-            // Registraremos cada item como una fila independiente para mejor control
-            const pedidosParaEnviar = carritoArray.map(p => ({
-                "Cliente": document.getElementById('cliente-nombre').value || "Cliente Anónimo",
-                "Numero_Telefono": "+58" + document.getElementById('cliente-telefono').value || "No proporcionado",
-                "Producto": p.producto,
-                "Especificacion": p.especificacion,
-                "Peso": p.peso,
-                "Topping": p.topping,
-                "Cantidad": p.cantidad,
-                "Subtotal": (p.precio * p.cantidad).toFixed(2),
-                "Total_Pedido": totalGlobal,
-                "Fecha": fechaActual,
-                "Fecha_Entrega": (() => {
-                    const fechaElegida = document.getElementById('fecha-entrega').value;
-                    if (!fechaElegida) return "No especificada";
+    const pedidosParaEnviar = carritoArray.map(p => ({
+        "Cliente": document.getElementById('cliente-nombre').value || "Cliente Anónimo",
+        "Numero_Telefono": telefono ? "+58" + telefono : "No proporcionado",
+        "Producto": p.producto,
+        "Especificacion": p.especificacion,
+        "Peso": p.peso,
+        "Topping": p.topping,
+        "Cantidad": p.cantidad,
+        "Subtotal": (p.precio * p.cantidad).toFixed(2),
+        "Total_Pedido": totalGlobal,
+        "Fecha": fechaActual,
+        "Fecha_Entrega": (() => {
+            const fechaElegida = document.getElementById('fecha-entrega').value;
+            if (!fechaElegida) return "No especificada";
+            const horaActual = new Date().toTimeString().split(' ')[0];
+            return `${fechaElegida} ${horaActual}`;
+        })(),
+        "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local'
+    }));
 
-                    const ahora = new Date();
-                    // Obtenemos HH:MM:SS (formato 24h)
-                    const horaActual = ahora.toTimeString().split(' ')[0]; 
-    
-                    return `${fechaElegida} ${horaActual}`;
-                })(),
-                "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local' 
-            }));
+    console.log('📤 Datos enviados a Google Sheets:', JSON.stringify(pedidosParaEnviar));
 
-
-
+    // Enviar mediante formulario + iframe (evita CORS completamente)
     try {
-        // Usamos URLSearchParams para enviar datos como formulario (evita CORS)
-        const params = new URLSearchParams();
-        params.append('data', JSON.stringify(pedidosParaEnviar));
+        const iframeId = 'gas-submit-' + Date.now();
+        const iframe = document.createElement('iframe');
+        iframe.name = iframeId;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
 
-        const response = await fetch(SHEETDB_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Evita la comprobación CORS
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: params
-        });
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = SHEETDB_URL;
+        form.target = iframeId;
+        form.style.display = 'none';
 
-        // Con 'no-cors', response.ok siempre es false. 
-        // Asumimos éxito si no hubo error de red.
-        const totalFinal = totalPrecioElemento.innerText.replace('$', '');
-        const ordenFinal = [...carritoArray]; 
+        const input = document.createElement('input');
+        input.name = 'data';
+        input.value = JSON.stringify(pedidosParaEnviar);
+        form.appendChild(input);
 
-        alert("¡Pedido registrado con éxito!");
-        mostrarResumenPedido(totalFinal, ordenFinal); 
+        document.body.appendChild(form);
+        form.submit();
+        console.log('✅ Pedido enviado a Google Sheets');
 
-        actualizarCarritoUI();
-        sidebarCarrito.classList.add('carrito-hidden');
-            
+        setTimeout(() => {
+            document.body.removeChild(form);
+            document.body.removeChild(iframe);
+        }, 5000);
     } catch (error) {
-        console.error("Error al enviar:", error);
-        alert("Hubo un fallo al enviar. Asegúrate de haber actualizado el despliegue en Google Apps Script.");
-    } finally {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+        console.error('❌ Error al enviar pedido a Google Sheets:', error);
     }
+
+    const totalFinal = totalPrecioElemento.innerText.replace('$', '');
+    const ordenFinal = [...carritoArray];
+
+    alert("¡Pedido registrado con éxito!");
+    mostrarResumenPedido(totalFinal, ordenFinal);
+
+    actualizarCarritoUI();
+    sidebarCarrito.classList.add('carrito-hidden');
+
+    btn.innerHTML = originalText;
+    btn.disabled = false;
 });
 
 // Bloquear fechas pasadas: antes de 9 AM se puede pedir para hoy, después de 9 AM para mañana
