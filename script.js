@@ -491,9 +491,13 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
 document.addEventListener('DOMContentLoaded', () => {
     const hoy = new Date();
     if (hoy.getHours() >= 9) {
-        hoy.setDate(hoy.getDate() + 1); // Después de las 9 AM, el mínimo será mañana
+        hoy.setDate(hoy.getDate() + 1);
     }
-    const fechaMin = hoy.toISOString().split('T')[0];
+    const fechaMin = [
+        hoy.getFullYear(),
+        String(hoy.getMonth() + 1).padStart(2, '0'),
+        String(hoy.getDate()).padStart(2, '0')
+    ].join('-');
     inputFecha.setAttribute('min', fechaMin);
     inputFecha.value = fechaMin;
 });
