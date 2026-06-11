@@ -496,14 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fechaMin = hoy.toISOString().split('T')[0];
     inputFecha.setAttribute('min', fechaMin);
     inputFecha.value = fechaMin;
-
-    const fechaGuardada = localStorage.getItem('sugarbread_fecha');
-    if (fechaGuardada) inputFecha.value = fechaGuardada;
-});
-
-// Guardar mientras eligen
-inputFecha.addEventListener('input', () => {
-    localStorage.setItem('sugarbread_fecha', inputFecha.value);
 });
 
 // Función para mostrar el modal con los datos corregida
