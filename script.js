@@ -72,7 +72,7 @@ function panPapaDisponible() {
 
     const fechaEntrega = new Date(ahora);
     if (hora >= CORTE_HORA) {
-        fechaEntrega.setDate(fechaEntrega.getDate() + 1);
+        fechaEntrega.setDate(fechaEntrega.getDate() -1);
     }
 
     const enHorario = hora >= 13 || hora < 8;
@@ -419,45 +419,69 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
 
     console.log('📤 Datos enviados a Google Sheets:', JSON.stringify(pedidosParaEnviar));
 
-    // Enviar mediante formulario + iframe (evita CORS completamente)
+    const jsonData = JSON.stringify(pedidosParaEnviar);
+    let enviado = false;
+
+    // Método 1: formulario + iframe (más confiable, sin CORS)
     try {
-        const iframeId = 'gas-submit-' + Date.now();
         const iframe = document.createElement('iframe');
-        iframe.name = iframeId;
+        iframe.name = 'gas-frame-' + Date.now();
         iframe.style.display = 'none';
         document.body.appendChild(iframe);
 
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = SHEETDB_URL;
-        form.target = iframeId;
+        form.target = iframe.name;
         form.style.display = 'none';
 
         const input = document.createElement('input');
         input.name = 'data';
-        input.value = JSON.stringify(pedidosParaEnviar);
+        input.value = jsonData;
         form.appendChild(input);
 
         document.body.appendChild(form);
         form.submit();
-        console.log('✅ Pedido enviado a Google Sheets');
+        enviado = true;
+        console.log('✅ Enviado por form+iframe');
 
         setTimeout(() => {
-            document.body.removeChild(form);
-            document.body.removeChild(iframe);
+            if (iframe.parentNode) document.body.removeChild(iframe);
+            if (form.parentNode) document.body.removeChild(form);
         }, 5000);
-    } catch (error) {
-        console.error('❌ Error al enviar pedido a Google Sheets:', error);
+    } catch (e) {
+        console.warn('⚠️ Form+iframe falló, intentando fetch...', e);
     }
 
-    const totalFinal = totalPrecioElemento.innerText.replace('$', '');
-    const ordenFinal = [...carritoArray];
+    // Método 2: fetch como respaldo (por si iframe fue bloqueado por seguridad del navegador)
+    if (!enviado) {
+        try {
+            const params = new URLSearchParams();
+            params.append('data', jsonData);
+            await fetch(SHEETDB_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: params
+            });
+            enviado = true;
+            console.log('✅ Enviado por fetch (no-cors)');
+        } catch (e) {
+            console.error('❌ Fetch también falló:', e);
+        }
+    }
 
-    alert("¡Pedido registrado con éxito!");
-    mostrarResumenPedido(totalFinal, ordenFinal);
+    if (enviado) {
+        const totalFinal = totalPrecioElemento.innerText.replace('$', '');
+        const ordenFinal = [...carritoArray];
 
-    actualizarCarritoUI();
-    sidebarCarrito.classList.add('carrito-hidden');
+        alert("¡Pedido registrado con éxito!");
+        mostrarResumenPedido(totalFinal, ordenFinal);
+
+        actualizarCarritoUI();
+        sidebarCarrito.classList.add('carrito-hidden');
+    } else {
+        alert("⚠️ Hubo un error al enviar el pedido a la base de datos. Intenta de nuevo o contacta al administrador.");
+    }
 
     btn.innerHTML = originalText;
     btn.disabled = false;
