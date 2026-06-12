@@ -70,29 +70,44 @@ function panPapaDisponible() {
     const DIAS_PERMITIDOS = [1, 2, 4, 5]; // Lun, Mar, Jue, Vie
     const CORTE_HORA = 9; // 9 AM cutoff
 
-    const fechaEntrega = new Date(ahora);
-    if (hora >= CORTE_HORA) {
-        fechaEntrega.setDate(fechaEntrega.getDate() -1);
-    }
-
+    // 1. Validar el horario diario (Tardes/Noches o Madrugadas)
     const enHorario = hora >= 13 || hora < 8;
     
-    // Verificamos si el día está en el arreglo original
+    // 2. Validar si hoy es un día permitido para solicitar producción
     let diaPermitido = DIAS_PERMITIDOS.includes(dia);
     
-    // EXCEPCIÓN: Si es miércoles (3) y la hora es mayor o igual a las 9 AM
-    // lo marcamos como permitido porque la entrega será el jueves (4)
+    // EXCEPCIÓN: Si es miércoles (3) y ya pasó la hora de corte (9 AM), 
+    // se permite porque entrará en la producción/entrega del Jueves (4)
     if (dia === 3 && hora >= CORTE_HORA) {
         diaPermitido = true;
     }
 
+    // 3. Calcular el día real de entrega proyectado hacia el futuro
+    const fechaEntrega = new Date(ahora);
+    
+    if (hora >= CORTE_HORA) {
+        // Si ya pasó la hora de corte, la entrega se mueve al menos al día siguiente
+        fechaEntrega.setDate(fechaEntrega.getDate() + 1);
+    } else {
+        // Si es antes de las 9 AM, se procesa para HOY mismo
+        // (Mantiene la fecha actual)
+    }
+
+    // Si la entrega estimada cae un Miércoles (3) o Domingo (0) por el desfase, 
+    // lo movemos un día más hacia adelante (al Jueves o Lunes respectivamente)
+    if (fechaEntrega.getDay() === 3 || fechaEntrega.getDay() === 0) {
+        fechaEntrega.setDate(fechaEntrega.getDate() + 1);
+    }
+
+    // 4. Verificar si el día final de entrega es un día de despacho permitido
     const entregaPermitida = DIAS_PERMITIDOS.includes(fechaEntrega.getDay());
 
     return { 
         disponible: enHorario && diaPermitido && entregaPermitida, 
         enHorario, 
         diaPermitido, 
-        entregaPermitida 
+        entregaPermitida,
+        diaEntregaCalculado: fechaEntrega.getDay() // Útil para hacer debug
     };
 }
 
