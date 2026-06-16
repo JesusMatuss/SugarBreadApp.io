@@ -9,7 +9,7 @@ const listaCarrito = document.getElementById('carrito-items'); // Corregido el I
 const totalPrecioElemento = document.getElementById('total-precio');
 const cartCountElement = document.getElementById('cart-count');
 const sidebarCarrito = document.getElementById('carrito-sidebar');
-const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbwiGk7Hff6dOBnc5iskRrWhrkgoscwOYhKktUWAN1iWtWPwm6QM2hnpr6kQGScXcHdl/exec';
+const SHEETDB_URL = 'https://script.google.com/macros/s/AKfycbys9AHsxXzAa1Qjr8Fu2W-IualLdQ6Bewf6ThXI5fTylPGyapMIvIxuI20xVupDmjCP/exec';
 let enlaceGoogleMaps = ""; // Variable global para guardar el link de Google Maps generado
 
 const inputNombre = document.getElementById('cliente-nombre');
@@ -432,57 +432,23 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
         "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local'
     }));
 
-    console.log('📤 Datos enviados a Google Sheets:', JSON.stringify(pedidosParaEnviar));
-
     const jsonData = JSON.stringify(pedidosParaEnviar);
+    console.log('📤 Datos:', jsonData);
+
     let enviado = false;
 
-    // Método 1: formulario + iframe (más confiable, sin CORS)
     try {
-        const iframe = document.createElement('iframe');
-        iframe.name = 'gas-frame-' + Date.now();
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = SHEETDB_URL;
-        form.target = iframe.name;
-        form.style.display = 'none';
-
-        const input = document.createElement('input');
-        input.name = 'data';
-        input.value = jsonData;
-        form.appendChild(input);
-
-        document.body.appendChild(form);
-        form.submit();
+        const params = new URLSearchParams();
+        params.append('data', jsonData);
+        await fetch(SHEETDB_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: params
+        });
         enviado = true;
-        console.log('✅ Enviado por form+iframe');
-
-        setTimeout(() => {
-            if (iframe.parentNode) document.body.removeChild(iframe);
-            if (form.parentNode) document.body.removeChild(form);
-        }, 5000);
+        console.log('✅ Enviado');
     } catch (e) {
-        console.warn('⚠️ Form+iframe falló, intentando fetch...', e);
-    }
-
-    // Método 2: fetch como respaldo (por si iframe fue bloqueado por seguridad del navegador)
-    if (!enviado) {
-        try {
-            const params = new URLSearchParams();
-            params.append('data', jsonData);
-            await fetch(SHEETDB_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: params
-            });
-            enviado = true;
-            console.log('✅ Enviado por fetch (no-cors)');
-        } catch (e) {
-            console.error('❌ Fetch también falló:', e);
-        }
+        console.error('❌ Error al enviar:', e);
     }
 
     if (enviado) {
