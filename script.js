@@ -429,7 +429,8 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
             const horaActual = new Date().toTimeString().split(' ')[0];
             return `${fechaElegida} ${horaActual}`;
         })(),
-        "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local'
+        "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local',
+        "Donacion": document.getElementById('check-donar').checked ? document.getElementById('monto-donacion').value || "0.50" : "No"
     }));
 
     const jsonData = JSON.stringify(pedidosParaEnviar);
@@ -604,6 +605,13 @@ function enviarPedidoWhatsApp() {
         
     });
 
+    const donarCheck = document.getElementById('check-donar').checked;
+    const montoDonacion = document.getElementById('monto-donacion').value;
+
+    if (donarCheck) {
+        mensaje += '\u2764️ *Donación:* $' + parseFloat(montoDonacion || 0.50).toFixed(2) + '\n\n';
+    }
+
     const totalDinero = document.getElementById('total-precio').innerText;
 
     // Nota sobre el costo de envío
@@ -668,6 +676,11 @@ function animarVueloCarrito(botonElement) {
         carritoBtn.classList.add('animate-bounce');
         setTimeout(() => carritoBtn.classList.remove('animate-bounce'), 500);
     }, 850);
+}
+
+function toggleDonacion() {
+    const campo = document.getElementById('campo-donacion');
+    campo.classList.toggle('hidden');
 }
 
 function toggleDireccion() {
