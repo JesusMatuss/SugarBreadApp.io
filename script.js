@@ -283,6 +283,13 @@ function agregarAlCarrito(id, boton) {
     }
 }
 
+function obtenerDonacion() {
+    const check = document.getElementById('check-donar');
+    if (!check || !check.checked) return 0;
+    const monto = parseFloat(document.getElementById('monto-donacion').value);
+    return isNaN(monto) || monto < 0.50 ? 0.50 : monto;
+}
+
 function actualizarCarritoUI() {
     const listaCarrito = document.getElementById('carrito-items');
     const totalPrecioElemento = document.getElementById('total-precio');
@@ -334,7 +341,10 @@ function actualizarCarritoUI() {
     
 });
 
-    totalPrecioElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
+    const donacion = obtenerDonacion();
+    const totalConDonacion = totalAcumulado + donacion;
+
+    totalPrecioElemento.innerText = `$${totalConDonacion.toFixed(2)}`;
     cartCountElement.innerText = itemsTotales;
 }
 
@@ -692,7 +702,15 @@ function animarVueloCarrito(botonElement) {
 function toggleDonacion() {
     const campo = document.getElementById('campo-donacion');
     campo.classList.toggle('hidden');
+    actualizarCarritoUI();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const inputDonacion = document.getElementById('monto-donacion');
+    if (inputDonacion) {
+        inputDonacion.addEventListener('input', actualizarCarritoUI);
+    }
+});
 
 function toggleDireccion() {
     const check = document.getElementById('check-delivery');
