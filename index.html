@@ -34,6 +34,13 @@
         
         /* Para el toast */
         .toast-visible { transform: translate(-50%, 0) !important; opacity: 1 !important; }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-bounce-in { animation: bounceIn 0.5s ease-out; }
     </style>
 </head>
 <body class="bg-crema text-negro-suave font-sans antialiased">
@@ -83,6 +90,14 @@
     </nav>
 
     <main id="app-container" class="max-w-6xl mx-auto py-8">
+        <div class="mx-4 mb-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-r-xl shadow-sm">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-heart text-red-400 text-xl"></i>
+                <p class="text-red-700 text-sm font-medium leading-relaxed">
+                    <strong>Causa solidaria:</strong> Al finalizar tu pedido, puedes donar desde <strong>$0.50</strong> en apoyo a los afectados por el terremoto en Venezuela.
+                </p>
+            </div>
+        </div>
         <section id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             <div class="col-span-full text-center py-20 text-marron-oscuro animate-pulse italic">
                 Cargando los mejores panes para ti...
@@ -207,6 +222,23 @@
 
                 <button onclick="cerrarResumen()" class="w-full bg-marron-oscuro text-white py-3 rounded-xl font-bold hover:bg-negro-suave transition-colors">
                     Entendido, ¡gracias! 🥖
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Donación -->
+    <div id="modal-donacion" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-t-8 border-red-400 animate-bounce-in">
+            <div class="p-6 text-center">
+                <div class="text-6xl mb-4">🙏</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Unidos por una causa</h2>
+                <div class="w-16 h-1 bg-red-400 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    Queremos recordarte que al completar tu compra podrás sumar una <strong>donación (mínimo de $0.50)</strong>. Todo lo recaudado será destinado a brindar ayuda humanitaria a las familias afectadas por el terremoto en Venezuela. <strong>¡Agradecemos enormemente tu solidaridad!</strong>
+                </p>
+                <button onclick="cerrarModalDonacion()" class="bg-red-400 hover:bg-red-500 text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 active:scale-95">
+                    <i class="fas fa-heart mr-2"></i> Entendido, ¡gracias!
                 </button>
             </div>
         </div>
