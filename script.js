@@ -31,7 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (nombreGuardado) inputNombre.value = nombreGuardado;
     if (telefonoGuardado) inputTelefono.value = telefonoGuardado;
+
+    // Mostrar modal de donación al cargar
+    setTimeout(() => {
+        document.getElementById('modal-donacion').classList.remove('hidden');
+        document.getElementById('modal-donacion').classList.add('flex');
+    }, 500);
 });
+
+function cerrarModalDonacion() {
+    document.getElementById('modal-donacion').classList.add('hidden');
+    document.getElementById('modal-donacion').classList.remove('flex');
+}
 
 // --- PASO 2: GUARDAR DATOS ---
 // Opción A: Guardar mientras escriben (más seguro)
