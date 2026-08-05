@@ -342,9 +342,10 @@ function actualizarCarritoUI() {
 });
 
     const donacion = obtenerDonacion();
-    const totalConDonacion = totalAcumulado + donacion;
+    const bolsas = obtenerCostoBolsas();
+    const totalConExtras = totalAcumulado + donacion + bolsas;
 
-    totalPrecioElemento.innerText = `$${totalConDonacion.toFixed(2)}`;
+    totalPrecioElemento.innerText = `$${totalConExtras.toFixed(2)}`;
     cartCountElement.innerText = itemsTotales;
 }
 
@@ -451,7 +452,13 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
             return `${fechaElegida} ${horaActual}`;
         })(),
         "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local',
-        "Donacion": document.getElementById('check-donar').checked ? document.getElementById('monto-donacion').value || "0.50" : "No"
+        "Donacion": document.getElementById('check-donar').checked ? document.getElementById('monto-donacion').value || "0.50" : "No",
+        "Bolsas": (() => {
+            const check = document.getElementById('check-bolsa');
+            if (!check.checked) return "No";
+            const cant = parseInt(document.getElementById('cantidad-bolsa').value) || 1;
+            return cant + " bolsa(s) - $" + (cant * PRECIO_BOLSA).toFixed(2);
+        })()
     }));
 
     const jsonData = JSON.stringify(pedidosParaEnviar);
@@ -633,6 +640,12 @@ function enviarPedidoWhatsApp() {
         mensaje += '\u2764️ *Donación:* $' + parseFloat(montoDonacion || 0.50).toFixed(2) + '\n\n';
     }
 
+    const bolsaCheck = document.getElementById('check-bolsa').checked;
+    if (bolsaCheck) {
+        const cantBolsa = parseInt(document.getElementById('cantidad-bolsa').value) || 1;
+        mensaje += '\uD83D\uDCE6 *Bolsas:* ' + cantBolsa + ' x $0.20 = $' + (cantBolsa * PRECIO_BOLSA).toFixed(2) + '\n\n';
+    }
+
     const totalDinero = document.getElementById('total-precio').innerText;
 
     // Nota sobre el costo de envío
@@ -699,16 +712,45 @@ function animarVueloCarrito(botonElement) {
     }, 850);
 }
 
+const PRECIO_BOLSA = 0.20;
+
 function toggleDonacion() {
     const campo = document.getElementById('campo-donacion');
     campo.classList.toggle('hidden');
     actualizarCarritoUI();
 }
 
+function toggleBolsa() {
+    const campo = document.getElementById('campo-bolsa');
+    campo.classList.toggle('hidden');
+    actualizarCarritoUI();
+}
+
+function cambiarCantidadBolsa(delta) {
+    const input = document.getElementById('cantidad-bolsa');
+    const actual = parseInt(input.value) || 1;
+    const nueva = actual + delta;
+    if (nueva >= 1) {
+        input.value = nueva;
+        actualizarCarritoUI();
+    }
+}
+
+function obtenerCostoBolsas() {
+    const check = document.getElementById('check-bolsa');
+    if (!check || !check.checked) return 0;
+    const cantidad = parseInt(document.getElementById('cantidad-bolsa').value);
+    return (isNaN(cantidad) || cantidad < 1 ? 1 : cantidad) * PRECIO_BOLSA;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const inputDonacion = document.getElementById('monto-donacion');
     if (inputDonacion) {
         inputDonacion.addEventListener('input', actualizarCarritoUI);
+    }
+    const inputBolsa = document.getElementById('cantidad-bolsa');
+    if (inputBolsa) {
+        inputBolsa.addEventListener('input', actualizarCarritoUI);
     }
 });
 

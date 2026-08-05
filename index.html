@@ -124,77 +124,94 @@
 </div>
             </div>
 
-            <div id="carrito-items" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50">
-                <p class="text-center text-gray-400 italic py-10">El carrito está vacío</p>
+            <div class="flex-1 overflow-y-auto">
+                <div id="carrito-items" class="p-5 space-y-4 bg-gray-50">
+                    <p class="text-center text-gray-400 italic py-10">El carrito está vacío</p>
+                </div>
+
+                <!-- Opción de Donación -->
+                <div class="m-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-heart text-red-400"></i>
+                            <span class="text-sm font-bold text-gray-700">¿Desea Donar?</span>
+                        </div>
+                        <input type="checkbox" id="check-donar" class="sr-only peer" onchange="toggleDonacion()">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-400 relative"></div>
+                    </label>
+
+                    <div id="campo-donacion" class="hidden mt-3">
+                        <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Monto a Donar</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
+                            <input type="number" id="monto-donacion" value="0.50" min="0.50" step="0.50"
+                                   class="w-full pl-7 p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-red-400 outline-none transition-all text-center font-bold">
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-1 text-center">Monto mínimo $0.50</p>
+                    </div>
+                </div>
+
+                <!-- Opción de Bolsas -->
+                <div class="mx-4 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <img src="Bolsa.png" alt="Bolsa" class="w-6 h-6 object-contain">
+                            <span class="text-sm font-bold text-gray-700">¿Desea comprar bolsas para su pedido?</span>
+                        </div>
+                        <input type="checkbox" id="check-bolsa" class="sr-only peer" onchange="toggleBolsa()">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-marron-oscuro relative"></div>
+                    </label>
+
+                    <div id="campo-bolsa" class="hidden mt-3">
+                        <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Cantidad de Bolsas</label>
+                        <div class="flex items-center justify-center gap-3">
+                            <button type="button" onclick="cambiarCantidadBolsa(-1)" class="w-8 h-8 flex items-center justify-center bg-white rounded-lg border border-gray-200 hover:bg-marron-claro hover:text-white transition-colors font-bold text-lg">-</button>
+                            <input type="number" id="cantidad-bolsa" value="1" min="1" 
+                                   class="w-16 p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-marron-oscuro outline-none transition-all text-center font-bold">
+                            <button type="button" onclick="cambiarCantidadBolsa(1)" class="w-8 h-8 flex items-center justify-center bg-white rounded-lg border border-gray-200 hover:bg-marron-claro hover:text-white transition-colors font-bold text-lg">+</button>
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-1 text-center">Cada bolsa cuesta $0.20</p>
+                    </div>
+                </div>
+
+                <!-- Opción de Delivery -->
+                <div class="mx-4 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <label class="flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-motorcycle text-marron-oscuro"></i>
+                            <span class="text-sm font-bold text-gray-700">¿Desea Delivery?</span>
+                        </div>
+                        <input type="checkbox" id="check-delivery" class="sr-only peer" onchange="toggleDireccion()">
+                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-marron-oscuro relative"></div>
+                    </label>
+
+                    <div id="campo-direccion" class="hidden mt-3 animate-fade-in">
+                        <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Ubicación de Entrega</label>
+                        <div class="flex flex-col gap-2">
+                            <button type="button" onclick="obtenerUbicacion()" class="w-full py-2 bg-blue-500 text-white text-xs font-bold rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
+                                <i class="fas fa-map-marker-alt"></i> <span id="texto-gps">Enviar mi ubicación actual</span>
+                            </button>
+                            <div class="relative">
+                                <textarea id="direccion-texto" rows="2" 
+                                    class="w-full p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-marron-oscuro outline-none transition-all" 
+                                    placeholder="O escribe la dirección aquí..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <footer class="p-4 bg-white border-t border-marron-claro">
+                <!-- Total Estimado -->
+                <div class="flex justify-between items-center mb-4 px-1">
+                    <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
+                    <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
+                </div>
 
-    <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all active:scale-95">
-        <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
-    </button>
-
-
-    <!-- Opción de Donación -->
-    <div class="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
-        <label class="flex items-center justify-between cursor-pointer">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-heart text-red-400"></i>
-                <span class="text-sm font-bold text-gray-700">¿Desea Donar?</span>
-            </div>
-            <input type="checkbox" id="check-donar" class="sr-only peer" onchange="toggleDonacion()">
-            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-400 relative"></div>
-        </label>
-
-        <div id="campo-donacion" class="hidden mt-3">
-            <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Monto a Donar</label>
-            <div class="relative">
-                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
-                <input type="number" id="monto-donacion" value="0.50" min="0.50" step="0.50"
-                       class="w-full pl-7 p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-red-400 outline-none transition-all text-center font-bold">
-            </div>
-            <p class="text-[10px] text-gray-400 mt-1 text-center">Monto mínimo $0.50</p>
-        </div>
-    </div>
-
-    <!-- Opción de Delivery -->
-    <div class="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
-        <label class="flex items-center justify-between cursor-pointer">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-motorcycle text-marron-oscuro"></i>
-                <span class="text-sm font-bold text-gray-700">¿Desea Delivery?</span>
-            </div>
-            <input type="checkbox" id="check-delivery" class="sr-only peer" onchange="toggleDireccion()">
-            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-marron-oscuro relative"></div>
-        </label>
-
-        <!-- Campo de dirección oculto por defecto -->
-        <div id="campo-direccion" class="hidden mt-3 animate-fade-in">
-    <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Ubicación de Entrega</label>
-    
-    <div class="flex flex-col gap-2">
-        <!-- Botón para Capturar GPS -->
-        <button type="button" onclick="obtenerUbicacion()" class="w-full py-2 bg-blue-500 text-white text-xs font-bold rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
-            <i class="fas fa-map-marker-alt"></i> <span id="texto-gps">Enviar mi ubicación actual</span>
-        </button>
-        
-        <div class="relative">
-            <textarea id="direccion-texto" rows="2" 
-                class="w-full p-2 text-sm rounded-md bg-white border border-gray-200 focus:border-marron-oscuro outline-none transition-all" 
-                placeholder="O escribe la dirección aquí..."></textarea>
-        </div>
-    </div>
-</div>
-
-        <!-- Total Estimado -->
-        <div class="flex justify-between items-center mb-4 px-1">
-            <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
-            <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
-        </div>
-    </div>
-    
-    
-</footer>
+                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all active:scale-95">
+                    <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
+                </button>
+            </footer>
         </aside>
 
         <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-[90] hidden backdrop-blur-sm"></div>
