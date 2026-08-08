@@ -89,55 +89,65 @@
         </div>
     </nav>
 
-    <!-- Carrusel Hero (reemplaza las imagenes de publicidad cuando esten listas) -->
-    <div id="hero-carrusel" class="max-w-6xl mx-auto px-4 mt-4">
+    <!-- Carrusel Hero (5 banners verticales 608x1080) -->
+    <div id="hero-carrusel" class="max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto px-4 mt-4">
         <div class="relative rounded-2xl overflow-hidden shadow-xl">
-            <div class="relative h-52 md:h-80 lg:h-96">
+            <div class="relative aspect-[9/16]">
 
                 <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
-                    <img src="imagenes/HB-CM-03.webp" alt="Pan artesanal recién horneado" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <img src="Banner1.webp" alt="Banner SugarBread 1" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
-                        <span class="bg-red-400/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Nuevo</span>
-                        <h2 class="text-xl md:text-3xl font-black mt-2">Frescura artesanal</h2>
-                        <p class="text-xs md:text-base opacity-90">Masa suave y recién horneada, la miga perfecta para tu hamburguesa.</p>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <span class="bg-red-400/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Nuevo</span>
+                        <h2 class="text-lg font-black mt-2">Frescura artesanal</h2>
+                        <p class="text-xs opacity-90">Masa suave y recién horneada, la miga perfecta para tu hamburguesa.</p>
                     </div>
                 </div>
 
                 <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
-                    <img src="imagenes/HB-CM-06.webp" alt="Hamburguesa gourmet" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <img src="Banner2.webp" alt="Banner SugarBread 2" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
-                        <span class="bg-marron-oscuro/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Calidad</span>
-                        <h2 class="text-xl md:text-3xl font-black mt-2">Tu pan, el protagonista</h2>
-                        <p class="text-xs md:text-base opacity-90">El complemento perfecto para tu hamburguesa gourmet.</p>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <span class="bg-marron-oscuro/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Calidad</span>
+                        <h2 class="text-lg font-black mt-2">Tu pan, el protagonista</h2>
+                        <p class="text-xs opacity-90">El complemento perfecto para tu hamburguesa gourmet.</p>
                     </div>
                 </div>
 
                 <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
-                    <img src="imagenes/DL-PEP-03.webp" alt="Variedad de toppings" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <img src="Banner3.webp" alt="Banner SugarBread 3" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
-                        <span class="bg-amber-400 text-black text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Variedad</span>
-                        <h2 class="text-xl md:text-3xl font-black mt-2">Ajonjolí, sésamo y más</h2>
-                        <p class="text-xs md:text-base opacity-90">Elige el topping que prefieras para tu pan.</p>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <span class="bg-amber-400 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Variedad</span>
+                        <h2 class="text-lg font-black mt-2">Ajonjolí, sésamo y más</h2>
+                        <p class="text-xs opacity-90">Elige el topping que prefieras para tu pan.</p>
                     </div>
                 </div>
 
                 <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
-                    <img src="Fondo.png" alt="Causa solidaria SugarBread" class="w-full h-full object-cover" onerror="this.src='imagenes/HB-CM-01.webp'">
+                    <img src="Banner4.webp" alt="Banner SugarBread 4" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
-                        <span class="bg-red-400/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Solidaridad</span>
-                        <h2 class="text-xl md:text-3xl font-black mt-2">¡Unidos por una causa!</h2>
-                        <p class="text-xs md:text-base opacity-90">Dona desde $0.50 y apoya a los afectados por el terremoto en Venezuela.</p>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <span class="bg-marron-oscuro/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Artesanal</span>
+                        <h2 class="text-lg font-black mt-2">Hecho con amor</h2>
+                        <p class="text-xs opacity-90">Ingredientes de calidad para un pan de verdad.</p>
                     </div>
                 </div>
 
-                <button onclick="moverSlide(-1)" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-9 h-9 md:w-11 md:h-11 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-xl z-10">&lsaquo;</button>
-                <button onclick="moverSlide(1)" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-9 h-9 md:w-11 md:h-11 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-xl z-10">&rsaquo;</button>
+                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                    <img src="Fondo.png" alt="Causa solidaria SugarBread" class="w-full h-full object-cover" onerror="this.src='Banner1.webp'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        <span class="bg-red-400/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Solidaridad</span>
+                        <h2 class="text-lg font-black mt-2">¡Unidos por una causa!</h2>
+                        <p class="text-xs opacity-90">Dona desde $0.50 y apoya a los afectados por el terremoto en Venezuela.</p>
+                    </div>
+                </div>
 
-                <div id="hero-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
+                <button onclick="moverSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg z-10">&lsaquo;</button>
+                <button onclick="moverSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg z-10">&rsaquo;</button>
+
+                <div id="hero-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
             </div>
         </div>
     </div>
