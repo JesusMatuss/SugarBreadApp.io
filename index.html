@@ -89,7 +89,103 @@
         </div>
     </nav>
 
+    <!-- Carrusel Hero (reemplaza las imagenes de publicidad cuando esten listas) -->
+    <div id="hero-carrusel" class="max-w-6xl mx-auto px-4 mt-4">
+        <div class="relative rounded-2xl overflow-hidden shadow-xl">
+            <div class="relative h-52 md:h-80 lg:h-96">
+
+                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                    <img src="imagenes/HB-CM-03.webp" alt="Pan artesanal recién horneado" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                        <span class="bg-red-400/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Nuevo</span>
+                        <h2 class="text-xl md:text-3xl font-black mt-2">Frescura artesanal</h2>
+                        <p class="text-xs md:text-base opacity-90">Masa suave y recién horneada, la miga perfecta para tu hamburguesa.</p>
+                    </div>
+                </div>
+
+                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                    <img src="imagenes/HB-CM-06.webp" alt="Hamburguesa gourmet" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                        <span class="bg-marron-oscuro/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Calidad</span>
+                        <h2 class="text-xl md:text-3xl font-black mt-2">Tu pan, el protagonista</h2>
+                        <p class="text-xs md:text-base opacity-90">El complemento perfecto para tu hamburguesa gourmet.</p>
+                    </div>
+                </div>
+
+                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                    <img src="imagenes/DL-PEP-03.webp" alt="Variedad de toppings" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                        <span class="bg-amber-400 text-black text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Variedad</span>
+                        <h2 class="text-xl md:text-3xl font-black mt-2">Ajonjolí, sésamo y más</h2>
+                        <p class="text-xs md:text-base opacity-90">Elige el topping que prefieras para tu pan.</p>
+                    </div>
+                </div>
+
+                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                    <img src="Fondo.png" alt="Causa solidaria SugarBread" class="w-full h-full object-cover" onerror="this.src='imagenes/HB-CM-01.webp'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-5 md:p-8 text-white">
+                        <span class="bg-red-400/90 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Solidaridad</span>
+                        <h2 class="text-xl md:text-3xl font-black mt-2">¡Unidos por una causa!</h2>
+                        <p class="text-xs md:text-base opacity-90">Dona desde $0.50 y apoya a los afectados por el terremoto en Venezuela.</p>
+                    </div>
+                </div>
+
+                <button onclick="moverSlide(-1)" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-9 h-9 md:w-11 md:h-11 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-xl z-10">&lsaquo;</button>
+                <button onclick="moverSlide(1)" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-9 h-9 md:w-11 md:h-11 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-xl z-10">&rsaquo;</button>
+
+                <div id="hero-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
+            </div>
+        </div>
+    </div>
+
     <main id="app-container" class="max-w-6xl mx-auto py-8">
+        <!-- Destacados de la Casa -->
+        <section id="destacados" class="px-4 mb-6">
+            <h2 class="text-xl md:text-2xl font-black text-marron-oscuro text-center mb-4 uppercase tracking-tight">Destacados de la Casa</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div class="destacado-card cursor-pointer group" data-cat="hamb-con-molde" onclick="filtrarDestacado(this)">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                        <img src="imagenes/HB-CM-01.webp" alt="Hamburguesas" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <h3 class="text-white font-bold text-sm md:text-base">Hamburguesas</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="destacado-card cursor-pointer group" data-cat="perros" onclick="filtrarDestacado(this)">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                        <img src="imagenes/PC-COM-01.webp" alt="Perros" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <h3 class="text-white font-bold text-sm md:text-base">Perros</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="destacado-card cursor-pointer group" data-cat="delis" onclick="filtrarDestacado(this)">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                        <img src="imagenes/DL-PEP-01.webp" alt="Delis" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <h3 class="text-white font-bold text-sm md:text-base">Delis / Pepitos</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="destacado-card cursor-pointer group" data-cat="pan-de-papa" onclick="filtrarDestacado(this)">
+                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                        <img src="imagenes/HB-PP-CM-01.webp" alt="Pan de Papa" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-3">
+                            <h3 class="text-white font-bold text-sm md:text-base">Pan de Papa</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="mx-4 mb-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-r-xl shadow-sm">
             <div class="flex items-center gap-3">
                 <i class="fas fa-heart text-red-400 text-xl"></i>
@@ -274,10 +370,13 @@
          alt="Vista previa">
     </div>  
 
+    <!-- Callout flotante -->
+    <a href="https://wa.me/584126030518?text=%C2%A1Hola!%20Quisiera%20pedir%20al%20por%20mayor" target="_blank" rel="noopener"
+       class="fixed bottom-5 left-5 z-[150] bg-marron-oscuro text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 font-bold text-sm hover:bg-negro-suave hover:scale-105 transition-all">
+        <i class="fas fa-box-open"></i> ¡Pide al mayor!
+    </a>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
     <script src="script.js"></script>
 </body>
 </html>
