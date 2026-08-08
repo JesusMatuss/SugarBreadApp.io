@@ -383,43 +383,53 @@ function actualizarCarritoUI() {
     itemsTotales += item.cantidad;
 
     const divItem = document.createElement('div');
-    divItem.className = 'border-b border-gray-100 py-3';
+    divItem.className = 'bg-white rounded-xl border border-gray-200 shadow-sm p-3';
     divItem.innerHTML = `
-        <div class="flex flex-col gap-1">
-            <div class="flex justify-between items-start">
-                <p class="text-xs font-bold text-gray-800 leading-tight flex-.5">
-                    ${item.producto} (${item.medida_cm} cm)  - <span class="text-gray-500 font-medium">${item.topping} (${item.especificacion})</span>
-                </p>
-                <button onclick="eliminarDelCarrito(${index})" class="text-gray-600 hover:text-red-600 ml-2">
-                    <i class="fas fa-times text-[16px]"></i>
-                </button>
+        <div class="flex gap-3">
+            <div class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-crema border border-gray-100 cursor-zoom-in" onclick="expandirImagen('imagenes/${item.id}.webp')">
+                <img src="imagenes/${item.id}.webp" alt="${item.producto}" onerror="this.src='imagenes/placeholder-pan.jpg'" class="w-full h-full object-cover">
             </div>
-            
-            <div class="flex items-center justify-between mt-1">
-                <div class="flex items-center bg-gray-100 rounded-lg p-1">
-                    <button onclick="restarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">-</button>
-                    <span class="px-3 text-xs font-bold text-marron-oscuro">${item.cantidad}</span>
-                    <button onclick="sumarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs">+</button>
-                    <span class="text-gray-500 font-medium">  Paquetes</span>
+            <div class="flex-1 min-w-0">
+                <div class="flex justify-between items-start gap-2">
+                    <p class="text-xs font-bold text-gray-800 leading-tight">${item.producto} (${item.medida_cm} cm)</p>
+                    <button onclick="eliminarDelCarrito(${index})" title="Eliminar" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <i class="fas fa-trash-alt text-sm"></i>
+                    </button>
                 </div>
+                <p class="text-[11px] text-gray-500 font-medium mt-0.5">${item.topping} <span class="text-gray-400">•</span> ${item.especificacion}</p>
                 
-                <div class="text-right">
-                    <p class="text-[14px] font-bold text-marron-oscuro bg-marron-claro/10 px-2 py-0.5 rounded">
-                        ${totalUnidades} unds. total
-                    </p>
-                    <p class="text-[12px] text-gray-500 mt-0.5">$${subtotal.toFixed(2)}</p>
+                <div class="flex items-center justify-between mt-2">
+                    <div class="flex items-center bg-gray-100 rounded-lg p-0.5">
+                        <button onclick="restarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs font-bold">-</button>
+                        <span class="px-2.5 text-xs font-bold text-marron-oscuro">${item.cantidad}</span>
+                        <button onclick="sumarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs font-bold">+</button>
+                        <span class="text-[10px] text-gray-500 font-medium ml-1.5 pr-1">Pqtes</span>
+                    </div>
+                    
+                    <div class="text-right">
+                        <p class="text-sm font-extrabold text-miel">$${subtotal.toFixed(2)}</p>
+                        <p class="text-[10px] text-gray-500 font-medium">${totalUnidades} unds.</p>
+                    </div>
                 </div>
             </div>
         </div>
     `;
     listaCarrito.appendChild(divItem);
-    const itemsContainer = document.getElementById('carrito-items');
     
 });
 
     const donacion = obtenerDonacion();
     const bolsas = obtenerCostoBolsas();
     const totalConExtras = totalAcumulado + donacion + bolsas;
+
+    // Desglose del footer
+    const subtotalElemento = document.getElementById('subtotal-precio');
+    const deliveryElemento = document.getElementById('delivery-precio');
+    if (subtotalElemento) subtotalElemento.innerText = `$${totalAcumulado.toFixed(2)}`;
+    if (deliveryElemento) {
+        const deliveryActivo = document.getElementById('check-delivery') && document.getElementById('check-delivery').checked;
+        deliveryElemento.innerText = deliveryActivo ? 'Por acordar' : '$0.00';
+    }
 
     totalPrecioElemento.innerText = `$${totalConExtras.toFixed(2)}`;
     cartCountElement.innerText = itemsTotales;
@@ -912,6 +922,7 @@ function toggleDireccion() {
         campo.classList.add('hidden');
         document.getElementById('direccion-texto').value = ''; // Limpiar si se desmarca
     }
+    actualizarCarritoUI();
 }
 
 function obtenerUbicacion() {
