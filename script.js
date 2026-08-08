@@ -22,6 +22,7 @@ const btnPagar = document.querySelector('.btn-pagar');
 let productosData = []; // Base de datos completa
 let carritoArray = [];  // Arreglo para los items seleccionados
 let categoriaActiva = 'todos'; // Categoría seleccionada actualmente
+let seleccionVariante = {}; // Mapa grupoId -> varianteId seleccionada
 
 
 // --- PASO 1: CARGAR DATOS AL INICIAR ---
@@ -125,6 +126,17 @@ function panPapaDisponible() {
 // ==========================================================================
 // 2. RENDERIZADO DE PRODUCTOS
 // ==========================================================================
+// Agrupa productos que comparten características (solo cambia el topping)
+function agruparPorVariantes(productos) {
+    const grupos = new Map();
+    productos.forEach(p => {
+        const clave = [p.categoria, p.producto, p.especificacion, p.peso_gr, p.medida_cm, p.unidades_pqte].join('|');
+        if (!grupos.has(clave)) grupos.set(clave, []);
+        grupos.get(clave).push(p);
+    });
+    return Array.from(grupos.values());
+}
+
 function mostrarProductos(productos) {
     contenedor.innerHTML = '';
 
@@ -132,8 +144,8 @@ function mostrarProductos(productos) {
 
     let mensajeMostrado = false;
 
+    const productosVisibles = [];
     productos.forEach(p => {
-
         if (p.categoria === "Pan de Papa" && !esHorarioPanPapa) {
             if (!mensajeMostrado) {
                 const aviso = document.createElement('div');
@@ -151,46 +163,64 @@ function mostrarProductos(productos) {
             }
             return;
         }
+        productosVisibles.push(p);
+    });
+
+    const grupos = agruparPorVariantes(productosVisibles);
+
+    grupos.forEach(grupo => {
+        const base = grupo[0];
+        const grupoId = base.id;
+        seleccionVariante[grupoId] = grupoId; // Por defecto, la primera variante
 
         const card = document.createElement('article');
         card.className = 'bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden';
         card.innerHTML = `
             <div class="relative overflow-hidden cursor-zoom-in">
-                <img src="imagenes/${p.id}.webp" 
+                <img id="img-${grupoId}" src="imagenes/${base.id}.webp" 
                      onclick="expandirImagen(this.src)"
                      onerror="this.src='imagenes/placeholder-pan.jpg'" 
-                     alt="${p.producto}" 
+                     alt="${base.producto}" 
                      class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                 <span class="absolute top-3 right-3 bg-white/70 backdrop-blur-md text-marron-oscuro text-[14px] px-2.5 py-1 rounded-full font-bold shadow-sm pointer-events-none">
-                    ${p.unidades_pqte} unds
+                    ${base.unidades_pqte} unds
                 </span>
             </div>
             <div class="p-5 flex flex-col justify-between flex-1">
                 <div>
                     <div class="flex items-start justify-between gap-2">
-                        <h3 class="text-base font-bold text-gray-800 leading-snug">${p.producto}</h3>
-                        <span class="text-[11px] font-bold text-white bg-marron-oscuro px-2 py-1 rounded-full whitespace-nowrap">${p.medida_cm} cm</span>
+                        <h3 class="text-base font-bold text-gray-800 leading-snug">${base.producto}</h3>
+                        <span class="text-[11px] font-bold text-white bg-marron-oscuro px-2 py-1 rounded-full whitespace-nowrap">${base.medida_cm} cm</span>
                     </div>
-                    <p class="text-[11px] text-gray-400 uppercase tracking-wider mt-1 font-semibold">${p.categoria} | ${p.peso_gr} gr</p>
-                    <span class="inline-block mt-2 px-3 py-1 bg-amber-100/80 text-amber-800 text-[12px] font-semibold rounded-full">${p.topping}</span>
-                    <span class="inline-block ml-1 px-3 py-1 bg-marron-claro/20 text-marron-oscuro text-[12px] font-semibold rounded-full">
-                        ${p.especificacion}
+                    <p class="text-[11px] text-gray-400 uppercase tracking-wider mt-1 font-semibold">${base.categoria} | ${base.peso_gr} gr</p>
+                    
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-3 mb-1.5">Elige tu topping:</p>
+                    <div id="pills-${grupoId}" class="flex flex-wrap gap-1.5">
+                        ${grupo.map((v, i) => `
+                            <button type="button" data-variante-id="${v.id}" onclick="seleccionarTopping('${grupoId}', '${v.id}')"
+                                    class="topping-pill text-[11px] font-semibold px-2.5 py-1 rounded-full border bg-crema text-marron-oscuro border-marron-claro/60 hover:bg-marron-claro/40 ${i === 0 ? 'active-pill' : ''}">
+                                ${v.topping} <span class="pill-precio font-bold text-terracota">$${parseFloat(v.precio).toFixed(2)}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <span class="inline-block mt-2.5 px-3 py-1 bg-marron-claro/20 text-marron-oscuro text-[12px] font-semibold rounded-full">
+                        ${base.especificacion}
                     </span>
                 </div>
                 
                 <div class="mt-5 flex items-center justify-between gap-3">
                     <div>
                         <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Precio</p>
-                        <span class="text-2xl font-extrabold text-terracota leading-none">$${parseFloat(p.precio).toFixed(2)}</span>
+                        <span id="precio-${grupoId}" class="text-2xl font-extrabold text-terracota leading-none">$${parseFloat(base.precio).toFixed(2)}</span>
                     </div>
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1.5 bg-crema border border-marron-claro/40 rounded-full p-1">
-                            <button type="button" onclick="cambiarCantidadProducto('${p.id}', -1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">-</button>
-                            <input type="number" id="cant-${p.id}" value="1" min="1" readonly
+                            <button type="button" onclick="cambiarCantidadProducto('${grupoId}', -1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">-</button>
+                            <input type="number" id="cant-${grupoId}" value="1" min="1" readonly
                                    class="w-10 text-sm bg-transparent text-center font-extrabold text-marron-oscuro outline-none pointer-events-none">
-                            <button type="button" onclick="cambiarCantidadProducto('${p.id}', 1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">+</button>
+                            <button type="button" onclick="cambiarCantidadProducto('${grupoId}', 1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">+</button>
                         </div>
-                        <button onclick="agregarAlCarrito('${p.id}', this)" 
+                        <button onclick="agregarVarianteSeleccionada('${grupoId}', this)" 
                                 class="bg-miel hover:bg-terracota text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-1.5">
                             <i class="fas fa-cart-plus text-sm"></i> Agregar
                         </button>
@@ -200,6 +230,30 @@ function mostrarProductos(productos) {
         `;
         contenedor.appendChild(card);
     });
+}
+
+// Cambia la variante seleccionada de una tarjeta agrupada
+function seleccionarTopping(grupoId, varianteId) {
+    seleccionVariante[grupoId] = varianteId;
+
+    const img = document.getElementById(`img-${grupoId}`);
+    const precio = document.getElementById(`precio-${grupoId}`);
+    if (img) img.src = `imagenes/${varianteId}.webp`;
+    if (precio) {
+        const variante = productosData.find(p => p.id === varianteId);
+        if (variante) precio.innerText = `$${parseFloat(variante.precio).toFixed(2)}`;
+    }
+
+    document.querySelectorAll(`#pills-${grupoId} .topping-pill`).forEach(pill => {
+        pill.classList.toggle('active-pill', pill.dataset.varianteId === varianteId);
+    });
+}
+
+// Agrega al carrito la variante seleccionada de la tarjeta
+function agregarVarianteSeleccionada(grupoId, boton) {
+    const varianteId = seleccionVariante[grupoId];
+    if (!varianteId) return;
+    agregarAlCarrito(varianteId, boton, grupoId);
 }
 
 
@@ -245,10 +299,11 @@ function mostrarNotificacion(mensaje) {
 }
 
 // 1. Función para agregar (con validación de ID)
-function agregarAlCarrito(id, boton) {
+function agregarAlCarrito(id, boton, inputId) {
     const producto = productosData.find(p => p.id === id);
     // Buscamos el input de cantidad específico para este producto
-    const inputCantidad = document.getElementById(`cant-${id}`);
+    // En tarjetas agrupadas, el input usa el id del grupo (inputId)
+    const inputCantidad = document.getElementById(`cant-${inputId || id}`);
     const cantidad = parseInt(inputCantidad.value);
 
     if (producto && cantidad > 0) {

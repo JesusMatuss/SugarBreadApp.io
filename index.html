@@ -67,6 +67,17 @@
         .nav-scroll::-webkit-scrollbar { height: 4px; }
         .nav-scroll::-webkit-scrollbar-thumb { background: #D7C0AE; border-radius: 4px; }
         .nav-scroll::-webkit-scrollbar-track { background: transparent; }
+
+        /* Pills de topping (variantes) */
+        .topping-pill { transition: all 0.2s ease; }
+        .topping-pill.active-pill {
+            background-color: #333333 !important;
+            color: #ffffff !important;
+            border-color: #333333 !important;
+            box-shadow: 0 2px 10px rgba(51,51,51,0.25);
+            transform: translateY(-1px);
+        }
+        .topping-pill.active-pill .pill-precio { color: #E9A23B !important; }
     </style>
 </head>
 <body class="bg-crema text-negro-suave antialiased pb-24 md:pb-0">
