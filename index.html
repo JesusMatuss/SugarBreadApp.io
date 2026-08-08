@@ -78,6 +78,12 @@
             transform: translateY(-1px);
         }
         .topping-pill.active-pill .pill-precio { color: #E9A23B !important; }
+
+        /* Área de toppings con altura uniforme y scroll interno sutil */
+        .pills-scroll { max-height: 68px; overflow-y: auto; }
+        .pills-scroll::-webkit-scrollbar { width: 4px; }
+        .pills-scroll::-webkit-scrollbar-thumb { background: #D7C0AE; border-radius: 4px; }
+        .pills-scroll::-webkit-scrollbar-track { background: transparent; }
     </style>
 </head>
 <body class="bg-crema text-negro-suave antialiased pb-24 md:pb-0">
@@ -106,11 +112,18 @@
                 </div>
             </div>
 
-            <button id="ver-carrito" class="bg-marron-oscuro text-white px-4 py-2 rounded-full flex items-center gap-3 hover:bg-negro-suave transition-all shadow-md active:scale-95 duration-300">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="hidden md:inline font-semibold text-sm">Carrito</span>
-                <span id="cart-count" class="bg-white text-marron-oscuro px-2 py-0.5 rounded-full text-xs font-bold shadow-inner">0</span>
-            </button>
+            <div class="flex items-center gap-2.5">
+                <a href="https://wa.me/584126030518?text=%C2%A1Hola!%20Quisiera%20pedir%20al%20por%20mayor" target="_blank" rel="noopener"
+                   class="bg-miel hover:bg-terracota text-white px-3 md:px-4 py-2 rounded-full flex items-center gap-2 font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-95">
+                    <i class="fas fa-box-open text-xs"></i>
+                    <span class="hidden sm:inline">¡Pide al mayor!</span>
+                </a>
+                <button id="ver-carrito" class="bg-marron-oscuro text-white px-4 py-2 rounded-full flex items-center gap-3 hover:bg-negro-suave transition-all shadow-md active:scale-95 duration-300">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="hidden md:inline font-semibold text-sm">Carrito</span>
+                    <span id="cart-count" class="bg-white text-marron-oscuro px-2 py-0.5 rounded-full text-xs font-bold shadow-inner">0</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -421,12 +434,6 @@
          class="max-w-full max-h-[90vh] rounded-lg shadow-2xl object-contain transition-all duration-300"
          alt="Vista previa">
     </div>  
-
-    <!-- Callout flotante -->
-    <a href="https://wa.me/584126030518?text=%C2%A1Hola!%20Quisiera%20pedir%20al%20por%20mayor" target="_blank" rel="noopener"
-       class="fixed bottom-5 left-5 z-[150] bg-marron-oscuro text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 font-bold text-sm hover:bg-negro-suave hover:scale-105 transition-all hidden md:flex">
-        <i class="fas fa-box-open"></i> ¡Pide al mayor!
-    </a>
 
     <!-- Barra flotante de carrito (móviles) -->
     <div id="carrito-flotante" class="md:hidden fixed bottom-0 inset-x-0 z-[150] p-3 bg-gradient-to-t from-white via-white to-transparent pb-[max(0.75rem,env(safe-area-inset-bottom))]">

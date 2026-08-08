@@ -174,9 +174,9 @@ function mostrarProductos(productos) {
         seleccionVariante[grupoId] = grupoId; // Por defecto, la primera variante
 
         const card = document.createElement('article');
-        card.className = 'bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden';
+        card.className = 'bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden h-full';
         card.innerHTML = `
-            <div class="relative overflow-hidden cursor-zoom-in">
+            <div class="relative overflow-hidden cursor-zoom-in bg-crema rounded-t-2xl">
                 <img id="img-${grupoId}" src="imagenes/${base.id}.webp" 
                      onclick="expandirImagen(this.src)"
                      onerror="this.src='imagenes/placeholder-pan.jpg'" 
@@ -186,16 +186,21 @@ function mostrarProductos(productos) {
                     ${base.unidades_pqte} unds
                 </span>
             </div>
-            <div class="p-5 flex flex-col justify-between flex-1">
+            <div class="p-5 flex flex-col flex-1 min-h-0">
                 <div>
                     <div class="flex items-start justify-between gap-2">
                         <h3 class="text-base font-bold text-gray-800 leading-snug">${base.producto}</h3>
                         <span class="text-[11px] font-bold text-white bg-marron-oscuro px-2 py-1 rounded-full whitespace-nowrap">${base.medida_cm} cm</span>
                     </div>
-                    <p class="text-[11px] text-gray-400 uppercase tracking-wider mt-1 font-semibold">${base.categoria} | ${base.peso_gr} gr</p>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+                        <p class="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">${base.categoria} | ${base.peso_gr} gr</p>
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${base.especificacion === 'Con Molde' ? 'bg-amber-100 text-amber-800' : 'bg-marron-claro/25 text-marron-oscuro'}">
+                            <i class="fas fa-hamburger text-[8px]"></i> ${base.especificacion}
+                        </span>
+                    </div>
                     
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-3 mb-1.5">Elige tu topping:</p>
-                    <div id="pills-${grupoId}" class="flex flex-wrap gap-1.5">
+                    <div id="pills-${grupoId}" class="pills-scroll flex flex-wrap gap-1.5 pr-1">
                         ${grupo.map((v, i) => `
                             <button type="button" data-variante-id="${v.id}" onclick="seleccionarTopping('${grupoId}', '${v.id}')"
                                     class="topping-pill text-[11px] font-semibold px-2.5 py-1 rounded-full border bg-crema text-marron-oscuro border-marron-claro/60 hover:bg-marron-claro/40 ${i === 0 ? 'active-pill' : ''}">
@@ -203,12 +208,9 @@ function mostrarProductos(productos) {
                             </button>
                         `).join('')}
                     </div>
-                    <span class="inline-block mt-2.5 px-3 py-1 bg-marron-claro/20 text-marron-oscuro text-[12px] font-semibold rounded-full">
-                        ${base.especificacion}
-                    </span>
                 </div>
                 
-                <div class="mt-5 flex items-center justify-between gap-3">
+                <div class="mt-auto pt-5 flex items-center justify-between gap-3">
                     <div>
                         <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Precio</p>
                         <span id="precio-${grupoId}" class="text-2xl font-extrabold text-terracota leading-none">$${parseFloat(base.precio).toFixed(2)}</span>
