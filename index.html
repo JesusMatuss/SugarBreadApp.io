@@ -6,6 +6,9 @@
     <title>SugarBread | Pedidos Online</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         // Configuración de tus colores personalizados
         tailwind.config = {
@@ -18,6 +21,8 @@
                 'negro-suave': '#333333',
                 'whatsapp-green': '#25D366',
                 'logo-bg': '#f5ece1',
+                terracota: '#B85C38',
+                miel: '#E9A23B',
               }
             }
           }
@@ -25,6 +30,8 @@
     </script>
 
     <style>
+        * { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -41,9 +48,28 @@
             100% { transform: scale(1); opacity: 1; }
         }
         .animate-bounce-in { animation: bounceIn 0.5s ease-out; }
+
+        /* Ocultar flechas de inputs numéricos */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        /* Pills de categoría activa */
+        .btn-cat.active {
+            background-color: #333333;
+            color: #ffffff;
+            border-color: #333333;
+            box-shadow: 0 4px 12px rgba(51,51,51,0.25);
+        }
+        .btn-cat.active:hover { background-color: #333333; color: #ffffff; }
+
+        /* Scrollbar horizontal sutil en nav */
+        .nav-scroll::-webkit-scrollbar { height: 4px; }
+        .nav-scroll::-webkit-scrollbar-thumb { background: #D7C0AE; border-radius: 4px; }
+        .nav-scroll::-webkit-scrollbar-track { background: transparent; }
     </style>
 </head>
-<body class="bg-crema text-negro-suave font-sans antialiased">
+<body class="bg-crema text-negro-suave antialiased pb-24 md:pb-0">
 
     <header class="bg-logo-bg px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60]">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -69,7 +95,7 @@
                 </div>
             </div>
 
-            <button id="ver-carrito" class="bg-marron-oscuro text-white px-4 py-2 rounded-full flex items-center gap-3 hover:bg-negro-suave transition-all shadow-md active:scale-95 transition-all duration-300">
+            <button id="ver-carrito" class="bg-marron-oscuro text-white px-4 py-2 rounded-full flex items-center gap-3 hover:bg-negro-suave transition-all shadow-md active:scale-95 duration-300">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="hidden md:inline font-semibold text-sm">Carrito</span>
                 <span id="cart-count" class="bg-white text-marron-oscuro px-2 py-0.5 rounded-full text-xs font-bold shadow-inner">0</span>
@@ -77,15 +103,15 @@
         </div>
     </header>
 
-    <nav class="bg-white shadow-sm py-4 sticky top-[82px] z-50 overflow-hidden border-b border-gray-100">
-        <div class="nav-scroll max-w-6xl mx-auto px-4 flex gap-3 overflow-x-auto pb-2 justify-start md:justify-center scrollbar-hide">
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="todos">Todos</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="hamb-sin-molde">Hamburguesas sin Molde</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="perros">Perros</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="delis">Delis</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="sandwich">Sandwich</button>
-            <button class="btn-cat whitespace-nowrap border-2 border-marron-claro text-marron-oscuro px-5 py-2 rounded-full font-bold text-sm hover:bg-marron-oscuro hover:text-white transition-colors" data-cat="pan-de-papa">Pan de Papa</button>
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-[82px] z-50 overflow-hidden border-b border-marron-claro/30">
+        <div class="nav-scroll max-w-6xl mx-auto px-4 flex gap-2.5 overflow-x-auto pb-2 justify-start md:justify-center scrollbar-hide">
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="todos">Todos</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="hamb-sin-molde">Hamburguesas sin Molde</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="perros">Perros</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="delis">Delis</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="sandwich">Sandwich</button>
+            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="pan-de-papa">Pan de Papa</button>
         </div>
     </nav>
 
@@ -154,11 +180,11 @@
 
     <main id="app-container" class="max-w-6xl mx-auto py-8">
         <!-- Destacados de la Casa -->
-        <section id="destacados" class="px-4 mb-6">
-            <h2 class="text-xl md:text-2xl font-black text-marron-oscuro text-center mb-4 uppercase tracking-tight">Destacados de la Casa</h2>
+        <section id="destacados" class="px-4 mb-8">
+            <h2 class="text-xl md:text-2xl font-black text-marron-oscuro text-center mb-5 uppercase tracking-tight">Destacados de la Casa</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                <div class="destacado-card cursor-pointer group" data-cat="hamb-con-molde" onclick="filtrarDestacado(this)">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                <div class="destacado-card cursor-pointer group rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-cat="hamb-con-molde" onclick="filtrarDestacado(this)">
+                    <div class="relative">
                         <img src="imagenes/HB-CM-01.webp" alt="Hamburguesas" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-3">
@@ -166,8 +192,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="destacado-card cursor-pointer group" data-cat="perros" onclick="filtrarDestacado(this)">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                <div class="destacado-card cursor-pointer group rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-cat="perros" onclick="filtrarDestacado(this)">
+                    <div class="relative">
                         <img src="imagenes/PC-COM-01.webp" alt="Perros" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-3">
@@ -175,8 +201,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="destacado-card cursor-pointer group" data-cat="delis" onclick="filtrarDestacado(this)">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                <div class="destacado-card cursor-pointer group rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-cat="delis" onclick="filtrarDestacado(this)">
+                    <div class="relative">
                         <img src="imagenes/DL-PEP-01.webp" alt="Delis" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-3">
@@ -184,8 +210,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="destacado-card cursor-pointer group" data-cat="pan-de-papa" onclick="filtrarDestacado(this)">
-                    <div class="relative overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-all">
+                <div class="destacado-card cursor-pointer group rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-cat="pan-de-papa" onclick="filtrarDestacado(this)">
+                    <div class="relative">
                         <img src="imagenes/HB-PP-CM-01.webp" alt="Pan de Papa" class="w-full h-32 md:h-40 object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='Fondo.png'">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-3">
@@ -196,12 +222,17 @@
             </div>
         </section>
 
-        <div class="mx-4 mb-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-r-xl shadow-sm">
-            <div class="flex items-center gap-3">
-                <i class="fas fa-heart text-red-400 text-xl"></i>
-                <p class="text-red-700 text-sm font-medium leading-relaxed">
-                    <strong>Causa solidaria:</strong> Al finalizar tu pedido, puedes donar desde <strong>$0.50</strong> en apoyo a los afectados por el terremoto en Venezuela.
-                </p>
+        <div class="mx-4 mb-8 p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 border border-amber-200/70 shadow-sm">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-11 h-11 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center">
+                    <i class="fas fa-heart text-rose-400 text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-amber-900 text-sm md:text-base tracking-tight mb-1">Causa solidaria 💛</h3>
+                    <p class="text-amber-800/80 text-xs md:text-sm font-medium leading-relaxed">
+                        Al finalizar tu pedido, puedes donar desde <span class="font-bold text-terracota">$0.50</span> en apoyo a los afectados por el terremoto en Venezuela.
+                    </p>
+                </div>
             </div>
         </div>
         <section id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
@@ -311,10 +342,10 @@
                 <!-- Total Estimado -->
                 <div class="flex justify-between items-center mb-4 px-1">
                     <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
-                    <span id="total-precio" class="text-2xl font-black text-marron-oscuro">$0.00</span>
+                    <span id="total-precio" class="text-2xl font-extrabold text-terracota">$0.00</span>
                 </div>
 
-                <button class="btn-pagar w-full bg-whatsapp-green text-white py-3 rounded-lg font-bold text-base flex justify-center items-center gap-2 hover:brightness-110 transition-all active:scale-95">
+                <button class="btn-pagar w-full bg-miel hover:bg-terracota text-white py-3.5 rounded-xl font-bold text-base flex justify-center items-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-95">
                     <i class="fas fa-cloud-upload-alt text-sm"></i> Confirmar Pedido
                 </button>
             </footer>
@@ -352,15 +383,15 @@
 
     <!-- Modal de Donación -->
     <div id="modal-donacion" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-t-8 border-red-400 animate-bounce-in">
+        <div class="bg-white w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-t-8 border-amber-400 animate-bounce-in">
             <div class="p-6 text-center">
-                <div class="text-6xl mb-4">🙏</div>
+                <div class="text-6xl mb-4">💛</div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Unidos por una causa</h2>
-                <div class="w-16 h-1 bg-red-400 mx-auto rounded-full mb-4"></div>
+                <div class="w-16 h-1 bg-gradient-to-r from-amber-400 to-rose-400 mx-auto rounded-full mb-4"></div>
                 <p class="text-gray-600 leading-relaxed mb-6">
                     Queremos recordarte que al completar tu compra podrás sumar una <strong>donación (mínimo de $0.50)</strong>. Todo lo recaudado será destinado a brindar ayuda humanitaria a las familias afectadas por el terremoto en Venezuela. <strong>¡Agradecemos enormemente tu solidaridad!</strong>
                 </p>
-                <button onclick="cerrarModalDonacion()" class="bg-red-400 hover:bg-red-500 text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 active:scale-95">
+                <button onclick="cerrarModalDonacion()" class="bg-miel hover:bg-terracota text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 active:scale-95">
                     <i class="fas fa-heart mr-2"></i> Entendido, ¡gracias!
                 </button>
             </div>
@@ -382,9 +413,26 @@
 
     <!-- Callout flotante -->
     <a href="https://wa.me/584126030518?text=%C2%A1Hola!%20Quisiera%20pedir%20al%20por%20mayor" target="_blank" rel="noopener"
-       class="fixed bottom-5 left-5 z-[150] bg-marron-oscuro text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 font-bold text-sm hover:bg-negro-suave hover:scale-105 transition-all">
+       class="fixed bottom-5 left-5 z-[150] bg-marron-oscuro text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 font-bold text-sm hover:bg-negro-suave hover:scale-105 transition-all hidden md:flex">
         <i class="fas fa-box-open"></i> ¡Pide al mayor!
     </a>
+
+    <!-- Barra flotante de carrito (móviles) -->
+    <div id="carrito-flotante" class="md:hidden fixed bottom-0 inset-x-0 z-[150] p-3 bg-gradient-to-t from-white via-white to-transparent pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <button onclick="abrirCarritoFlotante()" class="w-full bg-marron-oscuro hover:bg-negro-suave text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center justify-between transition-all active:scale-[0.98]">
+            <span class="flex items-center gap-3 font-bold text-sm">
+                <span class="relative">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span id="cart-count-flotante" class="absolute -top-2 -right-2 bg-miel text-white text-[10px] font-black w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center">0</span>
+                </span>
+                <span>Ver Carrito</span>
+            </span>
+            <span class="flex items-center gap-2">
+                <span id="cart-total-flotante" class="font-black text-base">$0.00</span>
+                <i class="fas fa-chevron-up text-xs opacity-70"></i>
+            </span>
+        </button>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>

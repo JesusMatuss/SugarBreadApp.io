@@ -153,42 +153,47 @@ function mostrarProductos(productos) {
         }
 
         const card = document.createElement('article');
-        card.className = 'bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group';
+        card.className = 'bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group overflow-hidden';
         card.innerHTML = `
-            <div class="relative overflow-hidden rounded-t-2xl cursor-zoom-in">
+            <div class="relative overflow-hidden cursor-zoom-in">
                 <img src="imagenes/${p.id}.webp" 
                      onclick="expandirImagen(this.src)"
                      onerror="this.src='imagenes/placeholder-pan.jpg'" 
                      alt="${p.producto}" 
-                     class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500">
-                <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-marron-oscuro text-[14px] px-2 py-1 rounded-full font-bold shadow-sm pointer-events-none">
+                     class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                <span class="absolute top-3 right-3 bg-white/70 backdrop-blur-md text-marron-oscuro text-[14px] px-2.5 py-1 rounded-full font-bold shadow-sm pointer-events-none">
                     ${p.unidades_pqte} unds
                 </span>
             </div>
-            <div class="p-4 flex flex-col justify-between flex-1">
+            <div class="p-5 flex flex-col justify-between flex-1">
                 <div>
-                    <h3 class="text-md font-bold text-gray-800">${p.producto} (${p.medida_cm} cm)</h3>
-                    <p class="text-[12px] text-red-500 uppercase tracking-wider">${p.categoria} | ${p.peso_gr}gr</p>
-                    <p class="text-[14px] text-gray-500 mt-1 font-medium">${p.topping}</p>
-                    <p class="inline-block px-2 py-0.5 bg-amber-900/10 text-amber-900 text-[14px] mt-1 font-medium rounded-md backdrop-blur-[2px]">
+                    <div class="flex items-start justify-between gap-2">
+                        <h3 class="text-base font-bold text-gray-800 leading-snug">${p.producto}</h3>
+                        <span class="text-[11px] font-bold text-white bg-marron-oscuro px-2 py-1 rounded-full whitespace-nowrap">${p.medida_cm} cm</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400 uppercase tracking-wider mt-1 font-semibold">${p.categoria} | ${p.peso_gr} gr</p>
+                    <span class="inline-block mt-2 px-3 py-1 bg-amber-100/80 text-amber-800 text-[12px] font-semibold rounded-full">${p.topping}</span>
+                    <span class="inline-block ml-1 px-3 py-1 bg-marron-claro/20 text-marron-oscuro text-[12px] font-semibold rounded-full">
                         ${p.especificacion}
-                    </p>
+                    </span>
                 </div>
                 
-                <div class="mt-4 flex items-end justify-between">
-                    <span class="text-xl font-black text-marron-oscuro">$${parseFloat(p.precio).toFixed(2)}</span>
-                    <div class="flex items-center gap-2">
-                        <div class="flex flex-col items-end">
-                            <label for="cant-${p.id}" class="text-[10px] text-gray-400 font-bold uppercase mb-1">Cant. Paquetes</label>
-                            <div class="flex gap-1">
-                                <input type="number" id="cant-${p.id}" value="1" min="1" 
-                                       class="w-12 text-xs border-none bg-crema rounded-md text-center font-bold outline-none py-1">
-                                <button onclick="agregarAlCarrito('${p.id}', this)" 
-                                        class="bg-marron-oscuro text-white p-2 rounded-lg hover:bg-negro-suave transition-all active:scale-90">
-                                    <i class="fas fa-cart-plus text-sm"></i>
-                                </button>
-                            </div>
+                <div class="mt-5 flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Precio</p>
+                        <span class="text-2xl font-extrabold text-terracota leading-none">$${parseFloat(p.precio).toFixed(2)}</span>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <div class="flex items-center gap-1.5 bg-crema border border-marron-claro/40 rounded-full p-1">
+                            <button type="button" onclick="cambiarCantidadProducto('${p.id}', -1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">-</button>
+                            <input type="number" id="cant-${p.id}" value="1" min="1" readonly
+                                   class="w-10 text-sm bg-transparent text-center font-extrabold text-marron-oscuro outline-none pointer-events-none">
+                            <button type="button" onclick="cambiarCantidadProducto('${p.id}', 1)" class="w-8 h-8 flex items-center justify-center bg-white text-marron-oscuro rounded-full shadow-sm hover:bg-marron-oscuro hover:text-white transition-colors font-bold text-lg active:scale-90">+</button>
                         </div>
+                        <button onclick="agregarAlCarrito('${p.id}', this)" 
+                                class="bg-miel hover:bg-terracota text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-1.5">
+                            <i class="fas fa-cart-plus text-sm"></i> Agregar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -290,6 +295,20 @@ function obtenerDonacion() {
     return isNaN(monto) || monto < 0.50 ? 0.50 : monto;
 }
 
+// Selector interactivo de cantidad en las tarjetas
+function cambiarCantidadProducto(id, delta) {
+    const input = document.getElementById(`cant-${id}`);
+    if (!input) return;
+    let nueva = (parseInt(input.value) || 1) + delta;
+    if (nueva < 1) nueva = 1;
+    input.value = nueva;
+}
+
+// Barra flotante de carrito en móviles
+function abrirCarritoFlotante() {
+    document.getElementById('ver-carrito').click();
+}
+
 function actualizarCarritoUI() {
     const listaCarrito = document.getElementById('carrito-items');
     const totalPrecioElemento = document.getElementById('total-precio');
@@ -347,6 +366,12 @@ function actualizarCarritoUI() {
 
     totalPrecioElemento.innerText = `$${totalConExtras.toFixed(2)}`;
     cartCountElement.innerText = itemsTotales;
+
+    // Actualizar barra flotante móvil
+    const contadorFlotante = document.getElementById('cart-count-flotante');
+    const totalFlotante = document.getElementById('cart-total-flotante');
+    if (contadorFlotante) contadorFlotante.innerText = itemsTotales;
+    if (totalFlotante) totalFlotante.innerText = `$${totalConExtras.toFixed(2)}`;
 }
 
 // Función para aumentar cantidad en el carrito
@@ -468,12 +493,16 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('ver-carrito').addEventListener('click', () => {
     sidebarCarrito.classList.remove('translate-x-full'); // Tailwind slide in
     document.getElementById('cart-overlay').classList.remove('hidden');
+    const flotante = document.getElementById('carrito-flotante');
+    if (flotante) flotante.style.display = 'none';
 });
 
 // Cerrar carrito
 const cerrar = () => {
     sidebarCarrito.classList.add('translate-x-full'); // Tailwind slide out
     document.getElementById('cart-overlay').classList.add('hidden');
+    const flotante = document.getElementById('carrito-flotante');
+    if (flotante) flotante.style.display = '';
 };
 document.getElementById('close-cart').addEventListener('click', cerrar);
 document.getElementById('cart-overlay').addEventListener('click', cerrar);
