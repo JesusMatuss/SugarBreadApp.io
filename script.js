@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slides.forEach((_, i) => {
         const dot = document.createElement('button');
-        dot.className = 'hero-dot w-3 h-3 rounded-full transition-all ' + (i === 0 ? 'bg-white' : 'bg-white/40');
+        dot.className = 'hero-dot w-2.5 h-2.5 rounded-full transition-all ' + (i === 0 ? 'bg-white' : 'bg-white/40');
         dot.onclick = () => { mostrarSlide(i); reiniciarIntervalo(); };
         dotsContenedor.appendChild(dot);
     });
