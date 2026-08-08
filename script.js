@@ -675,24 +675,87 @@ function mostrarResumenPedido(total, productos) {
     const fechaEntrega = document.getElementById('fecha-entrega').value; // Capturar fecha
     
     const nroOrden = Math.floor(Math.random() * 100) + 1;
+    document.getElementById('badge-orden').innerText = `Orden #${nroOrden}`;
     
-    let htmlProductos = `<h3 class="font-bold text-lg mb-2 text-marron-oscuro">Orden #${nroOrden}</h3>
-                        <p class="text-xs text-marron-oscuro/70 mb-3">📅 Entrega: <strong>${fechaEntrega}</strong></p>`;
+    // Cabecera del ticket
+    let htmlProductos = `
+        <div class="p-4 border-b border-dashed border-marron-claro bg-white">
+            <p class="text-xs font-bold text-gray-700 flex items-center gap-2 mb-1">
+                <i class="far fa-calendar-check text-marron-oscuro"></i> Fecha de entrega
+            </p>
+            <p class="text-sm font-extrabold text-marron-oscuro">${fechaEntrega}</p>
+        </div>
+    `;
     
+    // Filas del ticket (producto + subtotal)
+    let totalItems = 0;
     productos.forEach(p => {
+        const subtotal = (parseFloat(p.precio) * p.cantidad).toFixed(2);
+        totalItems += p.cantidad;
         htmlProductos += `
-            <p class="mb-1"><strong>${p.cantidad}x</strong> ${p.producto} <span class="text-xs text-gray-500">(${p.topping}) (${p.especificacion})</span></p>`
-        ;
+            <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-dashed border-marron-claro/60">
+                <div class="min-w-0">
+                    <p class="text-xs font-bold text-gray-800 leading-snug">
+                        <span class="text-terracota font-black">${p.cantidad}x</span> ${p.producto} (${p.medida_cm} cm)
+                    </p>
+                    <p class="text-[10px] text-gray-500 font-medium mt-0.5 truncate">${p.topping} • ${p.especificacion}</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                    <p class="text-xs font-extrabold text-miel">$${subtotal}</p>
+                    <p class="text-[9px] text-gray-400">${p.cantidad * p.unidades_por_paquete} unds.</p>
+                </div>
+            </div>
+        `;
     });
+
+    // Bolsas si fueron solicitadas
+    const bolsaCheck = document.getElementById('check-bolsa');
+    const bolsasActivas = bolsaCheck && bolsaCheck.checked;
+    if (bolsasActivas) {
+        const cantBolsa = parseInt(document.getElementById('cantidad-bolsa').value) || 1;
+        const costoBolsa = (cantBolsa * PRECIO_BOLSA).toFixed(2);
+        htmlProductos += `
+            <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-dashed border-marron-claro/60">
+                <div class="min-w-0">
+                    <p class="text-xs font-bold text-gray-800 leading-snug">
+                        <span class="text-terracota font-black">${cantBolsa}x</span> Bolsas para el pedido
+                    </p>
+                    <p class="text-[10px] text-gray-500 font-medium mt-0.5">Cada bolsa $0.20</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                    <p class="text-xs font-extrabold text-miel">$${costoBolsa}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // Donación si fue solicitada
+    const donarCheck = document.getElementById('check-donar');
+    if (donarCheck && donarCheck.checked) {
+        const montoDonacion = parseFloat(document.getElementById('monto-donacion').value) || 0.50;
+        htmlProductos += `
+            <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-dashed border-marron-claro/60">
+                <div class="min-w-0">
+                    <p class="text-xs font-bold text-gray-800 leading-snug">
+                        <i class="fas fa-heart text-rose-400 text-[10px] mr-1"></i> Donación solidaria
+                    </p>
+                    <p class="text-[10px] text-gray-500 font-medium mt-0.5">Terremoto en Venezuela</p>
+                </div>
+                <div class="text-right flex-shrink-0">
+                    <p class="text-xs font-extrabold text-miel">$${montoDonacion.toFixed(2)}</p>
+                </div>
+            </div>
+        `;
+    }
     
-    // Simplificamos los botones del modal para que no choquen con el diseño
+    // Total destacado
     htmlProductos += `
-        <hr class="my-3 border-marron-claro">
-        <p class="text-xl font-black text-black mb-4 text-center">Total: $${total}</p>
-        <div class="flex gap-2">
-            <button class="flex-1 bg-marron-claro text-white py-2 rounded-lg text-xs font-bold hover:bg-marron-oscuro transition-colors" onclick="descargarPDF()">
-                <i class="fas fa-file-pdf"></i> PDF
-            </button>
+        <div class="px-4 py-3 bg-gradient-to-r from-miel to-terracota flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-[10px] font-bold uppercase tracking-widest">Total del pedido</p>
+                <p class="text-white/70 text-[10px] font-medium mt-0.5">${totalItems} paquete(s) + extras</p>
+            </div>
+            <p class="text-2xl font-black text-white">$${total}</p>
         </div>
     `;
 
@@ -701,18 +764,6 @@ function mostrarResumenPedido(total, productos) {
     // MANEJO DE CLASES TAILWIND (Sin usar .style.display)
     modal.classList.remove('hidden');
     modal.classList.add('flex');
-}
-
-function descargarPDF() {
-    const element = document.getElementById('detalle-orden');
-    const opt = {
-        margin:       1,
-        filename:     'Pedido_Panaderia.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
 }
 
 // Función para cerrar el modal corregida
