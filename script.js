@@ -378,30 +378,90 @@ function eliminarDelCarrito(index) {
 // ==========================================================================
 
 // Filtrar por categorías
+function aplicarFiltro(catSeleccionada) {
+    categoriaActiva = catSeleccionada;
+
+    if (catSeleccionada === 'todos') {
+        mostrarProductos(productosData);
+    } else {
+        const filtrados = productosData.filter(p => {
+            if (catSeleccionada === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
+            if (catSeleccionada === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
+            if (catSeleccionada === 'perros') return p.categoria === 'Perro';
+            if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
+            if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
+            if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
+            return false;
+        });
+        mostrarProductos(filtrados);
+    }
+
+    // Scroll suave hacia el catálogo
+    document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 document.querySelectorAll('.btn-cat').forEach(boton => {
     boton.addEventListener('click', () => {
         document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
         boton.classList.add('active');
-
-        const catSeleccionada = boton.getAttribute('data-cat');
-        categoriaActiva = catSeleccionada;
-        
-        if (catSeleccionada === 'todos') {
-            mostrarProductos(productosData);
-        } else {
-            // Filtramos comparando con p.categoria y p.especificacion
-            const filtrados = productosData.filter(p => {
-                if (catSeleccionada === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
-                if (catSeleccionada === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
-                if (catSeleccionada === 'perros') return p.categoria === 'Perro';
-                if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
-                if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
-                if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
-                return false;
-            });
-            mostrarProductos(filtrados);
-        }
+        aplicarFiltro(boton.getAttribute('data-cat'));
     });
+});
+
+// Filtrar desde las tarjetas destacadas
+function filtrarDestacado(card) {
+    document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
+    const cat = card.getAttribute('data-cat');
+    aplicarFiltro(cat);
+}
+
+// ==========================================================================
+// CARRUSEL HERO
+// ==========================================================================
+let slideActual = 0;
+let intervaloCarrusel = null;
+
+function mostrarSlide(indice) {
+    const slides = document.querySelectorAll('.hero-slide');
+    if (slides.length === 0) return;
+    slideActual = (indice + slides.length) % slides.length;
+
+    slides.forEach((s, i) => {
+        s.classList.toggle('opacity-0', i !== slideActual);
+        s.classList.toggle('opacity-100', i === slideActual);
+    });
+
+    const dots = document.querySelectorAll('#hero-dots .hero-dot');
+    dots.forEach((d, i) => {
+        d.classList.toggle('bg-white', i === slideActual);
+        d.classList.toggle('bg-white/40', i !== slideActual);
+    });
+}
+
+function moverSlide(direccion) {
+    mostrarSlide(slideActual + direccion);
+    reiniciarIntervalo();
+}
+
+function reiniciarIntervalo() {
+    if (intervaloCarrusel) clearInterval(intervaloCarrusel);
+    intervaloCarrusel = setInterval(() => mostrarSlide(slideActual + 1), 5000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dotsContenedor = document.getElementById('hero-dots');
+    if (slides.length === 0 || !dotsContenedor) return;
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'hero-dot w-2.5 h-2.5 rounded-full transition-all ' + (i === 0 ? 'bg-white' : 'bg-white/40');
+        dot.onclick = () => { mostrarSlide(i); reiniciarIntervalo(); };
+        dotsContenedor.appendChild(dot);
+    });
+
+    mostrarSlide(0);
+    intervaloCarrusel = setInterval(() => mostrarSlide(slideActual + 1), 5000);
 });
 
 // Abrir carrito
