@@ -24,6 +24,9 @@ let carritoArray = [];  // Arreglo para los items seleccionados
 let categoriaActiva = 'todos'; // Categoría seleccionada actualmente
 let seleccionVariante = {}; // Mapa grupoId -> varianteId seleccionada
 
+// Toppings descontinuados que se ocultan del catálogo (se restauran quitándolos de esta lista)
+const TOPPINGS_EXCLUIDOS = ['Sésamo Negro'];
+
 
 // --- PASO 1: CARGAR DATOS AL INICIAR ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -64,6 +67,10 @@ async function cargarProductos() {
         if (!respuesta.ok) throw new Error("No se pudo cargar el catálogo");
         
         productosData = await respuesta.json();
+        // Filtrar toppings descontinuados antes de renderizar
+        if (TOPPINGS_EXCLUIDOS.length > 0) {
+            productosData = productosData.filter(p => !TOPPINGS_EXCLUIDOS.includes(p.topping));
+        }
         mostrarProductos(productosData); // Carga inicial
     } catch (error) {
         console.error("Error:", error);
@@ -565,14 +572,23 @@ document.getElementById('ver-carrito').addEventListener('click', () => {
 });
 
 // Cerrar carrito
-const cerrar = () => {
+function cerrarCarrito() {
     sidebarCarrito.classList.add('translate-x-full'); // Tailwind slide out
     document.getElementById('cart-overlay').classList.add('hidden');
     const flotante = document.getElementById('carrito-flotante');
     if (flotante) flotante.style.display = '';
-};
-document.getElementById('close-cart').addEventListener('click', cerrar);
-document.getElementById('cart-overlay').addEventListener('click', cerrar);
+}
+document.getElementById('close-cart').addEventListener('click', cerrarCarrito);
+document.getElementById('cart-overlay').addEventListener('click', cerrarCarrito);
+
+// Acordeón "Datos y Opciones" (solo móvil <1024px)
+function toggleOpciones() {
+    const contenido = document.getElementById('contenido-opciones');
+    const btn = document.getElementById('toggle-opciones');
+    if (!contenido || !btn) return;
+    const abierto = contenido.classList.toggle('abierto');
+    btn.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+}
 
 // Control sheets
 
@@ -644,7 +660,7 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
         mostrarResumenPedido(totalFinal, ordenFinal);
 
         actualizarCarritoUI();
-        sidebarCarrito.classList.add('carrito-hidden');
+        cerrarCarrito();
     } else {
         alert("⚠️ Hubo un error al enviar el pedido a la base de datos. Intenta de nuevo o contacta al administrador.");
     }
