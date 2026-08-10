@@ -581,15 +581,6 @@ function cerrarCarrito() {
 document.getElementById('close-cart').addEventListener('click', cerrarCarrito);
 document.getElementById('cart-overlay').addEventListener('click', cerrarCarrito);
 
-// Acordeón "Datos y Opciones" (solo móvil <1024px)
-function toggleOpciones() {
-    const contenido = document.getElementById('contenido-opciones');
-    const btn = document.getElementById('toggle-opciones');
-    if (!contenido || !btn) return;
-    const abierto = contenido.classList.toggle('abierto');
-    btn.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-}
-
 // Control sheets
 
 document.querySelector('.btn-pagar').addEventListener('click', async () => {
