@@ -86,35 +86,31 @@ function panPapaDisponible() {
     const hora = ahora.getHours();
     const dia = ahora.getDay(); // 0=Dom, 1=Lun, 2=Mar, 3=Mie, 4=Jue, 5=Vie, 6=Sab
 
-    const DIAS_PERMITIDOS = [1, 2, 4, 5]; // Lun, Mar, Jue, Vie
-    const CORTE_HORA = 9; // 9 AM cutoff
+    const DIAS_PERMITIDOS = [1, 2, 3, 4, 5]; // Lunes a Viernes
+    const CORTE_HORA = 8; // 8 AM cutoff
 
     // 1. Validar el horario diario (Tardes/Noches o Madrugadas)
     const enHorario = hora >= 13 || hora < 8;
-    
+
     // 2. Validar si hoy es un día permitido para solicitar producción
-    let diaPermitido = DIAS_PERMITIDOS.includes(dia);
-    
-    // EXCEPCIÓN: Si es miércoles (3) y ya pasó la hora de corte (9 AM), 
-    // se permite porque entrará en la producción/entrega del Jueves (4)
-    if (dia === 3 && hora >= CORTE_HORA) {
-        diaPermitido = true;
-    }
+    const diaPermitido = DIAS_PERMITIDOS.includes(dia);
 
     // 3. Calcular el día real de entrega proyectado hacia el futuro
     const fechaEntrega = new Date(ahora);
-    
+
     if (hora >= CORTE_HORA) {
-        // Si ya pasó la hora de corte, la entrega se mueve al menos al día siguiente
+        // Si ya pasó la hora de corte (8 AM), la entrega se mueve al día siguiente
         fechaEntrega.setDate(fechaEntrega.getDate() + 1);
     } else {
-        // Si es antes de las 9 AM, se procesa para HOY mismo
+        // Si es antes de las 8 AM, se procesa para HOY mismo
         // (Mantiene la fecha actual)
     }
 
-    // Si la entrega estimada cae un Miércoles (3) o Domingo (0) por el desfase, 
-    // lo movemos un día más hacia adelante (al Jueves o Lunes respectivamente)
-    if (fechaEntrega.getDay() === 3 || fechaEntrega.getDay() === 0) {
+    // Si la entrega estimada cae Sábado (6) o Domingo (0) por el desfase,
+    // la movemos al próximo Lunes
+    if (fechaEntrega.getDay() === 6) {
+        fechaEntrega.setDate(fechaEntrega.getDate() + 2);
+    } else if (fechaEntrega.getDay() === 0) {
         fechaEntrega.setDate(fechaEntrega.getDate() + 1);
     }
 
@@ -161,7 +157,7 @@ function mostrarProductos(productos) {
                     <div class="flex items-center">
                         <i class="fas fa-info-circle text-amber-500 mr-3"></i>
                         <p class="text-amber-800 font-medium">
-                            El <strong>Pan de Papa</strong> solo está disponible para pedidos los días <strong>Lunes, Martes, Jueves y Viernes</strong>, desde la 1:00 PM hasta las 8:00 AM del día siguiente. No se realizan pedidos si la entrega cae en Miércoles, Sábado o Domingo.
+                            El <strong>Pan de Papa</strong> está disponible para pedidos los días <strong>Lunes a Viernes</strong>, desde la 1:00 PM hasta las 8:00 AM del día siguiente.
                         </p>
                     </div>
                 `;
