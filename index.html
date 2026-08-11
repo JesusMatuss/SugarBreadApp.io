@@ -85,11 +85,47 @@
         .pills-scroll::-webkit-scrollbar-thumb { background: #D7C0AE; border-radius: 4px; }
         .pills-scroll::-webkit-scrollbar-track { background: transparent; }
 
+        /* === Carrusel 3D apilado (Stacked Cards Coverflow) === */
+        .carrusel-3d {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+        }
+        .hero-slide img {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .carrusel-control {
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        /* === Header auto-ocultable === */
+        body.header-oculto #app-header {
+            top: calc(-1 * var(--header-alt, 82px));
+        }
+        body.header-oculto #categorias-nav {
+            top: 0;
+        }
+
         </style>
 </head>
 <body class="bg-crema text-negro-suave antialiased pb-24 md:pb-0">
 
-    <header class="bg-logo-bg px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60]">
+    <header id="app-header" class="bg-logo-bg px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60] transition-[top] duration-300 ease-out">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             
             <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-6">
@@ -123,7 +159,7 @@
         </div>
     </header>
 
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-[82px] z-50 overflow-hidden border-b border-marron-claro/30">
+    <nav id="categorias-nav" class="bg-white/90 backdrop-blur-md shadow-sm py-4 sticky top-[82px] z-50 overflow-hidden border-b border-marron-claro/30 transition-all duration-300 ease-out">
         <div class="nav-scroll max-w-6xl mx-auto px-4 flex gap-2.5 overflow-x-auto pb-2 justify-start md:justify-center scrollbar-hide">
             <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="todos">Todos</button>
             <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="hamb-con-molde">Hamburguesas con Molde</button>
@@ -136,11 +172,11 @@
     </nav>
 
     <!-- Carrusel Hero (5 banners verticales 608x1080) -->
-    <div id="hero-carrusel" class="max-w-[280px] sm:max-w-xs md:max-w-sm mx-auto px-4 mt-4">
-        <div class="relative rounded-2xl overflow-hidden shadow-xl">
-            <div class="relative aspect-[9/16]">
+    <div id="hero-carrusel" class="max-w-[340px] sm:max-w-sm md:max-w-md mx-auto px-2 mt-4 pb-6">
+        <div class="relative">
+            <div class="carrusel-3d relative aspect-[9/16]">
 
-                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                <div class="hero-slide">
                     <img src="Banner1.webp" alt="Banner SugarBread 1" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -150,7 +186,7 @@
                     </div>
                 </div>
 
-                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                <div class="hero-slide">
                     <img src="Banner2.webp" alt="Banner SugarBread 2" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -160,7 +196,7 @@
                     </div>
                 </div>
 
-                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                <div class="hero-slide">
                     <img src="Banner3.webp" alt="Banner SugarBread 3" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -170,7 +206,7 @@
                     </div>
                 </div>
 
-                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                <div class="hero-slide">
                     <img src="Banner4.webp" alt="Banner SugarBread 4" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -180,7 +216,7 @@
                     </div>
                 </div>
 
-                <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700">
+                <div class="hero-slide">
                     <img src="Fondo.png" alt="Causa solidaria SugarBread" class="w-full h-full object-cover" onerror="this.src='Banner1.webp'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -190,10 +226,10 @@
                     </div>
                 </div>
 
-                <button onclick="moverSlide(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg z-10">&lsaquo;</button>
-                <button onclick="moverSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg z-10">&rsaquo;</button>
+                <button onclick="moverSlide(-1)" class="carrusel-control absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg">&lsaquo;</button>
+                <button onclick="moverSlide(1)" class="carrusel-control absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white w-8 h-8 md:w-10 md:h-10 rounded-full backdrop-blur-sm transition-all flex items-center justify-center text-lg">&rsaquo;</button>
 
-                <div id="hero-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10"></div>
+                <div id="hero-dots" class="carrusel-control absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2"></div>
             </div>
         </div>
     </div>
