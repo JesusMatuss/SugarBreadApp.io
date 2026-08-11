@@ -511,10 +511,37 @@ function filtrarDestacado(card) {
 }
 
 // ==========================================================================
-// CARRUSEL HERO
+// CARRUSEL HERO (Stacked 3D Cards)
 // ==========================================================================
 let slideActual = 0;
 let intervaloCarrusel = null;
+let inicioTouchX = null;
+
+// Estados del apilado 3D según el offset circular relativo al slide activo
+// Coverflow: actual al centro, vecinas asomando mitad visible a los lados
+function estiloStack(offset) {
+    switch (offset) {
+        case 0:
+            return { transform: 'translate3d(0, 0, 0) scale(1) rotateY(0deg)', opacity: 1, z: 5 };
+        case 1:
+            return { transform: 'translate3d(48%, 0, -60px) scale(0.85) rotateY(8deg)', opacity: 0.95, z: 4 };
+        case -1:
+            return { transform: 'translate3d(-48%, 0, -60px) scale(0.85) rotateY(-8deg)', opacity: 0.95, z: 4 };
+        case 2:
+            return { transform: 'translate3d(96%, 0, -120px) scale(0.75)', opacity: 0, z: 3 };
+        case -2:
+            return { transform: 'translate3d(-96%, 0, -120px) scale(0.75)', opacity: 0, z: 3 };
+        default:
+            return { transform: 'translate3d(0, 0, -180px) scale(0.6)', opacity: 0, z: 2 };
+    }
+}
+
+function offsetCircular(i, total) {
+    let d = i - slideActual;
+    if (d > total / 2) d -= total;
+    if (d < -total / 2) d += total;
+    return d;
+}
 
 function mostrarSlide(indice) {
     const slides = document.querySelectorAll('.hero-slide');
@@ -522,8 +549,12 @@ function mostrarSlide(indice) {
     slideActual = (indice + slides.length) % slides.length;
 
     slides.forEach((s, i) => {
-        s.classList.toggle('opacity-0', i !== slideActual);
-        s.classList.toggle('opacity-100', i === slideActual);
+        const offset = offsetCircular(i, slides.length);
+        const estilo = estiloStack(offset);
+        s.style.transform = estilo.transform;
+        s.style.opacity = estilo.opacity;
+        s.style.zIndex = estilo.z;
+        s.style.webkitTransform = estilo.transform;
     });
 
     const dots = document.querySelectorAll('#hero-dots .hero-dot');
@@ -557,6 +588,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mostrarSlide(0);
     intervaloCarrusel = setInterval(() => mostrarSlide(slideActual + 1), 5000);
+
+    // Swipe táctil (móviles)
+    const carrusel = document.getElementById('hero-carrusel');
+    if (carrusel) {
+        carrusel.addEventListener('touchstart', (e) => {
+            inicioTouchX = e.touches[0].clientX;
+        }, { passive: true });
+        carrusel.addEventListener('touchend', (e) => {
+            if (inicioTouchX === null) return;
+            const deltaX = e.changedTouches[0].clientX - inicioTouchX;
+            inicioTouchX = null;
+            if (Math.abs(deltaX) > 45) {
+                moverSlide(deltaX < 0 ? 1 : -1);
+            }
+        }, { passive: true });
+    }
 });
 
 // Abrir carrito
@@ -1032,6 +1079,40 @@ setInterval(() => {
 }, 30000);
 
 cargarProductos(); // Carga inicial de productos al abrir la página
+
+// ==========================================================================
+// HEADER AUTO-OCULTABLE (se oculta al hacer scroll hacia abajo)
+// ==========================================================================
+(function () {
+    const header = document.getElementById('app-header');
+    const cuerpo = document.body;
+    if (!header) return;
+
+    function medirHeader() {
+        const alto = header.offsetHeight;
+        if (alto > 0) header.style.setProperty('--header-alt', alto + 'px');
+    }
+    medirHeader();
+    window.addEventListener('resize', medirHeader);
+
+    let ultimoScroll = window.scrollY || 0;
+    const umbral = 60; // píxeles de scroll antes de ocultarlo
+
+    function alScroll() {
+        const y = window.scrollY || 0;
+        const bajando = y > ultimoScroll;
+
+        if (bajando && y > umbral) {
+            cuerpo.classList.add('header-oculto');
+        } else if (!bajando) {
+            cuerpo.classList.remove('header-oculto');
+        }
+        ultimoScroll = y;
+    }
+
+    window.addEventListener('scroll', alScroll, { passive: true });
+    alScroll();
+})();
 
 
 
