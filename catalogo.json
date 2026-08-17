@@ -704,17 +704,6 @@
     "precio": "4.51"
   },
   {
-    "id": "PC-JUM-04",
-    "categoria": "Perro",
-    "producto": "Jumbo Extra G",
-    "especificacion": "Jumbo",
-    "peso_gr": "110",
-    "medida_cm": "21",
-    "topping": "Ajonjolí",
-    "unidades_pqte": "10",
-    "precio": "3.29"
-  },
-  {
     "id": "DL-PEP-01",
     "categoria": "Deli (Pepito)",
     "producto": "Deli Standard",
