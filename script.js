@@ -486,13 +486,22 @@ function aplicarFiltro(catSeleccionada) {
             if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
             if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
             if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
+            if (catSeleccionada === 'pan-dulce') return p.categoria === 'Pan Dulce';
             return false;
         });
         mostrarProductos(filtrados);
     }
 
-    // Scroll suave hacia el catálogo
+    // Scroll suave hacia el catálogo y aplicar fondo si es Pan Dulce
     document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Aplicar estilo de fondo si es Pan Dulce
+    const container = document.getElementById('catalogo');
+    if (catSeleccionada === 'pan-dulce') {
+        container.classList.add('bg-orange-50', 'rounded-3xl', 'p-6');
+    } else {
+        container.classList.remove('bg-orange-50', 'rounded-3xl', 'p-6');
+    }
 }
 
 document.querySelectorAll('.btn-cat').forEach(boton => {
