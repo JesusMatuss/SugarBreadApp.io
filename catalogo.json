@@ -1243,4 +1243,60 @@
     "unidades_pqte": "20",
     "precio": "5.77"
   }
+  },
+  {
+    "id": "PD-COCO-01",
+    "categoria": "Pan Dulce",
+    "producto": "Pan dulce Coco",
+    "especificacion": "Simple",
+    "peso_gr": "60",
+    "medida_cm": "10",
+    "topping": "Coco",
+    "unidades_pqte": "6",
+    "precio": "1.44"
+  },
+  {
+    "id": "PD-RELL-ARQ",
+    "categoria": "Pan Dulce",
+    "producto": "Pan dulce relleno",
+    "especificacion": "Arequipe",
+    "peso_gr": "60",
+    "medida_cm": "10",
+    "topping": "Arequipe",
+    "unidades_pqte": "6",
+    "precio": "1.44"
+  },
+  {
+    "id": "PD-RELL-CHO",
+    "categoria": "Pan Dulce",
+    "producto": "Pan dulce relleno",
+    "especificacion": "Chocolate",
+    "peso_gr": "60",
+    "medida_cm": "10",
+    "topping": "Chocolate",
+    "unidades_pqte": "6",
+    "precio": "1.44"
+  },
+  {
+    "id": "PD-RELL-GUA",
+    "categoria": "Pan Dulce",
+    "producto": "Pan dulce relleno",
+    "especificacion": "Guayaba",
+    "peso_gr": "60",
+    "medida_cm": "10",
+    "topping": "Guayaba",
+    "unidades_pqte": "6",
+    "precio": "1.44"
+  },
+  {
+    "id": "PD-SIM-01",
+    "categoria": "Pan Dulce",
+    "producto": "Pan dulce simple",
+    "especificacion": "Simple",
+    "peso_gr": "50",
+    "medida_cm": "10",
+    "topping": "Sin Topping",
+    "unidades_pqte": "6",
+    "precio": "0.84"
+  }
 ]
