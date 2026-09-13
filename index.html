@@ -61,6 +61,21 @@
             border-color: #333333;
             box-shadow: 0 4px 12px rgba(51,51,51,0.25);
         }
+        
+        /* Botón especial para Pan Dulce */
+        .btn-cat-coral {
+            background-color: #FF7F50 !important;
+            color: white !important;
+            border-color: #FF7F50 !important;
+        }
+        .btn-cat-coral:hover {
+            background-color: #FF6347 !important;
+            color: white !important;
+        }
+        .btn-cat-coral.active {
+            background-color: #FF4500 !important;
+        }
+
         .btn-cat.active:hover { background-color: #333333; color: #ffffff; }
 
         /* Scrollbar horizontal sutil en nav */
@@ -168,7 +183,7 @@
             <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="delis">Delis</button>
             <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="sandwich">Sandwich</button>
             <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="pan-de-papa">Pan de Papa</button>
-            <button class="btn-cat whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 border-marron-claro text-marron-oscuro bg-white hover:bg-marron-oscuro hover:text-white hover:shadow-md active:scale-95" data-cat="pan-dulce">Pan Dulce</button>
+            <button class="btn-cat btn-cat-coral whitespace-nowrap px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border-2 text-white hover:shadow-md active:scale-95" data-cat="pan-dulce">Pan Dulce</button>
         </div>
     </nav>
 

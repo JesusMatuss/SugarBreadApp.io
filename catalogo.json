@@ -1243,7 +1243,7 @@
     "unidades_pqte": "20",
     "precio": "5.77"
   }
-  },
+  ,
   {
     "id": "PD-COCO-01",
     "categoria": "Pan Dulce",
@@ -1259,7 +1259,7 @@
     "id": "PD-RELL-ARQ",
     "categoria": "Pan Dulce",
     "producto": "Pan dulce relleno",
-    "especificacion": "Arequipe",
+    "especificacion": "Relleno",
     "peso_gr": "60",
     "medida_cm": "10",
     "topping": "Arequipe",
@@ -1270,7 +1270,7 @@
     "id": "PD-RELL-CHO",
     "categoria": "Pan Dulce",
     "producto": "Pan dulce relleno",
-    "especificacion": "Chocolate",
+    "especificacion": "Relleno",
     "peso_gr": "60",
     "medida_cm": "10",
     "topping": "Chocolate",
@@ -1281,7 +1281,7 @@
     "id": "PD-RELL-GUA",
     "categoria": "Pan Dulce",
     "producto": "Pan dulce relleno",
-    "especificacion": "Guayaba",
+    "especificacion": "Relleno",
     "peso_gr": "60",
     "medida_cm": "10",
     "topping": "Guayaba",
