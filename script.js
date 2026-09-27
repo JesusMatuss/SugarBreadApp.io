@@ -35,18 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (nombreGuardado) inputNombre.value = nombreGuardado;
     if (telefonoGuardado) inputTelefono.value = telefonoGuardado;
-
-    // Mostrar modal de donación al cargar
-    setTimeout(() => {
-        document.getElementById('modal-donacion').classList.remove('hidden');
-        document.getElementById('modal-donacion').classList.add('flex');
-    }, 500);
 });
-
-function cerrarModalDonacion() {
-    document.getElementById('modal-donacion').classList.add('hidden');
-    document.getElementById('modal-donacion').classList.remove('flex');
-}
 
 // --- PASO 2: GUARDAR DATOS ---
 // Opción A: Guardar mientras escriben (más seguro)
@@ -348,13 +337,6 @@ function agregarAlCarrito(id, boton, inputId) {
     }
 }
 
-function obtenerDonacion() {
-    const check = document.getElementById('check-donar');
-    if (!check || !check.checked) return 0;
-    const monto = parseFloat(document.getElementById('monto-donacion').value);
-    return isNaN(monto) || monto < 0.50 ? 0.50 : monto;
-}
-
 // Selector interactivo de cantidad en las tarjetas
 function cambiarCantidadProducto(id, delta) {
     const input = document.getElementById(`cant-${id}`);
@@ -421,9 +403,8 @@ function actualizarCarritoUI() {
     
 });
 
-    const donacion = obtenerDonacion();
     const bolsas = obtenerCostoBolsas();
-    const totalConExtras = totalAcumulado + donacion + bolsas;
+    const totalConExtras = totalAcumulado + bolsas;
 
     // Desglose del footer
     const subtotalElemento = document.getElementById('subtotal-precio');
@@ -667,7 +648,6 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
             return `${fechaElegida} ${horaActual}`;
         })(),
         "Delivery": document.getElementById('check-delivery').checked ? 'Sí - ' + document.getElementById('direccion-texto').value : 'No, retiro en local',
-        "Donacion": document.getElementById('check-donar').checked ? document.getElementById('monto-donacion').value || "0.50" : "No",
         "Bolsas": (() => {
             const check = document.getElementById('check-bolsa');
             if (!check.checked) return "No";
@@ -788,24 +768,7 @@ function mostrarResumenPedido(total, productos) {
         `;
     }
 
-    // Donación si fue solicitada
-    const donarCheck = document.getElementById('check-donar');
-    if (donarCheck && donarCheck.checked) {
-        const montoDonacion = parseFloat(document.getElementById('monto-donacion').value) || 0.50;
-        htmlProductos += `
-            <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-dashed border-marron-claro/60">
-                <div class="min-w-0">
-                    <p class="text-xs font-bold text-gray-800 leading-snug">
-                        <i class="fas fa-heart text-rose-400 text-[10px] mr-1"></i> Donación solidaria
-                    </p>
-                    <p class="text-[10px] text-gray-500 font-medium mt-0.5">Terremoto en Venezuela</p>
-                </div>
-                <div class="text-right flex-shrink-0">
-                    <p class="text-xs font-extrabold text-miel">$${montoDonacion.toFixed(2)}</p>
-                </div>
-            </div>
-        `;
-    }
+
     
     // Total destacado
     htmlProductos += `
@@ -899,12 +862,7 @@ function enviarPedidoWhatsApp() {
         
     });
 
-    const donarCheck = document.getElementById('check-donar').checked;
-    const montoDonacion = document.getElementById('monto-donacion').value;
 
-    if (donarCheck) {
-        mensaje += '\u2764️ *Donación:* $' + parseFloat(montoDonacion || 0.50).toFixed(2) + '\n\n';
-    }
 
     const bolsaCheck = document.getElementById('check-bolsa').checked;
     if (bolsaCheck) {
@@ -980,12 +938,6 @@ function animarVueloCarrito(botonElement) {
 
 const PRECIO_BOLSA = 0.20;
 
-function toggleDonacion() {
-    const campo = document.getElementById('campo-donacion');
-    campo.classList.toggle('hidden');
-    actualizarCarritoUI();
-}
-
 function toggleBolsa() {
     const campo = document.getElementById('campo-bolsa');
     campo.classList.toggle('hidden');
@@ -1010,10 +962,6 @@ function obtenerCostoBolsas() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const inputDonacion = document.getElementById('monto-donacion');
-    if (inputDonacion) {
-        inputDonacion.addEventListener('input', actualizarCarritoUI);
-    }
     const inputBolsa = document.getElementById('cantidad-bolsa');
     if (inputBolsa) {
         inputBolsa.addEventListener('input', actualizarCarritoUI);
