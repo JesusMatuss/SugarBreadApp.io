@@ -296,19 +296,7 @@
             </div>
         </section>
 
-        <div class="mx-4 mb-8 p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-rose-50 border border-amber-200/70 shadow-sm">
-            <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-11 h-11 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center">
-                    <i class="fas fa-heart text-rose-400 text-lg"></i>
-                </div>
-                <div>
-                    <h3 class="font-extrabold text-amber-900 text-sm md:text-base tracking-tight mb-1">Causa solidaria 💛</h3>
-                    <p class="text-amber-800/80 text-xs md:text-sm font-medium leading-relaxed">
-                        Al finalizar tu pedido, puedes donar desde <span class="font-bold text-terracota">$0.50</span> en apoyo a los afectados por el terremoto en Venezuela.
-                    </p>
-                </div>
-            </div>
-        </div>
+
         <section id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             <div class="col-span-full text-center py-20 text-marron-oscuro animate-pulse italic">
                 Cargando los mejores panes para ti...
@@ -356,27 +344,7 @@
                         <p class="text-[10px] uppercase tracking-widest font-bold text-marron-oscuro">Opciones Adicionales</p>
                     </div>
 
-                    <!-- Opción de Donación -->
-                    <div class="px-4 py-3 border-b border-gray-100">
-                        <label class="flex items-center justify-between cursor-pointer">
-                            <div class="flex items-center gap-2">
-                                <i class="fas fa-heart text-rose-400"></i>
-                                <span class="text-sm font-bold text-gray-700">¿Desea Donar?</span>
-                            </div>
-                            <input type="checkbox" id="check-donar" class="sr-only peer" onchange="toggleDonacion()">
-                            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-miel relative shadow-inner"></div>
-                        </label>
 
-                        <div id="campo-donacion" class="hidden mt-3">
-                            <label class="block text-[9px] uppercase tracking-widest font-bold mb-1 text-gray-400 text-center">Monto a Donar</label>
-                            <div class="relative">
-                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
-                                <input type="number" id="monto-donacion" value="0.50" min="0.50" step="0.50"
-                                       class="w-full pl-7 p-2.5 text-sm rounded-lg bg-[#F9F9F9] border border-gray-200 focus:border-miel focus:ring-2 focus:ring-miel/30 outline-none transition-all text-center font-bold">
-                            </div>
-                            <p class="text-[10px] text-gray-400 mt-1 text-center">Monto mínimo $0.50</p>
-                        </div>
-                    </div>
 
                     <!-- Opción de Bolsas -->
                     <div class="px-4 py-3 border-b border-gray-100">
@@ -491,22 +459,7 @@
         </div>
     </div>
 
-    <!-- Modal de Donación -->
-    <div id="modal-donacion" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-t-8 border-amber-400 animate-bounce-in">
-            <div class="p-6 text-center">
-                <div class="text-6xl mb-4">💛</div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Unidos por una causa</h2>
-                <div class="w-16 h-1 bg-gradient-to-r from-amber-400 to-rose-400 mx-auto rounded-full mb-4"></div>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Queremos recordarte que al completar tu compra podrás sumar una <strong>donación (mínimo de $0.50)</strong>. Todo lo recaudado será destinado a brindar ayuda humanitaria a las familias afectadas por el terremoto en Venezuela. <strong>¡Agradecemos enormemente tu solidaridad!</strong>
-                </p>
-                <button onclick="cerrarModalDonacion()" class="bg-miel hover:bg-terracota text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 active:scale-95">
-                    <i class="fas fa-heart mr-2"></i> Entendido, ¡gracias!
-                </button>
-            </div>
-        </div>
-    </div>
+
 
     <div id="modal-foto" 
      class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm justify-center items-center p-4 md:p-10 cursor-zoom-out"
