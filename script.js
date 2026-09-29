@@ -616,16 +616,7 @@ document.getElementById('cart-overlay').addEventListener('click', cerrarCarrito)
 
 // Control sheets
 
-document.querySelector('.btn-pagar').addEventListener('click', async () => {
-    if (carritoArray.length === 0) return alert("El carrito está vacío");
-    if (!document.getElementById('cliente-nombre').value) return alert("Por favor, ingresa el nombre del cliente");
-    if (!document.getElementById('cliente-telefono').value) return alert("Por favor, ingresa el número de teléfono del cliente");
-
-    const btn = document.querySelector('.btn-pagar');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-    btn.disabled = true;
-
+async function guardarPedidoEnExcel() {
     const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
     const fechaActual = new Date().toLocaleString('es-ES', { hour12: false });
     const telefono = document.getElementById('cliente-telefono').value.trim();
@@ -659,8 +650,6 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
     const jsonData = JSON.stringify(pedidosParaEnviar);
     console.log('📤 Datos:', jsonData);
 
-    let enviado = false;
-
     try {
         const params = new URLSearchParams();
         params.append('data', jsonData);
@@ -669,24 +658,31 @@ document.querySelector('.btn-pagar').addEventListener('click', async () => {
             mode: 'no-cors',
             body: params
         });
-        enviado = true;
-        console.log('✅ Enviado');
+        console.log('✅ Enviado a Excel');
+        return true;
     } catch (e) {
-        console.error('❌ Error al enviar:', e);
+        console.error('❌ Error al enviar a Excel:', e);
+        return false;
     }
+}
 
-    if (enviado) {
-        const totalFinal = totalPrecioElemento.innerText.replace('$', '');
-        const ordenFinal = [...carritoArray];
+document.querySelector('.btn-pagar').addEventListener('click', async () => {
+    if (carritoArray.length === 0) return alert("El carrito está vacío");
+    if (!document.getElementById('cliente-nombre').value) return alert("Por favor, ingresa el nombre del cliente");
+    if (!document.getElementById('cliente-telefono').value) return alert("Por favor, ingresa el número de teléfono del cliente");
 
-        alert("¡Pedido registrado con éxito!");
-        mostrarResumenPedido(totalFinal, ordenFinal);
+    const btn = document.querySelector('.btn-pagar');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+    btn.disabled = true;
 
-        actualizarCarritoUI();
-        cerrarCarrito();
-    } else {
-        alert("⚠️ Hubo un error al enviar el pedido a la base de datos. Intenta de nuevo o contacta al administrador.");
-    }
+    const totalFinal = totalPrecioElemento.innerText.replace('$', '');
+    const ordenFinal = [...carritoArray];
+
+    mostrarResumenPedido(totalFinal, ordenFinal);
+
+    actualizarCarritoUI();
+    cerrarCarrito();
 
     btn.innerHTML = originalText;
     btn.disabled = false;
@@ -793,10 +789,6 @@ function cerrarResumen() {
     const modal = document.getElementById('modal-resumen');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
-
-    
-    alert("¡Se enviara su pedido por Whasssap!");
-    enviarPedidoWhatsApp();
 }
 
 
@@ -890,6 +882,8 @@ function enviarPedidoWhatsApp() {
     const urlWhatsApp = 'https://wa.me/' + numeroTienda + '?text=' + mensajeURL;
 
     window.open(urlWhatsApp, '_blank');
+
+    guardarPedidoEnExcel();
     
     // Limpiar después de enviar
     carritoArray = []; 
