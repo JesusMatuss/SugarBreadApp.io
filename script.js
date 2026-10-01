@@ -489,7 +489,12 @@ document.querySelectorAll('.btn-cat').forEach(boton => {
     boton.addEventListener('click', () => {
         document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
         boton.classList.add('active');
-        aplicarFiltro(boton.getAttribute('data-cat'));
+        const cat = boton.getAttribute('data-cat');
+        if (cat === 'pan-de-jamon') {
+            mostrarNotificacion('🚧 En desarrollo...');
+            return;
+        }
+        aplicarFiltro(cat);
     });
 });
 
