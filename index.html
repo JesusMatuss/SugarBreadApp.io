@@ -130,6 +130,15 @@
             pointer-events: auto;
         }
 
+        /* === Fondo Navidad (pagina principal) === */
+        .bg-fondo-navidad {
+            background-image: url('imagenes/Fondo%20navidad.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
         /* === Header auto-ocultable === */
         body.header-oculto #app-header {
             top: calc(-1 * var(--header-alt, 82px));
@@ -140,17 +149,14 @@
 
         </style>
 </head>
-<body class="bg-crema text-negro-suave antialiased pb-24 md:pb-0">
+<body class="bg-crema bg-fondo-navidad bg-no-repeat text-negro-suave antialiased pb-24 md:pb-0">
 
-    <header id="app-header" class="bg-logo-bg px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60] transition-[top] duration-300 ease-out">
+    <header id="app-header" class="bg-fondo-navidad px-4 py-4 border-b-2 border-marron-claro sticky top-0 z-[60] transition-[top] duration-300 ease-out">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             
             <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-6">
                 <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
-                    <img src="Logo.png" alt="Logo" class="h-10 md:h-12 w-auto rounded-full shadow-sm">
-                    <h1 class="text-lg md:text-2xl font-bold text-marron-oscuro uppercase tracking-tighter">
-                        SugarBread <span class="font-light text-marron-claro">Pedidos</span>
-                    </h1>
+                    <img src="imagenes/logoNavidad.jpg" alt="SugarBread Pedidos" class="h-10 md:h-12 w-auto rounded-lg shadow-sm">
                 </a>
 
                 <div class="flex items-center gap-4 sm:border-l sm:border-marron-claro/40 sm:pl-5">
@@ -201,8 +207,8 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                         <span class="bg-red-400/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Nuevo</span>
-                        <h2 class="text-lg font-black mt-2">Frescura artesanal</h2>
-                        <p class="text-xs opacity-90">Masa suave y recién horneada, la miga perfecta para tu hamburguesa.</p>
+                        <h2 class="text-lg font-black mt-2">Pan de Jamon</h2>
+                        <p class="text-xs opacity-90">La navidad esta cerca, prepárate para disfrutar de nuestros panes de jamón.</p>
                     </div>
                 </div>
 
@@ -211,13 +217,13 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                         <span class="bg-marron-oscuro/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Calidad</span>
-                        <h2 class="text-lg font-black mt-2">Tu pan, el protagonista</h2>
-                        <p class="text-xs opacity-90">El complemento perfecto para tu hamburguesa gourmet.</p>
+                        <h2 class="text-lg font-black mt-2">Pan de Jamon</h2>
+                        <p class="text-xs opacity-90">Pan de jamón de la más alta calidad, hecho con ingredientes seleccionados.</p>
                     </div>
                 </div>
 
                 <div class="hero-slide">
-                    <img src="Banner3.webp" alt="Banner SugarBread 3" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <img src="Banner3.jpeg" alt="Banner SugarBread 3" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                         <span class="bg-amber-400 text-black text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Variedad</span>
@@ -227,7 +233,7 @@
                 </div>
 
                 <div class="hero-slide">
-                    <img src="Banner4.jpeg" alt="Banner SugarBread 4" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
+                    <img src="Banner4.webp" alt="Banner SugarBread 4" class="w-full h-full object-cover" onerror="this.src='Fondo.png'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                         <span class="bg-marron-oscuro/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Artesanal</span>
@@ -329,6 +335,7 @@
             </div>
 
             <div class="flex-1 overflow-y-auto">
+                <div id="aviso-pan-jamon-mayor" class="hidden mx-4 mt-4"></div>
                 <div id="carrito-items" class="p-4 space-y-3 bg-gray-50">
                     <p class="text-center text-gray-400 italic py-10">El carrito está vacío</p>
                 </div>

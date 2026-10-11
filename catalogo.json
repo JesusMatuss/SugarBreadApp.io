@@ -1298,5 +1298,41 @@
     "topping": "Sin Topping",
     "unidades_pqte": "6",
     "precio": "0.84"
+  },
+  {
+    "id": "PAN-JAM-01",
+    "categoria": "Pan de Jamon",
+    "producto": "Pan Tradicional",
+    "especificacion": "Sin queso Crema",
+    "peso_gr": "600",
+    "medida_cm": "42",
+    "topping": "Tradicional",
+    "unidades_pqte": "1",
+    "precio": "8.5",
+    "precio_mayor": "7.5"
+  },
+  {
+    "id": "PAN-JAM-02",
+    "categoria": "Pan de Jamon",
+    "producto": "Pan con queso crema",
+    "especificacion": "Queso Crema",
+    "peso_gr": "800",
+    "medida_cm": "42",
+    "topping": "Grande",
+    "unidades_pqte": "1",
+    "precio": "12.5",
+    "precio_mayor": "10.5"
+  },
+  {
+    "id": "PAN-JAM-03",
+    "categoria": "Pan de Jamon",
+    "producto": "Pan de Jamon premiun",
+    "especificacion": "Queso Crema",
+    "peso_gr": "1000",
+    "medida_cm": "42",
+    "topping": "Premiun",
+    "unidades_pqte": "1",
+    "precio": "15.5",
+    "precio_mayor": "13.5"
   }
 ]

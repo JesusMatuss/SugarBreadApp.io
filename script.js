@@ -27,6 +27,38 @@ let seleccionVariante = {}; // Mapa grupoId -> varianteId seleccionada
 // Toppings descontinuados que se ocultan del catálogo (se restauran quitándolos de esta lista)
 const TOPPINGS_EXCLUIDOS = ['Sésamo Negro'];
 
+// ==========================================================================
+// PAN DE JAMÓN: precios al detal / al mayor
+// El mayor se activa al juntar UMBRAL_MAYOR_PAN_JAMON unidades entre TODOS los
+// panes de jamón del carrito (se pueden combinar, ej. 4 + 4 + 4 = 12).
+// Al activarse, el precio al mayor se recalcula para TODO el pan de jamón,
+// incluidos los agregados antes de cruzar el umbral.
+// ==========================================================================
+const CATEGORIA_PAN_JAMON = 'Pan de Jamon';
+const UMBRAL_MAYOR_PAN_JAMON = 12;
+
+function totalUnidadesPanJamon() {
+    return carritoArray
+        .filter(item => item.categoria === CATEGORIA_PAN_JAMON)
+        .reduce((suma, item) => suma + item.cantidad * (item.unidades_por_paquete || 1), 0);
+}
+
+function panJamonTieneMayor() {
+    return totalUnidadesPanJamon() >= UMBRAL_MAYOR_PAN_JAMON;
+}
+
+// Precio unitario real a aplicar: mayor si corresponde, caso contrario detal
+function precioUnitarioEfectivo(item) {
+    if (item.categoria === CATEGORIA_PAN_JAMON && item.precio_mayor && panJamonTieneMayor()) {
+        return parseFloat(item.precio_mayor);
+    }
+    return parseFloat(item.precio);
+}
+
+function subtotalItem(item) {
+    return precioUnitarioEfectivo(item) * item.cantidad;
+}
+
 
 // --- PASO 1: CARGAR DATOS AL INICIAR ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -158,6 +190,17 @@ function mostrarProductos(productos) {
         productosVisibles.push(p);
     });
 
+    // Aviso sutil de días de elaboración del Pan de Jamón (solo si hay de esos productos en pantalla)
+    if (productosVisibles.some(p => p.categoria === CATEGORIA_PAN_JAMON)) {
+        const avisoJamon = document.createElement('div');
+        avisoJamon.className = 'col-span-full flex items-center justify-center gap-2 mb-5 text-[12px] text-gray-500 text-center';
+        avisoJamon.innerHTML = `
+            <i class="fas fa-calendar-day text-marron-claro"></i>
+            <span>El <strong class="text-marron-oscuro font-bold">Pan de Jamón</strong> se realiza mayormente los <strong class="text-marron-oscuro font-bold">miércoles y sábados</strong></span>
+        `;
+        contenedor.appendChild(avisoJamon);
+    }
+
     const grupos = agruparPorVariantes(productosVisibles);
 
     grupos.forEach(grupo => {
@@ -175,7 +218,7 @@ function mostrarProductos(productos) {
                      alt="${base.producto}" 
                      class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
                 <span class="absolute top-3 right-3 bg-white/70 backdrop-blur-md text-marron-oscuro text-[14px] px-2.5 py-1 rounded-full font-bold shadow-sm pointer-events-none">
-                    ${base.unidades_pqte} unds
+                    ${parseInt(base.unidades_pqte) === 1 ? 'Por unidad' : base.unidades_pqte + ' unds'}
                 </span>
             </div>
             <div class="p-5 flex flex-col flex-1 min-h-0">
@@ -191,6 +234,7 @@ function mostrarProductos(productos) {
                         </span>
                     </div>
                     
+                    ${grupo.length > 1 && base.categoria !== CATEGORIA_PAN_JAMON ? `
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mt-3 mb-1.5">Elige tu topping:</p>
                     <div id="pills-${grupoId}" class="pills-scroll flex flex-wrap gap-1.5 pr-1">
                         ${grupo.map((v, i) => `
@@ -199,13 +243,17 @@ function mostrarProductos(productos) {
                                 ${v.topping} <span class="pill-precio font-bold text-terracota">$${parseFloat(v.precio).toFixed(2)}</span>
                             </button>
                         `).join('')}
-                    </div>
+                    </div>` : ''}
                 </div>
                 
                 <div class="mt-auto pt-5 flex items-center justify-between gap-3">
                     <div>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">Precio</p>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-0.5">${base.unidades_pqte === 1 ? 'Precio por unidad' : 'Precio'}</p>
                         <span id="precio-${grupoId}" class="text-2xl font-extrabold text-terracota leading-none">$${parseFloat(base.precio).toFixed(2)}</span>
+                        ${base.precio_mayor ? `
+                        <p id="precio-mayor-${grupoId}" class="text-[10px] font-bold text-green-600 mt-1 leading-tight">
+                            Al mayor: $${parseFloat(base.precio_mayor).toFixed(2)} <span class="text-gray-400 font-medium">(12+ unds)</span>
+                        </p>` : ''}
                     </div>
                     <div class="flex flex-col items-end gap-2">
                         <div class="flex items-center gap-1.5 bg-crema border border-marron-claro/40 rounded-full p-1">
@@ -232,10 +280,17 @@ function seleccionarTopping(grupoId, varianteId) {
 
     const img = document.getElementById(`img-${grupoId}`);
     const precio = document.getElementById(`precio-${grupoId}`);
+    const precioMayor = document.getElementById(`precio-mayor-${grupoId}`);
     if (img) img.src = `imagenes/${varianteId}.webp`;
     if (precio) {
         const variante = productosData.find(p => p.id === varianteId);
         if (variante) precio.innerText = `$${parseFloat(variante.precio).toFixed(2)}`;
+    }
+    if (precioMayor) {
+        const variante = productosData.find(p => p.id === varianteId);
+        if (variante && variante.precio_mayor) {
+            precioMayor.innerHTML = `Al mayor: $${parseFloat(variante.precio_mayor).toFixed(2)} <span class="text-gray-400 font-medium">(12+ unds)</span>`;
+        }
     }
 
     document.querySelectorAll(`#pills-${grupoId} .topping-pill`).forEach(pill => {
@@ -292,6 +347,20 @@ function mostrarNotificacion(mensaje) {
     }, 2000);
 }
 
+// Avisa el estado del umbral mayor de Pan de Jamón (y si falta para alcanzarlo)
+function notificarUmbralPanJamon(alAgregar) {
+    if (!carritoArray.some(item => item.categoria === CATEGORIA_PAN_JAMON)) return;
+
+    const unidades = totalUnidadesPanJamon();
+
+    if (unidades >= UMBRAL_MAYOR_PAN_JAMON) {
+        mostrarNotificacion(`🥐 ¡Precio al mayor activado! ${unidades} unidades de Pan de Jamón`);
+    } else if (alAgregar) {
+        const faltan = UMBRAL_MAYOR_PAN_JAMON - unidades;
+        mostrarNotificacion(`Te faltan ${faltan} unds. de Pan de Jamón para el precio al mayor`);
+    }
+}
+
 // 1. Función para agregar (con validación de ID)
 function agregarAlCarrito(id, boton, inputId) {
     const producto = productosData.find(p => p.id === id);
@@ -306,7 +375,9 @@ function agregarAlCarrito(id, boton, inputId) {
         // Disparar la animación si el botón existe
         if (boton) {animarVueloCarrito(boton);}
 
-        mostrarNotificacion(`${cantidad} pqte(s) de ${producto.producto} agregados`);
+        const esPanJamon = producto.categoria === CATEGORIA_PAN_JAMON;
+        const unidadPanJamon = esPanJamon ? ' und(s)' : ' pqte(s)';
+        mostrarNotificacion(`${cantidad} ${unidadPanJamon} de ${producto.producto} agregados`);
 
         
 
@@ -327,11 +398,14 @@ function agregarAlCarrito(id, boton, inputId) {
                 precio: parseFloat(producto.precio),
                 topping: producto.topping,
                 cantidad: cantidad, // Guardamos la cantidad elegida
-                unidades_por_paquete: parseInt(producto.unidades_pqte)
+                unidades_por_paquete: parseInt(producto.unidades_pqte),
+                precio_mayor: producto.precio_mayor ? parseFloat(producto.precio_mayor) : null
             });
         }
         
         actualizarCarritoUI();
+        // Si es Pan de Jamón, avisamos cuánto falta (o se activó) para el precio al mayor
+        if (esPanJamon) notificarUmbralPanJamon(true);
         // Opcional: resetear el input a 0 después de agregar
         inputCantidad.value = 1;
     }
@@ -361,7 +435,10 @@ function actualizarCarritoUI() {
     let itemsTotales = 0;
 
     carritoArray.forEach((item, index) => {
-    const subtotal = item.precio * item.cantidad;
+    const esPanJamon = item.categoria === CATEGORIA_PAN_JAMON;
+    const precioUnitario = precioUnitarioEfectivo(item);
+    const usaPrecioMayor = esPanJamon && item.precio_mayor && precioUnitario < parseFloat(item.precio);
+    const subtotal = precioUnitario * item.cantidad;
     const totalUnidades = item.cantidad * item.unidades_por_paquete;
     
     totalAcumulado += subtotal;
@@ -382,18 +459,19 @@ function actualizarCarritoUI() {
                     </button>
                 </div>
                 <p class="text-[11px] text-gray-500 font-medium mt-0.5">${item.topping} <span class="text-gray-400">•</span> ${item.especificacion}</p>
+                ${usaPrecioMayor ? `<p class="text-[10px] font-bold text-green-600 mt-1">✓ Precio al mayor: $${precioUnitario.toFixed(2)} c/u <span class="text-gray-400 font-medium line-through">$${parseFloat(item.precio).toFixed(2)}</span></p>` : ''}
                 
                 <div class="flex items-center justify-between mt-2">
                     <div class="flex items-center bg-gray-100 rounded-lg p-0.5">
                         <button onclick="restarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs font-bold">-</button>
                         <span class="px-2.5 text-xs font-bold text-marron-oscuro">${item.cantidad}</span>
                         <button onclick="sumarCantidad(${index})" class="w-6 h-6 flex items-center justify-center bg-white rounded-md shadow-sm hover:bg-marron-claro hover:text-white transition-colors text-xs font-bold">+</button>
-                        <span class="text-[10px] text-gray-500 font-medium ml-1.5 pr-1">Pqtes</span>
+                        <span class="text-[10px] text-gray-500 font-medium ml-1.5 pr-1">${esPanJamon ? 'Unds' : 'Pqtes'}</span>
                     </div>
                     
                     <div class="text-right">
                         <p class="text-sm font-extrabold text-miel">$${subtotal.toFixed(2)}</p>
-                        <p class="text-[10px] text-gray-500 font-medium">${totalUnidades} unds.</p>
+                        <p class="text-[10px] text-gray-500 font-medium">$${precioUnitario.toFixed(2)} c/u • ${totalUnidades} unds.</p>
                     </div>
                 </div>
             </div>
@@ -402,6 +480,22 @@ function actualizarCarritoUI() {
     listaCarrito.appendChild(divItem);
     
 });
+
+    // Aviso de progreso hacia el precio al mayor de Pan de Jamón
+    const avisoMayor = document.getElementById('aviso-pan-jamon-mayor');
+    if (avisoMayor) {
+        const unidadesJamon = totalUnidadesPanJamon();
+        if (unidadesJamon <= 0) {
+            avisoMayor.className = 'hidden';
+        } else if (panJamonTieneMayor()) {
+            avisoMayor.className = 'mb-3 rounded-xl border-l-4 border-green-500 bg-green-50 p-3';
+            avisoMayor.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-2"></i> <strong class="text-green-800">Precio al mayor activado</strong> <span class="text-green-800">— llevas ${unidadesJamon} unidades de Pan de Jamón.</span>`;
+        } else {
+            const faltan = UMBRAL_MAYOR_PAN_JAMON - unidadesJamon;
+            avisoMayor.className = 'mb-3 rounded-xl border-l-4 border-amber-500 bg-amber-50 p-3';
+            avisoMayor.innerHTML = `<i class="fas fa-info-circle text-amber-500 mr-2"></i> <strong class="text-amber-800">Agrega ${faltan} unidad(es) más</strong> <span class="text-amber-800">de Pan de Jamón (cualquier modelo) para activar el precio al mayor. Llevas ${unidadesJamon}/${UMBRAL_MAYOR_PAN_JAMON}.</span>`;
+        }
+    }
 
     const bolsas = obtenerCostoBolsas();
     const totalConExtras = totalAcumulado + bolsas;
@@ -453,25 +547,27 @@ function eliminarDelCarrito(index) {
 // 4. EVENTOS DE INTERFAZ (UI)
 // ==========================================================================
 
+// Devuelve los productos de la categoría seleccionada (o todos si es 'todos')
+function filtrarPorCategoria(catSeleccionada) {
+    if (catSeleccionada === 'todos') return productosData;
+    return productosData.filter(p => {
+        if (catSeleccionada === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
+        if (catSeleccionada === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
+        if (catSeleccionada === 'perros') return p.categoria === 'Perro';
+        if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
+        if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
+        if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
+        if (catSeleccionada === 'pan-dulce') return p.categoria === 'Pan Dulce';
+        if (catSeleccionada === 'pan-de-jamon') return p.categoria === CATEGORIA_PAN_JAMON;
+        return false;
+    });
+}
+
 // Filtrar por categorías
 function aplicarFiltro(catSeleccionada) {
     categoriaActiva = catSeleccionada;
 
-    if (catSeleccionada === 'todos') {
-        mostrarProductos(productosData);
-    } else {
-        const filtrados = productosData.filter(p => {
-            if (catSeleccionada === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
-            if (catSeleccionada === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
-            if (catSeleccionada === 'perros') return p.categoria === 'Perro';
-            if (catSeleccionada === 'delis') return p.categoria === 'Deli (Pepito)';
-            if (catSeleccionada === 'sandwich') return p.categoria === 'Sándwich';
-            if (catSeleccionada === 'pan-de-papa') return p.categoria === 'Pan de Papa';
-            if (catSeleccionada === 'pan-dulce') return p.categoria === 'Pan Dulce';
-            return false;
-        });
-        mostrarProductos(filtrados);
-    }
+    mostrarProductos(filtrarPorCategoria(catSeleccionada));
 
     // Scroll suave hacia el catálogo y aplicar fondo si es Pan Dulce
     document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -490,10 +586,6 @@ document.querySelectorAll('.btn-cat').forEach(boton => {
         document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
         boton.classList.add('active');
         const cat = boton.getAttribute('data-cat');
-        if (cat === 'pan-de-jamon') {
-            mostrarNotificacion('🚧 En desarrollo...');
-            return;
-        }
         aplicarFiltro(cat);
     });
 });
@@ -634,7 +726,9 @@ async function guardarPedidoEnExcel() {
         "Peso": p.peso,
         "Topping": p.topping,
         "Cantidad": p.cantidad,
-        "Subtotal": (p.precio * p.cantidad).toFixed(2),
+        "Precio_Unitario": precioUnitarioEfectivo(p).toFixed(2),
+        "Precio_Mayor_Aplicado": (p.categoria === CATEGORIA_PAN_JAMON && panJamonTieneMayor() && p.precio_mayor) ? "Sí" : "No",
+        "Subtotal": subtotalItem(p).toFixed(2),
         "Total_Pedido": totalGlobal,
         "Fecha": fechaActual,
         "Fecha_Entrega": (() => {
@@ -729,9 +823,14 @@ function mostrarResumenPedido(total, productos) {
     
     // Filas del ticket (producto + subtotal)
     let totalItems = 0;
+    let totalUnidadesTicket = 0;
     productos.forEach(p => {
-        const subtotal = (parseFloat(p.precio) * p.cantidad).toFixed(2);
+        const esPanJamon = p.categoria === CATEGORIA_PAN_JAMON;
+        const precioUnitario = precioUnitarioEfectivo(p);
+        const usaPrecioMayor = esPanJamon && p.precio_mayor && precioUnitario < parseFloat(p.precio);
+        const subtotal = (precioUnitario * p.cantidad).toFixed(2);
         totalItems += p.cantidad;
+        totalUnidadesTicket += p.cantidad * p.unidades_por_paquete;
         htmlProductos += `
             <div class="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-dashed border-marron-claro/60">
                 <div class="min-w-0">
@@ -739,6 +838,7 @@ function mostrarResumenPedido(total, productos) {
                         <span class="text-terracota font-black">${p.cantidad}x</span> ${p.producto} (${p.medida_cm} cm)
                     </p>
                     <p class="text-[10px] text-gray-500 font-medium mt-0.5 truncate">${p.topping} • ${p.especificacion}</p>
+                    ${usaPrecioMayor ? `<p class="text-[10px] font-bold text-green-600 mt-0.5">✓ Al mayor: $${precioUnitario.toFixed(2)} c/u</p>` : ''}
                 </div>
                 <div class="text-right flex-shrink-0">
                     <p class="text-xs font-extrabold text-miel">$${subtotal}</p>
@@ -747,6 +847,18 @@ function mostrarResumenPedido(total, productos) {
             </div>
         `;
     });
+
+    // Aviso del precio al mayor de Pan de Jamón en el ticket
+    if (totalUnidadesPanJamon() > 0 && panJamonTieneMayor()) {
+        htmlProductos += `
+            <div class="px-4 py-2 bg-green-50 border-b border-dashed border-green-200 flex items-center gap-2">
+                <i class="fas fa-check-circle text-green-600 text-xs"></i>
+                <p class="text-[10px] font-bold text-green-700">
+                    Precio al mayor aplicado por ${totalUnidadesPanJamon()} unidades de Pan de Jamón (mínimo ${UMBRAL_MAYOR_PAN_JAMON}).
+                </p>
+            </div>
+        `;
+    }
 
     // Bolsas si fueron solicitadas
     const bolsaCheck = document.getElementById('check-bolsa');
@@ -776,7 +888,7 @@ function mostrarResumenPedido(total, productos) {
         <div class="px-4 py-3 bg-gradient-to-r from-miel to-terracota flex items-center justify-between">
             <div>
                 <p class="text-white/80 text-[10px] font-bold uppercase tracking-widest">Total del pedido</p>
-                <p class="text-white/70 text-[10px] font-medium mt-0.5">${totalItems} paquete(s) + extras</p>
+                <p class="text-white/70 text-[10px] font-medium mt-0.5">${totalItems} ${totalUnidadesTicket !== totalItems ? 'unidad(es)' : 'paquete(s)'} + extras</p>
             </div>
             <p class="text-2xl font-black text-white">$${total}</p>
         </div>
@@ -847,17 +959,28 @@ function enviarPedidoWhatsApp() {
 
     let totalUnidadesPan = 0;
 
-    carritoArray.forEach(p => {
+carritoArray.forEach(p => {
         const totalU = p.cantidad * p.unidades_por_paquete;
         totalUnidadesPan += totalU;
-        
-        // \u2705 = Check verde (✅)
-        mensaje += '\u2705 *' + p.cantidad + ' pqte(s)* - ' + p.producto + '\n';
+
+        const esPanJamon = p.categoria === CATEGORIA_PAN_JAMON;
+        const precioUnitario = precioUnitarioEfectivo(p);
+        const usaPrecioMayor = esPanJamon && p.precio_mayor && precioUnitario < parseFloat(p.precio);
+
+        // ✅ = Check verde (✅)
+        mensaje += '\u2705 *' + p.cantidad + (esPanJamon ? ' und(s)' : ' pqte(s)') + '* - ' + p.producto + '\n';
         mensaje += '   • Topping: ' + p.topping + '\n';
-        mensaje += '   • Unidades: ' + totalU + ' unds.\n\n';
+        mensaje += '   • Unidades: ' + totalU + ' unds.\n';
+        mensaje += '   • Precio: $' + precioUnitario.toFixed(2) + ' c/u';
+        if (usaPrecioMayor) mensaje += ' _(precio al mayor)_';
+        mensaje += '\n\n';
 
         
     });
+
+    if (totalUnidadesPanJamon() >= UMBRAL_MAYOR_PAN_JAMON) {
+        mensaje += '\uD83E\uDD55 *PRECIO AL MAYOR:* ' + totalUnidadesPanJamon() + ' unidades de Pan de Jamón (' + UMBRAL_MAYOR_PAN_JAMON + '+)\n\n';
+    }
 
 
 
@@ -1016,20 +1139,7 @@ let previoHorarioPanPapa = null;
 setInterval(() => {
     const { disponible } = panPapaDisponible();
     if (previoHorarioPanPapa !== null && previoHorarioPanPapa !== disponible) {
-        if (categoriaActiva === 'todos') {
-            mostrarProductos(productosData);
-        } else {
-            const filtrados = productosData.filter(p => {
-                if (categoriaActiva === 'hamb-con-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Con Molde';
-                if (categoriaActiva === 'hamb-sin-molde') return p.categoria === 'Hamburguesa' && p.especificacion === 'Sin Molde';
-                if (categoriaActiva === 'perros') return p.categoria === 'Perro';
-                if (categoriaActiva === 'delis') return p.categoria === 'Deli (Pepito)';
-                if (categoriaActiva === 'sandwich') return p.categoria === 'Sándwich';
-                if (categoriaActiva === 'pan-de-papa') return p.categoria === 'Pan de Papa';
-                return false;
-            });
-            mostrarProductos(filtrados);
-        }
+        mostrarProductos(filtrarPorCategoria(categoriaActiva));
     }
     previoHorarioPanPapa = disponible;
 }, 30000);
