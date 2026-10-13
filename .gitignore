@@ -1,2 +1,6 @@
 # Herramienta interna de gestión de imágenes (solo local)
 gestor-imagenes.html
+
+# Dependencies & build artifacts
+node_modules/
+.next/
