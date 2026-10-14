@@ -21,6 +21,24 @@ const btnPagar = document.querySelector('.btn-pagar');
 
 let productosData = []; // Base de datos completa
 let carritoArray = [];  // Arreglo para los items seleccionados
+
+// Persistencia del carrito en localStorage
+function guardarCarrito() {
+    localStorage.setItem('sugarbread_carrito', JSON.stringify(carritoArray));
+}
+
+function cargarCarrito() {
+    const guardado = localStorage.getItem('sugarbread_carrito');
+    if (guardado) {
+        try {
+            carritoArray = JSON.parse(guardado);
+            actualizarCarritoUI();
+        } catch (e) {
+            console.error('Error al cargar carrito:', e);
+            carritoArray = [];
+        }
+    }
+}
 let categoriaActiva = 'todos'; // Categoría seleccionada actualmente
 let seleccionVariante = {}; // Mapa grupoId -> varianteId seleccionada
 
@@ -67,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (nombreGuardado) inputNombre.value = nombreGuardado;
     if (telefonoGuardado) inputTelefono.value = telefonoGuardado;
+
+    cargarCarrito();
 });
 
 // --- PASO 2: GUARDAR DATOS ---
@@ -426,6 +446,7 @@ function abrirCarritoFlotante() {
 }
 
 function actualizarCarritoUI() {
+    guardarCarrito();
     const listaCarrito = document.getElementById('carrito-items');
     const totalPrecioElemento = document.getElementById('total-precio');
     const cartCountElement = document.getElementById('cart-count');
@@ -715,7 +736,8 @@ document.getElementById('cart-overlay').addEventListener('click', cerrarCarrito)
 
 async function guardarPedidoEnExcel() {
     const totalGlobal = totalPrecioElemento.innerText.replace('$', '');
-    const fechaActual = new Date().toLocaleString('es-ES', { hour12: false });
+    const ahora = new Date();
+    const fechaActual = `${String(ahora.getDate()).padStart(2,'0')}/${String(ahora.getMonth()+1).padStart(2,'0')}/${ahora.getFullYear()}, ${String(ahora.getHours()).padStart(2,'0')}:${String(ahora.getMinutes()).padStart(2,'0')}:${String(ahora.getSeconds()).padStart(2,'0')}`;
     const telefono = document.getElementById('cliente-telefono').value.trim();
 
     const pedidosParaEnviar = carritoArray.map(p => ({
@@ -909,7 +931,7 @@ function cerrarResumen() {
 }
 
 
-function enviarPedidoWhatsApp() {
+async function enviarPedidoWhatsApp() {
     const nombre = document.getElementById('cliente-nombre').value || "Cliente";
     const telefonoCliente = document.getElementById('cliente-telefono').value || "No indicado";
     const fechaEntrega = document.getElementById('fecha-entrega').value || "No especificada";
@@ -1011,11 +1033,16 @@ carritoArray.forEach(p => {
 
     window.open(urlWhatsApp, '_blank');
 
-    guardarPedidoEnExcel();
+    // Esperar a que se guarde el pedido antes de limpiar el carrito
+    const exito = await guardarPedidoEnExcel();
     
-    // Limpiar después de enviar
-    carritoArray = []; 
-    actualizarCarritoUI();
+    if (exito) {
+        // Limpiar solo si se guardó correctamente
+        carritoArray = []; 
+        actualizarCarritoUI();
+    } else {
+        alert('Hubo un problema al guardar el pedido. Por favor intenta de nuevo.');
+    }
 
     // Resetear campos de delivery
     document.getElementById('check-delivery').checked = false;
